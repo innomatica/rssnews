@@ -7,8 +7,8 @@ import '../pages/browser/model.dart';
 import '../pages/browser/view.dart';
 import '../pages/channel/model.dart';
 import '../pages/channel/view.dart';
-import '../pages/favorites/model.dart';
-import '../pages/favorites/view.dart';
+import '../pages/curated/model.dart';
+import '../pages/curated/view.dart';
 import '../pages/home/model.dart';
 import '../pages/subscribed/view.dart';
 
@@ -45,9 +45,11 @@ final router = GoRouter(
               },
             ),
             GoRoute(
-              path: 'favorites',
+              path: 'curated',
               builder: (context, state) {
-                return FavoritesView(model: context.read<FavoritesViewModel>());
+                return CuratedView(
+                  model: context.read<CuratedViewModel>()..load(),
+                );
               },
             ),
           ],

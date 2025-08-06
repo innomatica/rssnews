@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import 'model.dart';
 
-class FavoritesView extends StatelessWidget {
-  final FavoritesViewModel model;
-  const FavoritesView({super.key, required this.model});
+class CuratedView extends StatelessWidget {
+  final CuratedViewModel model;
+  const CuratedView({super.key, required this.model});
 
   Widget buildBody(BuildContext text) {
     return Center(child: Text('favorites'));

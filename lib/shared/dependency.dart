@@ -6,7 +6,7 @@ import '../data/repository/feed.dart';
 import '../data/service/local/sqflite.dart';
 import '../pages/browser/model.dart';
 import '../pages/channel/model.dart';
-import '../pages/favorites/model.dart';
+import '../pages/curated/model.dart';
 import '../pages/home/model.dart';
 import '../pages/subscribed/model.dart';
 
@@ -24,7 +24,10 @@ List<SingleChildWidget> get providers => [
         BrowserViewModel(feedRepo: context.read<FeedRepository>()),
   ),
   ChangeNotifierProvider(create: (context) => ChannelViewModel()),
-  ChangeNotifierProvider(create: (context) => FavoritesViewModel()),
+  ChangeNotifierProvider(
+    create: (context) =>
+        CuratedViewModel(feedRepo: context.read<FeedRepository>()),
+  ),
   ChangeNotifierProvider(
     create: (context) =>
         HomeViewModel(feedRepo: context.read<FeedRepository>()),

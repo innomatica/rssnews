@@ -9,7 +9,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.khan.co.kr/help/help_rss.html",
+      "feedUrl": "https://www.khan.co.kr/help/help_rss.html",
       "favicon": "https://img.khan.co.kr/spko/icon/favicon.ico"
     },
     {
@@ -20,7 +20,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://nocutnews.co.kr/rss/",
+      "feedUrl": "https://nocutnews.co.kr/rss/",
       "favicon": "https://nocutnews.co.kr/favicon.ico"
     },
     {
@@ -31,7 +31,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.newswire.co.kr/?md=A31",
+      "feedUrl": "https://www.newswire.co.kr/?md=A31",
       "favicon": "https://static.newswire.co.kr/property/favicon/favicon-32x32.png"
     },
     {
@@ -42,7 +42,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.mk.co.kr/rss/",
+      "feedUrl": "https://www.mk.co.kr/rss/",
       "favicon": "https://static.mk.co.kr/favicon_new.ico"
     },
     {
@@ -53,7 +53,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.mediatoday.co.kr/rssIndex.html",
+      "feedUrl": "https://www.mediatoday.co.kr/rssIndex.html",
       "favicon": "https://cdn.mediatoday.co.kr/image/logo/favicon.ico"
     },
     {
@@ -64,7 +64,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.sisajournal.com/rssIndex.html",
+      "feedUrl": "https://www.sisajournal.com/rssIndex.html",
       "favicon": "https://cdn.sisajournal.com/image/logo/favicon.ico"
     },
     {
@@ -75,7 +75,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.ohmynews.com/NWS_Web/Help/srv/h_help_rss.aspx",
+      "feedUrl": "https://www.ohmynews.com/NWS_Web/Help/srv/h_help_rss.aspx",
       "favicon": "https://ojsimg.ohmynews.com/images/ohmynews/common/favicon.ico"
     },
     {
@@ -86,7 +86,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.etnews.com/rss/",
+      "feedUrl": "https://www.etnews.com/rss/",
       "favicon": "https://img.etnews.com/2019/mobile_et/images/favicon.png"
     },
     {
@@ -97,7 +97,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.fnnews.com/rss",
+      "feedUrl": "https://www.fnnews.com/rss",
       "favicon": "https://static.fnnews.com/resources/w/img/icon2020/favicon-96x96.png"
     },
     {
@@ -108,7 +108,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.pressian.com/rss",
+      "feedUrl": "https://www.pressian.com/rss",
       "favicon": "https://www.pressian.com/pressian.ico"
     },
     {
@@ -119,7 +119,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.hani.co.kr/rss",
+      "feedUrl": "https://www.hani.co.kr/rss",
       "favicon": "https://img.hani.co.kr/section-image/12/news/hani/images/hani.ico"
     },
     {
@@ -130,7 +130,7 @@
       "keywords": [
         "magazine"
       ],
-      "feed": "https://h21.hani.co.kr//rss",
+      "feedUrl": "https://h21.hani.co.kr//rss",
       "favicon": "https://img.hani.co.kr/section-image/22/h21/images/favicon/favicon-32x32.png"
     },
     {
@@ -141,7 +141,7 @@
       "keywords": [
         "news"
       ],
-      "feed": "https://www.hankyung.com/feed",
+      "feedUrl": "https://www.hankyung.com/feed",
       "favicon": "https://www.hankyung.com/favicon.ico"
     }
   ]

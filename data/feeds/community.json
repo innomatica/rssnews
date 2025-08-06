@@ -9,7 +9,7 @@
       "keywords": [
         "community"
       ],
-      "feed": "https://www.reddit.com/wiki/rss",
+      "feedUrl": "https://www.reddit.com/wiki/rss",
       "favicon": "https://www.reddit.com/favicon.ico"
     }
   ]

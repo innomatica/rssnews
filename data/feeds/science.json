@@ -2,6 +2,58 @@
   "created": "2025-08-06T09:24:11.900445",
   "data": [
     {
+      "title": "NASA",
+      "nickname": "NASA",
+      "website": "https://www.nasa.gov/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "science"
+      ],
+      "feedUrl": "https://www.nasa.gov/content/nasa-rss-feeds",
+      "favicon": "https://www.nasa.gov/wp-content/plugins/nasa-hds-core-setup/assets/favicons/favicon-32x32.png"
+    },
+    {
+      "title": "Nature",
+      "nickname": "Nature",
+      "website": "https://www.nature.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "journal",
+        "science"
+      ],
+      "feedUrl": "https://www.nature.com/",
+      "favicon": "https://www.nature.com/static/images/favicons/nature/favicon-32x32-3fe59ece92.png"
+    },
+    {
+      "title": "Phys.org",
+      "website": "https://phys.org/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "journal",
+        "science",
+        "physics"
+      ],
+      "feedUrl": "https://phys.org/feeds/",
+      "favicon": "https://phys.org/favicon.ico"
+    },
+    {
+      "title": "PLOS",
+      "website": "https://plos.org/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "science",
+        "research",
+        "journal"
+      ],
+      "feedUrl": "https://plos.org/our-journals/",
+      "favicon": "https://plos.org/wp-content/uploads/2024/11/logo-plos-full-color.svg"
+    },
+    {
       "title": "The Scientist Magine",
       "website": "https://the-scientist.com/",
       "description": "",
@@ -15,63 +67,8 @@
         "heath",
         "humans"
       ],
-      "feed": "https://www.newscientist.com/rss-feeds/",
+      "feedUrl": "https://www.newscientist.com/rss-feeds/",
       "favicon": "https://www.newscientist.com/build/images/layup/new-sci-favicon.d65b52af.ico"
-    },
-    {
-      "title": "Nature",
-      "nickname": "Nature",
-      "website": "https://www.nature.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "journal",
-        "science"
-      ],
-      "feed": "https://www.nature.com/",
-      "favicon": "https://www.nature.com/static/images/favicons/nature/favicon-32x32-3fe59ece92.png",
-      "channels": {
-        "All Articles": "https://www.nature.com/nature.rss"
-      }
-    },
-    {
-      "title": "PLOS",
-      "website": "https://plos.org/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "science",
-        "research",
-        "journal"
-      ],
-      "feed": "https://plos.org/our-journals/",
-      "favicon": "https://plos.org/wp-content/uploads/2024/11/logo-plos-full-color.svg"
-    },
-    {
-      "title": "Phys.org",
-      "website": "https://phys.org/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "journal",
-        "science",
-        "physics"
-      ],
-      "feed": "https://phys.org/feeds/",
-      "favicon": "https://phys.org/favicon.ico"
-    },
-    {
-      "title": "NASA",
-      "nickname": "NASA",
-      "website": "https://www.nasa.gov/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news",
-        "science"
-      ],
-      "feed": "https://www.nasa.gov/content/nasa-rss-feeds",
-      "favicon": "https://www.nasa.gov/wp-content/plugins/nasa-hds-core-setup/assets/favicons/favicon-32x32.png"
     }
   ]
 }

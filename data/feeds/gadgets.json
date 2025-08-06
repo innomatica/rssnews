@@ -9,7 +9,7 @@
       "keywords": [
         "technology"
       ],
-      "feed": "https://gizmodo.com/feed",
+      "feedUrl": "https://gizmodo.com/feed",
       "favicon": "https://gizmodo.com/favicon.png"
     },
     {
@@ -21,7 +21,7 @@
         "magazine",
         "hobby"
       ],
-      "feed": "https://magpi.raspberrypi.com/feed",
+      "feedUrl": "https://magpi.raspberrypi.com/feed",
       "favicon": "https://magazines-assets.raspberrypi.com/assets/favicon-823cc1e1.png"
     },
     {
@@ -32,7 +32,7 @@
       "keywords": [
         "technology"
       ],
-      "feed": "https://www.tomshardware.com/feeds.xml",
+      "feedUrl": "https://www.tomshardware.com/feeds.xml",
       "favicon": "https://www.notebookcheck.net/fileadmin/templates/nbc_v5/images/favicon.ico"
     },
     {
@@ -45,7 +45,7 @@
         "mobile",
         "technology"
       ],
-      "feed": "https://www.xda-developers.com/feed/",
+      "feedUrl": "https://www.xda-developers.com/feed/",
       "favicon": "https://static0.xdaimages.com/assets/images/favicon-48x48.8f822f21.png"
     },
     {
@@ -56,7 +56,7 @@
       "keywords": [
         "technology"
       ],
-      "feed": "https://www.techradar.com/how-to/techradar-rss",
+      "feedUrl": "https://www.techradar.com/how-to/techradar-rss",
       "favicon": "https://vanilla.futurecdn.net/techradar/1349634/favicon.ico"
     },
     {
@@ -67,7 +67,7 @@
       "keywords": [
         "technology"
       ],
-      "feed": "https://www.tomshardware.com/feeds.xml",
+      "feedUrl": "https://www.tomshardware.com/feeds.xml",
       "favicon": "https://www.tomshardware.com/favicon.ico"
     }
   ]

@@ -9,6 +9,7 @@ import 'package:xml/xml.dart';
 import '../../models/channel.dart';
 import '../../models/episode.dart';
 import '../../models/feed.dart';
+import '../../models/feedinfo.dart';
 import '../../models/settings.dart';
 import '../../shared/constant.dart';
 import '../../shared/helpers.dart';
@@ -366,5 +367,17 @@ class FeedRepository {
         : chnOrEps.imageUrl != null
         ? NetworkImage(chnOrEps.imageUrl.toString()) // has valid imageUrl
         : AssetImage(defaultChannelImage); // fallback image
+  }
+
+  // feed data
+  Future<List<FeedInfo>> getSampleFeedInfo() async {
+    final ret = <FeedInfo>[];
+    final client = http.Client();
+    for (final item in sampleFeedInfo) {
+      final res = await client.get(Uri.parse(item['feedUrl']!));
+      ret.add(FeedInfo.fromJson(res.body));
+    }
+    client.close();
+    return ret;
   }
 }

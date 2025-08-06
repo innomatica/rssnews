@@ -2,41 +2,15 @@
   "created": "2025-08-06T09:24:11.900445",
   "data": [
     {
-      "title": "MIT News",
-      "website": "https://news.mit.edu/",
+      "title": "ars technica",
+      "website": "https://www.arstechnica.com/",
       "description": "",
       "language": "english",
       "keywords": [
-        "magazine",
-        "hobby"
+        "technology"
       ],
-      "feed": "https://news.mit.edu/rss",
-      "favicon": "https://news.mit.edu/themes/mit/assets/img/favicon/favicon.svg"
-    },
-    {
-      "title": "MagPi Magazine",
-      "website": "https://magpi.raspberrypi.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "magazine",
-        "hobby"
-      ],
-      "feed": "https://magpi.raspberrypi.com/feed",
-      "favicon": "https://magazines-assets.raspberrypi.com/assets/favicon-823cc1e1.png"
-    },
-    {
-      "title": "Liliputing",
-      "website": "https://liliputing.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "magazine",
-        "technology",
-        "computer"
-      ],
-      "feed": "https://liliputing.com/feed/",
-      "favicon": "https://liliputing.com/favicon-32x32.png"
+      "feedUrl": "https://arstechnica.com/rss-feeds/",
+      "favicon": "https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-60x60.png"
     },
     {
       "title": "CNX Software",
@@ -49,7 +23,7 @@
         "embedded",
         "iot"
       ],
-      "feed": "https://www.cnx-software.com/feed/",
+      "feedUrl": "https://www.cnx-software.com/feed/",
       "favicon": "https://www.cnx-software.com/wp-content/uploads/2021/04/cropped-CNX-Software-Square-Logo-Light-Grey.png.webp"
     },
     {
@@ -61,21 +35,33 @@
         "news",
         "it"
       ],
-      "feed": "https://hnrss.github.io/",
+      "feedUrl": "https://hnrss.github.io/",
       "favicon": "https://news.ycombinator.com/favicon.ico"
     },
     {
-      "title": "XDA Developers",
-      "website": "https://www.xda-developers.com/",
+      "title": "Liliputing",
+      "website": "https://liliputing.com/",
       "description": "",
       "language": "english",
       "keywords": [
-        "gaming",
-        "mobile",
-        "technology"
+        "magazine",
+        "technology",
+        "computer"
       ],
-      "feed": "https://www.xda-developers.com/feed/",
-      "favicon": "https://static0.xdaimages.com/assets/images/favicon-48x48.8f822f21.png"
+      "feedUrl": "https://liliputing.com/feed/",
+      "favicon": "https://liliputing.com/favicon-32x32.png"
+    },
+    {
+      "title": "MIT News",
+      "website": "https://news.mit.edu/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "magazine",
+        "hobby"
+      ],
+      "feedUrl": "https://news.mit.edu/rss",
+      "favicon": "https://news.mit.edu/themes/mit/assets/img/favicon/favicon.svg"
     },
     {
       "title": "phoronix",
@@ -88,7 +74,7 @@
         "open-source",
         "benchmark"
       ],
-      "feed": "https://www.phoronix.com/rss.php",
+      "feedUrl": "https://www.phoronix.com/rss.php",
       "favicon": "https://www.phoronix.com/favicon.ico"
     },
     {
@@ -99,63 +85,8 @@
       "keywords": [
         "technology"
       ],
-      "feed": "https://www.wired.com/about/rss-feeds/",
+      "feedUrl": "https://www.wired.com/about/rss-feeds/",
       "favicon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico"
-    },
-    {
-      "title": "Gizmodo",
-      "website": "https://www.gizmodo.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feed": "https://gizmodo.com/feed",
-      "favicon": "https://gizmodo.com/favicon.png"
-    },
-    {
-      "title": "techradar",
-      "website": "https://www.techradar.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feed": "https://www.techradar.com/how-to/techradar-rss",
-      "favicon": "https://vanilla.futurecdn.net/techradar/1349634/favicon.ico"
-    },
-    {
-      "title": "ars technica",
-      "website": "https://www.arstechnica.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feed": "https://arstechnica.com/rss-feeds/",
-      "favicon": "https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-60x60.png"
-    },
-    {
-      "title": "tom's hardware",
-      "website": "https://www.tomshardware.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feed": "https://www.tomshardware.com/feeds.xml",
-      "favicon": "https://www.tomshardware.com/favicon.ico"
-    },
-    {
-      "title": "notebookcheck",
-      "website": "https://www.notebookcheck.net/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feed": "https://www.tomshardware.com/feeds.xml",
-      "favicon": "https://www.notebookcheck.net/fileadmin/templates/nbc_v5/images/favicon.ico"
     }
   ]
 }

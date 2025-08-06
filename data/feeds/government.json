@@ -10,7 +10,7 @@
         "government",
         "canada"
       ],
-      "feed": "https://www.canada.ca/en/news/web-feeds.html",
+      "feedUrl": "https://www.canada.ca/en/news/web-feeds.html",
       "favicon": "https://www.canada.ca/etc/designs/canada/wet-boew/assets/favicon.ico"
     }
   ]

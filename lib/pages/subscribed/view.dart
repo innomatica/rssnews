@@ -103,7 +103,10 @@ class SubscribedView extends StatelessWidget {
                   ],
                 ),
                 subtitle: Text('Selected Feeds by RssNews'),
-                onTap: () {},
+                onTap: () {
+                  context.go('/subscribed/curated');
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),

@@ -2,6 +2,17 @@
   "created": "2025-08-06T09:24:11.900445",
   "data": [
     {
+      "title": "BBC News",
+      "website": "https://bbc.co.uk/news",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://www.bbc.co.uk/news/10628494",
+      "favicon": "https://bbc.co.uk/favicon.ico"
+    },
+    {
       "title": "CBC News",
       "website": "https://www.cbc.ca",
       "description": "",
@@ -11,41 +22,8 @@
         "sports",
         "regional"
       ],
-      "feed": "https://www.cbc.ca/rss/",
+      "feedUrl": "https://www.cbc.ca/rss/",
       "favicon": "https://www.cbc.ca/favicon.ico"
-    },
-    {
-      "title": "BBC News",
-      "website": "https://bbc.co.uk/news",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news"
-      ],
-      "feed": "https://www.bbc.co.uk/news/10628494",
-      "favicon": "https://bbc.co.uk/favicon.ico"
-    },
-    {
-      "title": "PBS News",
-      "website": "https://www.pbs.org/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news"
-      ],
-      "feed": "https://www.pbs.org/newshour/about/pbs-news-rss-feeds",
-      "favicon": "https://www.pbs.org/favicon.ico"
-    },
-    {
-      "title": "The Guardian",
-      "website": "https://www.theguardian.com",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news"
-      ],
-      "feed": "https://www.theguardian.com/help/feeds",
-      "favicon": "https://www.theguardian.com/favicon.ico"
     },
     {
       "title": "Hacker News",
@@ -56,8 +34,30 @@
         "news",
         "it"
       ],
-      "feed": "https://hnrss.github.io/",
+      "feedUrl": "https://hnrss.github.io/",
       "favicon": "https://news.ycombinator.com/favicon.ico"
+    },
+    {
+      "title": "PBS News",
+      "website": "https://www.pbs.org/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://www.pbs.org/newshour/about/pbs-news-rss-feeds",
+      "favicon": "https://www.pbs.org/favicon.ico"
+    },
+    {
+      "title": "The Guardian",
+      "website": "https://www.theguardian.com",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://www.theguardian.com/help/feeds",
+      "favicon": "https://www.theguardian.com/favicon.ico"
     },
     {
       "title": "Wikipedia Featured",
@@ -67,7 +67,7 @@
       "keywords": [
         "wiki"
       ],
-      "feed": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom",
+      "feedUrl": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom",
       "favicon": "https://en.wikipedia.org/static/favicon/wikipedia.ico"
     },
     {
@@ -78,7 +78,7 @@
       "keywords": [
         "wiki"
       ],
-      "feed": "https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss",
+      "feedUrl": "https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss",
       "favicon": "https://en.wikipedia.org/static/favicon/wikipedia.ico"
     }
   ]
