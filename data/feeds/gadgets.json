@@ -1,0 +1,74 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "title": "Gizmodo",
+      "website": "https://www.gizmodo.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://gizmodo.com/feed",
+      "favicon": "https://gizmodo.com/favicon.png"
+    },
+    {
+      "title": "MagPi Magazine",
+      "website": "https://magpi.raspberrypi.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "magazine",
+        "hobby"
+      ],
+      "feed": "https://magpi.raspberrypi.com/feed",
+      "favicon": "https://magazines-assets.raspberrypi.com/assets/favicon-823cc1e1.png"
+    },
+    {
+      "title": "notebookcheck",
+      "website": "https://www.notebookcheck.net/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://www.tomshardware.com/feeds.xml",
+      "favicon": "https://www.notebookcheck.net/fileadmin/templates/nbc_v5/images/favicon.ico"
+    },
+    {
+      "title": "XDA Developers",
+      "website": "https://www.xda-developers.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "gaming",
+        "mobile",
+        "technology"
+      ],
+      "feed": "https://www.xda-developers.com/feed/",
+      "favicon": "https://static0.xdaimages.com/assets/images/favicon-48x48.8f822f21.png"
+    },
+    {
+      "title": "techradar",
+      "website": "https://www.techradar.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://www.techradar.com/how-to/techradar-rss",
+      "favicon": "https://vanilla.futurecdn.net/techradar/1349634/favicon.ico"
+    },
+    {
+      "title": "tom's hardware",
+      "website": "https://www.tomshardware.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://www.tomshardware.com/feeds.xml",
+      "favicon": "https://www.tomshardware.com/favicon.ico"
+    }
+  ]
+}

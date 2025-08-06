@@ -11,18 +11,6 @@
       ],
       "feed": "https://www.reddit.com/wiki/rss",
       "favicon": "https://www.reddit.com/favicon.ico"
-    },
-    {
-      "title": "Hacker News",
-      "website": "https://news.ycombinator.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news",
-        "it"
-      ],
-      "feed": "https://hnrss.github.io/",
-      "favicon": "https://news.ycombinator.com/favicon.ico"
     }
   ]
 }

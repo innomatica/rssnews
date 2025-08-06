@@ -13,6 +13,17 @@
       "favicon": "https://img.khan.co.kr/spko/icon/favicon.ico"
     },
     {
+      "title": "노컷뉴스",
+      "website": "https://nocutnews.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://nocutnews.co.kr/rss/",
+      "favicon": "https://nocutnews.co.kr/favicon.ico"
+    },
+    {
       "title": "뉴스와이어",
       "website": "https://www.newswire.co.kr/",
       "description": "",
@@ -24,17 +35,6 @@
       "favicon": "https://static.newswire.co.kr/property/favicon/favicon-32x32.png"
     },
     {
-      "title": "노컷뉴스",
-      "website": "https://nocutnews.co.kr/",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feed": "https://nocutnews.co.kr/rss/",
-      "favicon": "https://nocutnews.co.kr/favicon.ico"
-    },
-    {
       "title": "매일경제",
       "website": "https://www.mk.co.kr/",
       "description": "",
@@ -44,17 +44,6 @@
       ],
       "feed": "https://www.mk.co.kr/rss/",
       "favicon": "https://static.mk.co.kr/favicon_new.ico"
-    },
-    {
-      "title": "노컷뉴스",
-      "website": "https://nocutnews.co.kr/",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feed": "https://nocutnews.co.kr/rss/",
-      "favicon": "https://nocutnews.co.kr/favicon.ico"
     },
     {
       "title": "미디어오늘",
@@ -123,17 +112,6 @@
       "favicon": "https://www.pressian.com/pressian.ico"
     },
     {
-      "title": "한국경제",
-      "website": "https://www.hankyung.com",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feed": "https://www.hankyung.com/feed",
-      "favicon": "https://www.hankyung.com/favicon.ico"
-    },
-    {
       "title": "한겨례",
       "website": "https://www.hani.co.kr/",
       "description": "",
@@ -154,6 +132,17 @@
       ],
       "feed": "https://h21.hani.co.kr//rss",
       "favicon": "https://img.hani.co.kr/section-image/22/h21/images/favicon/favicon-32x32.png"
+    },
+    {
+      "title": "한국경제",
+      "website": "https://www.hankyung.com",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.hankyung.com/feed",
+      "favicon": "https://www.hankyung.com/favicon.ico"
     }
   ]
 }
