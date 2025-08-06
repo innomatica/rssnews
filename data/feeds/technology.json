@@ -2,6 +2,18 @@
   "created": "2025-08-06T09:24:11.900445",
   "data": [
     {
+      "title": "MIT News",
+      "website": "https://news.mit.edu/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "magazine",
+        "hobby"
+      ],
+      "feed": "https://news.mit.edu/rss",
+      "favicon": "https://news.mit.edu/themes/mit/assets/img/favicon/favicon.svg"
+    },
+    {
       "title": "MagPi Magazine",
       "website": "https://magpi.raspberrypi.com/",
       "description": "",
@@ -122,6 +134,28 @@
       ],
       "feed": "https://arstechnica.com/rss-feeds/",
       "favicon": "https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-60x60.png"
+    },
+    {
+      "title": "tom's hardware",
+      "website": "https://www.tomshardware.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://www.tomshardware.com/feeds.xml",
+      "favicon": "https://www.tomshardware.com/favicon.ico"
+    },
+    {
+      "title": "notebookcheck",
+      "website": "https://www.notebookcheck.net/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://www.tomshardware.com/feeds.xml",
+      "favicon": "https://www.notebookcheck.net/fileadmin/templates/nbc_v5/images/favicon.ico"
     }
   ]
 }
