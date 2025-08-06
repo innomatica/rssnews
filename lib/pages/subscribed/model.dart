@@ -4,10 +4,11 @@ import 'package:rssnews/data/repository/feed.dart';
 
 import '../../models/channel.dart';
 
-class ChannelsViewModel extends ChangeNotifier {
+class SubscribedViewModel extends ChangeNotifier {
   final FeedRepository _feedRepo;
 
-  ChannelsViewModel({required FeedRepository feedRepo}) : _feedRepo = feedRepo;
+  SubscribedViewModel({required FeedRepository feedRepo})
+    : _feedRepo = feedRepo;
 
   final _channels = <Channel>[];
   final _logger = Logger("ChannelsViewModel");

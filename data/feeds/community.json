@@ -1,0 +1,28 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "title": "Reddit",
+      "website": "https://www.reddit.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "community"
+      ],
+      "feed": "https://www.reddit.com/wiki/rss",
+      "favicon": "https://www.reddit.com/favicon.ico"
+    },
+    {
+      "title": "Hacker News",
+      "website": "https://news.ycombinator.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feed": "https://hnrss.github.io/",
+      "favicon": "https://news.ycombinator.com/favicon.ico"
+    }
+  ]
+}

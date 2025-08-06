@@ -1,0 +1,127 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "title": "MagPi Magazine",
+      "website": "https://magpi.raspberrypi.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "magazine",
+        "hobby"
+      ],
+      "feed": "https://magpi.raspberrypi.com/feed",
+      "favicon": "https://magazines-assets.raspberrypi.com/assets/favicon-823cc1e1.png"
+    },
+    {
+      "title": "Liliputing",
+      "website": "https://liliputing.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "magazine",
+        "technology",
+        "computer"
+      ],
+      "feed": "https://liliputing.com/feed/",
+      "favicon": "https://liliputing.com/favicon-32x32.png"
+    },
+    {
+      "title": "CNX Software",
+      "website": "https://www.cnx-software.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "sbc",
+        "hardware",
+        "embedded",
+        "iot"
+      ],
+      "feed": "https://www.cnx-software.com/feed/",
+      "favicon": "https://www.cnx-software.com/wp-content/uploads/2021/04/cropped-CNX-Software-Square-Logo-Light-Grey.png.webp"
+    },
+    {
+      "title": "Hacker News",
+      "website": "https://news.ycombinator.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feed": "https://hnrss.github.io/",
+      "favicon": "https://news.ycombinator.com/favicon.ico"
+    },
+    {
+      "title": "XDA Developers",
+      "website": "https://www.xda-developers.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "gaming",
+        "mobile",
+        "technology"
+      ],
+      "feed": "https://www.xda-developers.com/feed/",
+      "favicon": "https://static0.xdaimages.com/assets/images/favicon-48x48.8f822f21.png"
+    },
+    {
+      "title": "phoronix",
+      "website": "https://www.phoronix.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "linux",
+        "hardware",
+        "open-source",
+        "benchmark"
+      ],
+      "feed": "https://www.phoronix.com/rss.php",
+      "favicon": "https://www.phoronix.com/favicon.ico"
+    },
+    {
+      "title": "Wired",
+      "website": "https://www.wired.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://www.wired.com/about/rss-feeds/",
+      "favicon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico"
+    },
+    {
+      "title": "Gizmodo",
+      "website": "https://www.gizmodo.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://gizmodo.com/feed",
+      "favicon": "https://gizmodo.com/favicon.png"
+    },
+    {
+      "title": "techradar",
+      "website": "https://www.techradar.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://www.techradar.com/how-to/techradar-rss",
+      "favicon": "https://vanilla.futurecdn.net/techradar/1349634/favicon.ico"
+    },
+    {
+      "title": "ars technica",
+      "website": "https://www.arstechnica.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feed": "https://arstechnica.com/rss-feeds/",
+      "favicon": "https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-60x60.png"
+    }
+  ]
+}

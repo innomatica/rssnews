@@ -18,7 +18,7 @@ class ChannelView extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.keyboard_arrow_left_rounded),
           onPressed: () {
-            context.go("/subscriptions");
+            context.go("/subscribed");
           },
         ),
       ),

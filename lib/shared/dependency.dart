@@ -8,7 +8,7 @@ import '../pages/browser/model.dart';
 import '../pages/channel/model.dart';
 import '../pages/favorites/model.dart';
 import '../pages/home/model.dart';
-import '../pages/channels/model.dart';
+import '../pages/subscribed/model.dart';
 
 List<SingleChildWidget> get providers => [
   Provider(create: (context) => DatabaseService()),
@@ -31,6 +31,6 @@ List<SingleChildWidget> get providers => [
   ),
   ChangeNotifierProvider(
     create: (context) =>
-        ChannelsViewModel(feedRepo: context.read<FeedRepository>()),
+        SubscribedViewModel(feedRepo: context.read<FeedRepository>()),
   ),
 ];

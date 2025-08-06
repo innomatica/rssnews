@@ -68,7 +68,7 @@ class HomeView extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.subscriptions_rounded),
             onPressed: () {
-              context.go('/channels');
+              context.go('/subscribed');
             },
           ),
         ],

@@ -18,7 +18,7 @@ class FavoritesView extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.keyboard_arrow_left_rounded),
           onPressed: () {
-            context.go("/channels");
+            context.go("/subscribed");
           },
         ),
       ),

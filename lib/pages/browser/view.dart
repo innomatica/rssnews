@@ -75,7 +75,7 @@ class _BrowserViewState extends State<BrowserView> {
                 IconButton(
                   icon: Icon(Icons.keyboard_double_arrow_left_outlined),
                   // onPressed: () => context.pop(),
-                  onPressed: () => context.go('/subscriptions'),
+                  onPressed: () => context.go('/subscribed'),
                 ),
                 IconButton(
                   icon: Icon(Icons.keyboard_arrow_left_rounded),

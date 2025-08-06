@@ -1,0 +1,17 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "title": "Government of Canada",
+      "website": "https://www.canada.ca/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "government",
+        "canada"
+      ],
+      "feed": "https://www.canada.ca/en/news/web-feeds.html",
+      "favicon": "https://www.canada.ca/etc/designs/canada/wet-boew/assets/favicon.ico"
+    }
+  ]
+}

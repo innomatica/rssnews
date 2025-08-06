@@ -1,0 +1,159 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "title": "경향신문",
+      "website": "https://www.khan.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.khan.co.kr/help/help_rss.html",
+      "favicon": "https://img.khan.co.kr/spko/icon/favicon.ico"
+    },
+    {
+      "title": "뉴스와이어",
+      "website": "https://www.newswire.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.newswire.co.kr/?md=A31",
+      "favicon": "https://static.newswire.co.kr/property/favicon/favicon-32x32.png"
+    },
+    {
+      "title": "노컷뉴스",
+      "website": "https://nocutnews.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://nocutnews.co.kr/rss/",
+      "favicon": "https://nocutnews.co.kr/favicon.ico"
+    },
+    {
+      "title": "매일경제",
+      "website": "https://www.mk.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.mk.co.kr/rss/",
+      "favicon": "https://static.mk.co.kr/favicon_new.ico"
+    },
+    {
+      "title": "노컷뉴스",
+      "website": "https://nocutnews.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://nocutnews.co.kr/rss/",
+      "favicon": "https://nocutnews.co.kr/favicon.ico"
+    },
+    {
+      "title": "미디어오늘",
+      "website": "https://www.mediatoday.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.mediatoday.co.kr/rssIndex.html",
+      "favicon": "https://cdn.mediatoday.co.kr/image/logo/favicon.ico"
+    },
+    {
+      "title": "시사저널",
+      "website": "https://www.sisajournal.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.sisajournal.com/rssIndex.html",
+      "favicon": "https://cdn.sisajournal.com/image/logo/favicon.ico"
+    },
+    {
+      "title": "오마이뉴스",
+      "website": "https://www.ohmynews.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.ohmynews.com/NWS_Web/Help/srv/h_help_rss.aspx",
+      "favicon": "https://ojsimg.ohmynews.com/images/ohmynews/common/favicon.ico"
+    },
+    {
+      "title": "전자뉴스",
+      "website": "https://www.etnews.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.etnews.com/rss/",
+      "favicon": "https://img.etnews.com/2019/mobile_et/images/favicon.png"
+    },
+    {
+      "title": "파이낸셜뉴스",
+      "website": "https://www.fnnews.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.fnnews.com/rss",
+      "favicon": "https://static.fnnews.com/resources/w/img/icon2020/favicon-96x96.png"
+    },
+    {
+      "title": "프레시안",
+      "website": "https://www.pressian.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.pressian.com/rss",
+      "favicon": "https://www.pressian.com/pressian.ico"
+    },
+    {
+      "title": "한국경제",
+      "website": "https://www.hankyung.com",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.hankyung.com/feed",
+      "favicon": "https://www.hankyung.com/favicon.ico"
+    },
+    {
+      "title": "한겨례",
+      "website": "https://www.hani.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feed": "https://www.hani.co.kr/rss",
+      "favicon": "https://img.hani.co.kr/section-image/12/news/hani/images/hani.ico"
+    },
+    {
+      "title": "한겨례21",
+      "website": "https://h21.hani.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "magazine"
+      ],
+      "feed": "https://h21.hani.co.kr//rss",
+      "favicon": "https://img.hani.co.kr/section-image/22/h21/images/favicon/favicon-32x32.png"
+    }
+  ]
+}

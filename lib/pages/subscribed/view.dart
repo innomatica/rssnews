@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import '../../shared/widgets.dart' show FutureImage;
 import 'model.dart';
 
-class ChannelsView extends StatelessWidget {
-  final ChannelsViewModel model;
-  const ChannelsView({super.key, required this.model});
+class SubscribedView extends StatelessWidget {
+  final SubscribedViewModel model;
+  const SubscribedView({super.key, required this.model});
 
   Widget buildBody(BuildContext context) {
     return ListenableBuilder(
@@ -81,7 +81,7 @@ class ChannelsView extends StatelessWidget {
                           }
                           context.go(
                             Uri(
-                              path: '/channels/browser',
+                              path: '/subscribed/browser',
                               queryParameters: {"query": keyword},
                             ).toString(),
                           );
