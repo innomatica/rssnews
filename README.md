@@ -5,3 +5,4 @@ A new Flutter project.
 ## TODO
 
 - handle svg image using flutter_svg
+- use storage to handle image preference

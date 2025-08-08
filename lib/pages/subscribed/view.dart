@@ -24,7 +24,11 @@ class SubscribedView extends StatelessWidget {
                   height: 60,
                 ),
 
-                title: Text(channel.title ?? ''),
+                title: Text(
+                  channel.title ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 subtitle: Text(
                   channel.description ?? "",
                   maxLines: 1,

@@ -29,6 +29,7 @@ class FutureImage extends StatelessWidget {
                   height: height ?? defaultImageSize,
                   fit: BoxFit.cover,
                   opacity: AlwaysStoppedAnimation(opacity ?? 1.0),
+                  // color: Colors.white60,
                 )
               : SizedBox(
                   width: width ?? defaultImageSize,

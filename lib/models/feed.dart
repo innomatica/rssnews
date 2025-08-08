@@ -187,7 +187,7 @@ class Feed {
               );
         }
         // get image from content(description)
-        final doc = parser.parse(episode.description);
+        final doc = parser.parse(episode.description ?? '');
         print('mediaUrl:${episode.mediaUrl}');
         print('imageUrl:${episode.imageUrl}');
         // published must be set
