@@ -15,7 +15,7 @@ class BrowserView extends StatefulWidget {
 }
 
 const isRSS =
-    "document.contentType === 'application/xml' && "
+    "document.contentType.includes('application/xml') && "
     "document.querySelector('rss > channel > title').innerHTML != null &&"
     "document.querySelector('channel > item > title').innerHTML != null";
 
@@ -36,9 +36,9 @@ class _BrowserViewState extends State<BrowserView> {
           // },
           onPageFinished: (url) async {
             // await _checkPage(url);
-            if (await _controller.runJavaScriptReturningResult(isRSS) == true) {
-              widget.model.fetchFeed(url);
-            }
+            // if (await _controller.runJavaScriptReturningResult(isRSS) == true) {
+            widget.model.fetchFeed(url);
+            // }
           },
         ),
       );
@@ -57,11 +57,6 @@ class _BrowserViewState extends State<BrowserView> {
     }
   }
 
-  final javaScript =
-      "document.contentType === 'application/xml' && "
-      "document.querySelector('rss > channel > title').innerHTML != null &&"
-      "document.querySelector('channel > item > title').innerHTML != null";
-
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
@@ -74,8 +69,8 @@ class _BrowserViewState extends State<BrowserView> {
               children: [
                 IconButton(
                   icon: Icon(Icons.keyboard_double_arrow_left_outlined),
-                  // onPressed: () => context.pop(),
-                  onPressed: () => context.go('/subscribed'),
+                  onPressed: () => context.pop(),
+                  // onPressed: () => context.go('/subscribed'),
                 ),
                 IconButton(
                   icon: Icon(Icons.keyboard_arrow_left_rounded),

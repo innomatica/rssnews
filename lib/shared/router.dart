@@ -22,6 +22,15 @@ final router = GoRouter(
       },
       routes: [
         GoRoute(
+          path: 'browser',
+          builder: (context, state) {
+            return BrowserView(
+              model: context.read<BrowserViewModel>(),
+              query: state.uri.queryParameters['query'],
+            );
+          },
+        ),
+        GoRoute(
           path: 'subscribed',
           builder: (context, state) {
             return SubscribedView(
@@ -30,18 +39,12 @@ final router = GoRouter(
           },
           routes: [
             GoRoute(
-              path: 'browser',
+              path: 'channel/:id',
               builder: (context, state) {
-                return BrowserView(
-                  model: context.read<BrowserViewModel>(),
-                  query: state.uri.queryParameters['query'],
+                return ChannelView(
+                  id: int.parse(state.pathParameters["id"] ?? '0'),
+                  model: context.read<ChannelViewModel>(),
                 );
-              },
-            ),
-            GoRoute(
-              path: 'channel',
-              builder: (context, state) {
-                return ChannelView(model: context.read<ChannelViewModel>());
               },
             ),
             GoRoute(

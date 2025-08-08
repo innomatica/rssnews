@@ -1,0 +1,53 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "REASON": "redirect to mobile page",
+      "title": "노컷뉴스",
+      "website": "https://nocutnews.co.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://nocutnews.co.kr/rss/",
+      "favicon": "https://nocutnews.co.kr/favicon.ico"
+    },
+    {
+      "REASON": "clear text",
+      "title": "전자뉴스",
+      "website": "https://www.etnews.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://www.etnews.com/rss/",
+      "favicon": "https://img.etnews.com/2019/mobile_et/images/favicon.png"
+    },
+    {
+      "REASON": "redirect to mobile page",
+      "title": "파이낸셜뉴스",
+      "website": "https://www.fnnews.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://www.fnnews.com/rss",
+      "favicon": "https://static.fnnews.com/resources/w/img/icon2020/favicon-96x96.png"
+    },
+    {
+      "REASON": "redirect to mobile page",
+      "title": "프레시안",
+      "website": "https://www.pressian.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://www.pressian.com/rss",
+      "favicon": "https://www.pressian.com/pressian.ico"
+    }
+  ]
+}

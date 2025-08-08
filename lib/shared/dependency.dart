@@ -23,7 +23,10 @@ List<SingleChildWidget> get providers => [
     create: (context) =>
         BrowserViewModel(feedRepo: context.read<FeedRepository>()),
   ),
-  ChangeNotifierProvider(create: (context) => ChannelViewModel()),
+  ChangeNotifierProvider(
+    create: (context) =>
+        ChannelViewModel(feedRepo: context.read<FeedRepository>()),
+  ),
   ChangeNotifierProvider(
     create: (context) =>
         CuratedViewModel(feedRepo: context.read<FeedRepository>()),

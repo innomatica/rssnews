@@ -1,3 +1,4 @@
+import 'package:html/parser.dart' as parser;
 import 'package:logging/logging.dart';
 import 'package:xml/xml.dart';
 
@@ -29,6 +30,7 @@ class Feed {
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
         .toList();
+    print('namespaces:$namespaces');
     final channel = Channel(
       url: url,
       title: chnlElem?.getElement('title')?.innerText,
@@ -65,7 +67,19 @@ class Feed {
           chnlElem?.getElement('itunes:image')?.getAttribute('href') ??
           channel.imageUrl;
     }
-    // namespace: atom
+    // namespace: atom (http://www.w3.org/2005/Atom)
+    if (namespaces.contains('atom')) {
+      // replace only when necessar
+      channel.link =
+          channel.link ??
+          chnlElem?.getElement('atom:link')?.getAttribute('href');
+    }
+    // namespace: sy (http://purl.org/rss/1.0/modules/syndication/)
+    if (namespaces.contains('sy')) {
+      channel.period = int.tryParse(
+        chnlElem?.getElement('sy:updateFrequency')?.innerText ?? '',
+      );
+    }
     // namespace: content
     // namespace: media
     // _log.fine('channel:$channel');
@@ -74,34 +88,56 @@ class Feed {
     final itemElems = chnlElem?.findAllElements('item');
     final episodes = <Episode>[];
     if (itemElems != null) {
-      for (final element in itemElems) {
-        // guid must exist and should be unique
+      for (final itemElem in itemElems) {
         final guid =
-            element.getElement('guid')?.innerText ??
-            element.getElement('link')?.innerText ??
-            element.getElement('enclosure')?.getAttribute('url');
+            itemElem.getElement('guid')?.innerText ??
+            itemElem.getElement('link')?.innerText ??
+            itemElem.getElement('enclosure')?.getAttribute('url');
+        // guid must exist and should be unique
         if (guid == null) continue;
+
         final episode = Episode(
           guid: guid,
-          title: element.getElement('title')?.innerText,
-          description: element.getElement('description')?.innerText,
-          categories: element.getElement('category')?.innerText,
-          published: _parseRFC822(element.getElement('pubDate')?.innerText),
-          author: element.getElement('author')?.innerText,
-          link: element.getElement('link')?.innerText,
-          mediaUrl: element.getElement('enclosure')?.getAttribute('url'),
-          mediaType: element.getElement('enclosure')?.getAttribute('type'),
+          title: itemElem.getElement('title')?.innerText.trim(),
+          description: itemElem.getElement('description')?.innerText,
+          categories: itemElem
+              .findAllElements('category')
+              .map((e) => e.innerText)
+              .join(','),
+          published: _parseRFC822(itemElem.getElement('pubDate')?.innerText),
+          author: itemElem.getElement('author')?.innerText,
+          link: itemElem.getElement('link')?.innerText,
+          mediaUrl: itemElem.getElement('enclosure')?.getAttribute('url'),
+          mediaType: itemElem.getElement('enclosure')?.getAttribute('type'),
           mediaSize: int.tryParse(
-            element.getElement('enclosure')?.getAttribute('length') ?? '0',
+            itemElem.getElement('enclosure')?.getAttribute('length') ?? '',
           ),
+          language: channel.language,
           extras: {},
         );
+        // namespace: content (http://purl.org/rss/1.0/modules/content/)
+        if (namespaces.contains('content')) {
+          // description
+          episode.description =
+              itemElem.getElement('content:encoded')?.innerText ??
+              episode.description;
+        }
+        // namespace: dc (http://purl.org/dc/elements/1.1/)
+        if (namespaces.contains('dc')) {
+          // author
+          episode.author =
+              itemElem.getElement("dc:creator")?.innerText ?? episode.author;
+          // description
+          episode.description =
+              itemElem.getElement("dc:content")?.innerText ??
+              episode.description;
+        }
         // namespace: itunes
         if (namespaces.contains('itunes')) {
-          // author (override)
+          // author
           episode.author =
-              element.getElement('itunes:author')?.innerText ?? episode.author;
-          // categories (override)
+              itemElem.getElement('itunes:author')?.innerText ?? episode.author;
+          // categories
           episode.categories =
               chnlElem
                   ?.findAllElements('itunes:category')
@@ -110,20 +146,54 @@ class Feed {
                   .join(',') ??
               episode.categories;
           // image url
-          episode.imageUrl = element
+          episode.imageUrl = itemElem
               .getElement('itunes:image')
               ?.getAttribute('href');
           // subtitle
-          episode.subtitle = element.getElement('itunes:subtitle')?.innerText;
+          episode.subtitle = itemElem.getElement('itunes:subtitle')?.innerText;
           // keywords
-          episode.keywords = element.getElement('itunes:keywords')?.innerText;
+          episode.keywords = itemElem.getElement('itunes:keywords')?.innerText;
           // duration
-          final duration = element.getElement('itunes:duration')?.innerText;
-          if (duration != null) {
-            episode.mediaDuration = int.tryParse(duration);
-          }
+          episode.mediaDuration = int.tryParse(
+            itemElem.getElement('itunes:duration')?.innerText ?? '',
+          );
         }
+        // namespace: media (http://search.yahoo.com/mrss/)
+        if (namespaces.contains('media')) {
+          episode.mediaUrl =
+              itemElem.getElement('media:content')?.getAttribute('url') ??
+              itemElem.getElement('media:thumbnail')?.getAttribute('url') ??
+              episode.mediaUrl;
+          episode.mediaType =
+              episode.mediaType ??
+              itemElem.getElement('media:content')?.getAttribute('medium') ??
+              (itemElem.getElement('media:thumbnail')?.getAttribute('url') !=
+                      null
+                  ? 'image'
+                  : null);
+          episode.mediaSize =
+              episode.mediaSize ??
+              int.tryParse(
+                itemElem.getElement('media:content')?.getAttribute('width') ??
+                    '',
+              ) ??
+              int.tryParse(
+                itemElem.getElement('media:thumbnail')?.getAttribute('width') ??
+                    '',
+              );
+        }
+        // get image from content(description)
+        final doc = parser.parse(episode.description);
+        print('mediaUrl:${episode.mediaUrl}');
+        print('imageUrl:${episode.imageUrl}');
+        episode.imageUrl =
+            doc.querySelector("img")?.attributes["src"] ??
+            (episode.mediaType?.contains('image') == true
+                ? episode.mediaUrl
+                : null) ??
+            episode.imageUrl;
         // _log.fine('item: $episode');
+        print('episode:$episode');
         episodes.add(episode);
       }
     }
@@ -174,12 +244,12 @@ class Feed {
             .toList()
             .join(','),
         link: entry.getElement('link')?.getAttribute('href'),
-        updated: entry.getElement('updated') != null
-            ? DateTime.tryParse(entry.getElement('updated')!.innerText)
-            : null,
-        published: entry.getElement('published') != null
-            ? DateTime.tryParse(entry.getElement('published')!.innerText)
-            : null,
+        updated: DateTime.tryParse(
+          entry.getElement('updated')?.innerText ?? '',
+        ),
+        published: DateTime.tryParse(
+          entry.getElement('published')?.innerText ?? '',
+        ),
         extras: {},
       );
       // _log.fine('episode: $episode');
@@ -207,10 +277,26 @@ class Feed {
       'Nov': '11',
       'Dec': '12',
     };
-    // Fri, 25 Apr 2025 14:00:00 +0000
-    final s = rfc822.replaceFirst('GMT', '+0000').split(' ');
-    return DateTime.tryParse(
-      '${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]} ${s[5]}',
-    );
+
+    // check if it starts with day
+    if ([
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun",
+    ].contains(rfc822.split(",").first)) {
+      // potentially legit RFC822
+      // Fri, 25 Apr 2025 14:00:00 +0000
+      final s = rfc822.replaceFirst('GMT', '+0000').split(' ');
+      return DateTime.tryParse(
+        '${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]} ${s[5]}',
+      );
+    } else {
+      // some feeds use ISO8601 instead
+      return DateTime.tryParse(rfc822);
+    }
   }
 }

@@ -4,11 +4,21 @@ import 'package:go_router/go_router.dart';
 import 'model.dart';
 
 class ChannelView extends StatelessWidget {
+  final int id;
   final ChannelViewModel model;
-  const ChannelView({super.key, required this.model});
+  ChannelView({super.key, required this.id, required this.model}) {
+    model.load(id);
+  }
 
   Widget buildBody(BuildContext context) {
-    return Center(child: Text('channel'));
+    return ListenableBuilder(
+      listenable: model,
+      builder: (context, _) {
+        return SingleChildScrollView(
+          child: Column(children: [Text(model.channel?.title ?? "")]),
+        );
+      },
+    );
   }
 
   @override
@@ -21,6 +31,17 @@ class ChannelView extends StatelessWidget {
             context.go("/subscribed");
           },
         ),
+        title: Text("Channel Info"),
+        actions: [
+          TextButton.icon(
+            label: Text('delete'),
+            icon: Icon(Icons.delete_rounded),
+            onPressed: () async {
+              await model.delete();
+              if (context.mounted) context.pop();
+            },
+          ),
+        ],
       ),
       body: buildBody(context),
     );

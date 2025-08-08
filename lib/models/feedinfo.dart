@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-const sampleFeedInfo = [
+const curatedFeedFiles = [
   {
     'title': 'Community',
     'url':
@@ -38,7 +36,7 @@ const sampleFeedInfo = [
   },
 ];
 
-class FeedInfo {
+class FeedInfoItem {
   String title;
   String website;
   String description;
@@ -47,7 +45,7 @@ class FeedInfo {
   String feedUrl;
   String favicon;
 
-  FeedInfo({
+  FeedInfoItem({
     required this.title,
     required this.website,
     required this.description,
@@ -57,16 +55,28 @@ class FeedInfo {
     required this.favicon,
   });
 
-  factory FeedInfo.fromJson(String data) {
-    final decoded = jsonDecode(data);
-    return FeedInfo(
-      title: decoded['title'],
-      website: decoded['website'],
-      description: decoded['description'],
-      language: decoded['language'],
-      keywords: decoded['keywords'],
-      feedUrl: decoded['feedUrl'],
-      favicon: decoded['favicon'],
-    );
+  @override
+  String toString() {
+    return {
+      "title": title,
+      "website": website,
+      "description": description,
+      "language": language,
+      "keywords": keywords,
+      "feedUrl": feedUrl,
+      "favicon": favicon,
+    }.toString();
+  }
+}
+
+class FeedInfo {
+  String category;
+  List<FeedInfoItem> items;
+
+  FeedInfo({required this.category, required this.items});
+
+  @override
+  String toString() {
+    return {"category": category, "items": items}.toString();
   }
 }

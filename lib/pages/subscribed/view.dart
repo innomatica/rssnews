@@ -12,30 +12,56 @@ class SubscribedView extends StatelessWidget {
     return ListenableBuilder(
       listenable: model,
       builder: (context, _) {
-        return GridView.count(
-          crossAxisCount: MediaQuery.of(context).size.width ~/ 120,
-          children: model.channels.map((e) {
-            return GridTile(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  FutureImage(
-                    future: model.getChannelImage(e),
-                    width: 100,
-                    height: 100,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: .0),
-                    child: Text(
-                      e.title ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
+        return ListView.builder(
+          itemCount: model.channels.length,
+          itemBuilder: (context, index) {
+            final channel = model.channels[index];
+            return Card(
+              child: ListTile(
+                leading: FutureImage(
+                  future: model.getChannelImage(channel),
+                  width: 60,
+                  height: 60,
+                ),
+
+                title: Text(channel.title ?? ''),
+                subtitle: Text(
+                  channel.description ?? "",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                onTap: () => context.go('/subscribed/channel/${channel.id}'),
               ),
             );
-          }).toList(),
+          },
+
+          // }  model.channels.map((e) {
+          //   return GestureDetector(
+          //     onTap: () {
+          //       context.go('/subscribed/channel/${e.id}');
+          //     },
+          //     child: GridTile(
+          //       child: Column(
+          //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //         children: [
+          //           FutureImage(
+          //             future: model.getChannelImage(e),
+          //             width: 100,
+          //             height: 100,
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.symmetric(horizontal: .0),
+          //             child: Text(
+          //               e.title ?? '',
+          //               maxLines: 1,
+          //               overflow: TextOverflow.ellipsis,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   );
+          // }).toList(),
         );
       },
     );
@@ -79,9 +105,9 @@ class SubscribedView extends StatelessWidget {
                             // assue query params for search
                             // keyword = keyword.replaceAll(' ', '+');
                           }
-                          context.go(
+                          context.push(
                             Uri(
-                              path: '/subscribed/browser',
+                              path: '/browser',
                               queryParameters: {"query": keyword},
                             ).toString(),
                           );

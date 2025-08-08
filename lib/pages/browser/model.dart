@@ -19,6 +19,8 @@ class BrowserViewModel extends ChangeNotifier {
 
   Future fetchFeed(String url) async {
     _feed = await _feedRepo.fetchFeed(url);
+    // TODO: check if already subscribed
+    _subscribed = false;
     _logger.fine('url: $url, feed: $_feed');
     notifyListeners();
   }

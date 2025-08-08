@@ -13,17 +13,6 @@
       "favicon": "https://img.khan.co.kr/spko/icon/favicon.ico"
     },
     {
-      "title": "노컷뉴스",
-      "website": "https://nocutnews.co.kr/",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feedUrl": "https://nocutnews.co.kr/rss/",
-      "favicon": "https://nocutnews.co.kr/favicon.ico"
-    },
-    {
       "title": "뉴스와이어",
       "website": "https://www.newswire.co.kr/",
       "description": "",
@@ -77,39 +66,6 @@
       ],
       "feedUrl": "https://www.ohmynews.com/NWS_Web/Help/srv/h_help_rss.aspx",
       "favicon": "https://ojsimg.ohmynews.com/images/ohmynews/common/favicon.ico"
-    },
-    {
-      "title": "전자뉴스",
-      "website": "https://www.etnews.com/",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feedUrl": "https://www.etnews.com/rss/",
-      "favicon": "https://img.etnews.com/2019/mobile_et/images/favicon.png"
-    },
-    {
-      "title": "파이낸셜뉴스",
-      "website": "https://www.fnnews.com/",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feedUrl": "https://www.fnnews.com/rss",
-      "favicon": "https://static.fnnews.com/resources/w/img/icon2020/favicon-96x96.png"
-    },
-    {
-      "title": "프레시안",
-      "website": "https://www.pressian.com/",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feedUrl": "https://www.pressian.com/rss",
-      "favicon": "https://www.pressian.com/pressian.ico"
     },
     {
       "title": "한겨례",

@@ -1,4 +1,4 @@
-import 'dart:convert' show utf8;
+import 'dart:convert' show utf8, jsonDecode;
 
 import 'package:flutter/material.dart'
     show ImageProvider, FileImage, NetworkImage, AssetImage;
@@ -32,32 +32,53 @@ class FeedRepository {
   Future<Feed?> fetchFeed(String url) async {
     // for testing replace url here
     // url = 'https://feeds.simplecast.com/EmVW7VGp'; // radiolab
-    // _log.fine('fetch-url:$url');
-    try {
-      final res = await http.get(Uri.parse(url));
-      if (res.statusCode == 200) {
-        final document = XmlDocument.parse(utf8.decode(res.bodyBytes));
-        // first children
-        final children = document.childElements;
-        if (children.isNotEmpty) {
-          final root = children.first;
-          // rss or atom
-          if (root.name.toString() == 'rss') {
-            return Feed.fromRss(root, url);
-          } else if (root.name.toString() == 'feed') {
-            return Feed.fromAtom(root, url);
-          }
-          // throw Exception('unknown feed format');
-          _logger.severe('unknown feed format');
+    _logger.fine('fetch-url:$url');
+    final res = await http.get(Uri.parse(url));
+    _logger.fine('content-type:${res.headers['content-type']}');
+    if (res.statusCode == 200 &&
+        res.headers['content-type']?.contains("xml") == true) {
+      final document = XmlDocument.parse(utf8.decode(res.bodyBytes));
+      // first children
+      final children = document.childElements;
+      if (children.isNotEmpty) {
+        final root = children.first;
+        // rss or atom
+        if (root.name.toString() == 'rss') {
+          return Feed.fromRss(root, url);
+        } else if (root.name.toString() == 'feed') {
+          return Feed.fromAtom(root, url);
         }
+        _logger.severe('unknown feed format');
+        // throw Exception('unknown feed format');
       }
-      _logger.severe('{res.statusCode} encountered');
-      // throw Exception('{res.statusCode} encountered');
-    } catch (e) {
-      _logger.severe(e.toString);
-      // throw Exception(e.toString);
     }
     return null;
+
+    // try {
+    //   final res = await http.get(Uri.parse(url));
+    //   if (res.statusCode == 200) {
+    //     final document = XmlDocument.parse(utf8.decode(res.bodyBytes));
+    //     // first children
+    //     final children = document.childElements;
+    //     if (children.isNotEmpty) {
+    //       final root = children.first;
+    //       // rss or atom
+    //       if (root.name.toString() == 'rss') {
+    //         return Feed.fromRss(root, url);
+    //       } else if (root.name.toString() == 'feed') {
+    //         return Feed.fromAtom(root, url);
+    //       }
+    //       _logger.severe('unknown feed format');
+    //       // throw Exception('unknown feed format');
+    //     }
+    //   }
+    //   _logger.severe('{res.statusCode} encountered');
+    //   // throw Exception('{res.statusCode} encountered');
+    // } catch (e) {
+    //   _logger.severe(e.toString);
+    //   // throw Exception(e.toString);
+    // }
+    // return null;
   }
 
   Future<Feed?> getFeed(String url) async {
@@ -81,13 +102,12 @@ class FeedRepository {
       // _log.fine('channel:$channel');
       if (channel != null) {
         // download thumbnail
-        if (channel.imageUrl != null) {
-          await _downloadResource(
-            channel.id!,
-            channel.imageUrl!,
-            channelImgFname,
-          );
-        }
+        await _downloadResource(
+          channel.id!,
+          channel.imageUrl ??
+              "https://www.google.com/s2/favicons?domain=${channel.url}&sz=128",
+          channelImgFname,
+        );
         // save episodes
         final refDate = DateTime.now().subtract(
           Duration(days: maxRetentionDays),
@@ -373,11 +393,32 @@ class FeedRepository {
   Future<List<FeedInfo>> getSampleFeedInfo() async {
     final ret = <FeedInfo>[];
     final client = http.Client();
-    for (final item in sampleFeedInfo) {
-      final res = await client.get(Uri.parse(item['feedUrl']!));
-      ret.add(FeedInfo.fromJson(res.body));
+    for (final file in curatedFeedFiles) {
+      final res = await client.get(Uri.parse(file['url']!));
+      final info = FeedInfo(category: file['title'] as String, items: []);
+      // _logger.fine('res:$res');
+      if (res.statusCode == 200) {
+        final fInfoItems = jsonDecode(res.body)['data'];
+        for (final fInfoItem in fInfoItems) {
+          // _logger.fine('fInfoItem:$fInfoItem');
+          info.items.add(
+            FeedInfoItem(
+              title: fInfoItem['title'],
+              website: fInfoItem['website'],
+              description: fInfoItem['description'],
+              language: fInfoItem['language'],
+              keywords: fInfoItem['keywords'].join(","),
+              feedUrl: fInfoItem['feedUrl'],
+              favicon: fInfoItem['favicon'],
+            ),
+          );
+        }
+      }
+      ret.add(info);
     }
     client.close();
     return ret;
   }
+
+  // new
 }

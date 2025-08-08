@@ -20,4 +20,8 @@ class HomeViewModel extends ChangeNotifier {
     _logger.fine('episodes:$_episodes');
     notifyListeners();
   }
+
+  Future<ImageProvider> getChannelImage(Episode episode) async {
+    return await _feedRepo.getChannelImage(episode);
+  }
 }

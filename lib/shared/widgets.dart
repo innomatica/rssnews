@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const defaultImageSize = 100.0;
+
 class FutureImage extends StatelessWidget {
   final Future<ImageProvider> future;
   final double? width;
@@ -23,12 +25,16 @@ class FutureImage extends StatelessWidget {
           return snapshot.hasData
               ? Image(
                   image: snapshot.data!,
-                  width: width,
-                  height: height,
+                  width: width ?? defaultImageSize,
+                  height: height ?? defaultImageSize,
                   fit: BoxFit.cover,
                   opacity: AlwaysStoppedAnimation(opacity ?? 1.0),
                 )
-              : Container(color: Colors.grey);
+              : SizedBox(
+                  width: width ?? defaultImageSize,
+                  height: height ?? defaultImageSize,
+                  child: Container(color: Colors.grey),
+                );
         },
       ),
     );

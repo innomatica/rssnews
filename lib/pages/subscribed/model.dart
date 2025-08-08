@@ -11,7 +11,8 @@ class SubscribedViewModel extends ChangeNotifier {
     : _feedRepo = feedRepo;
 
   final _channels = <Channel>[];
-  final _logger = Logger("ChannelsViewModel");
+  // ignore: unused_field
+  final _logger = Logger("SubscribedViewModel");
 
   List<Channel> get channels => _channels;
 
