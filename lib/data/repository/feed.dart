@@ -95,7 +95,7 @@ class FeedRepository {
   // Subscription
 
   Future<bool> subscribe(Feed feed) async {
-    _logger.fine('subscrib');
+    _logger.fine('subscribe');
     if (await createChannel(feed.channel) > 0) {
       // read back
       final channel = await getChannelByUrl(feed.channel.url);
@@ -113,11 +113,11 @@ class FeedRepository {
           Duration(days: maxRetentionDays),
         );
         for (final episode in feed.episodes) {
-          // _log.fine('episode:$episode');
           // save only up to maxRetentionDays ago
           if (episode.published?.isBefore(refDate) != true) {
             episode.channelId = channel.id;
-            await createEpisode(episode);
+            final idx = await createEpisode(episode);
+            _logger.fine('episode:$idx - $episode');
           }
         }
         return true;
@@ -248,17 +248,42 @@ class FeedRepository {
     // FIXME
     // await refreshData(force: force);
     final start = yymmdd(DateTime.now().subtract(Duration(days: period)));
+
+    // final rows = await _dbSrv.queryAll(
+    //   """
+    //   SELECT episodes.*, channels.title as channel_title,
+    //     channels.image_url as channel_image_url
+    //   FROM episodes
+    //   INNER JOIN channels ON channels.id=episodes.channel_id
+    //   WHERE DATE(episodes.published) > ?
+    //   ORDER BY episodes.published DESC""",
+    //   [start],
+    // );
+    // return rows.map((e) => Episode.fromSqlite(e)).toList();
+    // _logger.fine('start:$start');
+    // _logger.fine('rows:$rows');
+
+    // final ret = <Episode>[];
+    // for (final row in rows) {
+    //   final episode = Episode.fromSqlite(row);
+    //   _logger.fine('episode:$episode');
+    //   ret.add(episode);
+    // }
+    // _logger.fine('episodes: $ret');
+    // return ret;
+
     try {
       final rows = await _dbSrv.queryAll(
         """
-      SELECT episodes.*, channels.title as channel_title, 
-        channels.image_url as channel_image_url 
-      FROM episodes 
+      SELECT episodes.*, channels.title as channel_title,
+        channels.image_url as channel_image_url
+      FROM episodes
       INNER JOIN channels ON channels.id=episodes.channel_id
       WHERE DATE(episodes.published) > ?
       ORDER BY episodes.published DESC""",
         [start],
       );
+      // FIXME: sort by datetime
       return rows.map((e) => Episode.fromSqlite(e)).toList();
     } on Exception {
       rethrow;

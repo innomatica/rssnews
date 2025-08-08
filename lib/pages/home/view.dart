@@ -7,21 +7,28 @@ import '../../shared/constant.dart';
 import '../../shared/widgets.dart';
 import 'model.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   final HomeViewModel model;
   const HomeView({super.key, required this.model});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  bool withImage = true;
 
   Widget buildBody(BuildContext context) {
     final aspectRatio = MediaQuery.sizeOf(context).aspectRatio;
     final smallFontSize = 12.0;
     return ListenableBuilder(
-      listenable: model,
+      listenable: widget.model,
       builder: (context, _) {
         return ListView.separated(
-          itemCount: model.episodes.length,
+          itemCount: widget.model.episodes.length,
           separatorBuilder: (context, index) => const Divider(),
           itemBuilder: (context, index) {
-            final episode = model.episodes[index];
+            final episode = widget.model.episodes[index];
             // print('episode: $episode');
             return ListTile(
               title: aspectRatio < 1.0
@@ -37,7 +44,7 @@ class HomeView extends StatelessWidget {
                               spacing: 8.0,
                               children: [
                                 FutureImage(
-                                  future: model.getChannelImage(episode),
+                                  future: widget.model.getChannelImage(episode),
                                   width: 16,
                                   height: 16,
                                 ),
@@ -53,7 +60,7 @@ class HomeView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        episode.imageUrl != null
+                        episode.imageUrl != null && withImage
                             ? Image.network(
                                 episode.imageUrl!,
                                 height: 180,
@@ -74,7 +81,7 @@ class HomeView extends StatelessWidget {
                       spacing: 8.0,
                       children: [
                         // image
-                        episode.imageUrl != null
+                        episode.imageUrl != null && withImage
                             ? Image.network(
                                 episode.imageUrl!,
                                 width: 40,
@@ -93,7 +100,9 @@ class HomeView extends StatelessWidget {
                                   spacing: 8.0,
                                   children: [
                                     FutureImage(
-                                      future: model.getChannelImage(episode),
+                                      future: widget.model.getChannelImage(
+                                        episode,
+                                      ),
                                       width: 16,
                                       height: 16,
                                     ),
@@ -161,6 +170,15 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         title: Text(appName),
         actions: [
+          IconButton(
+            icon: withImage
+                ? Icon(Icons.image_not_supported_rounded)
+                : Icon(Icons.image_rounded),
+            onPressed: () {
+              withImage = !withImage;
+              setState(() {});
+            },
+          ),
           IconButton(
             icon: Icon(Icons.subscriptions_rounded),
             onPressed: () {

@@ -131,6 +131,10 @@ class Feed {
           episode.description =
               itemElem.getElement("dc:content")?.innerText ??
               episode.description;
+          // date
+          episode.published =
+              _parseRFC822(itemElem.getElement("dc:date")?.innerText) ??
+              episode.published;
         }
         // namespace: itunes
         if (namespaces.contains('itunes')) {
@@ -186,6 +190,8 @@ class Feed {
         final doc = parser.parse(episode.description);
         print('mediaUrl:${episode.mediaUrl}');
         print('imageUrl:${episode.imageUrl}');
+        // published must be set
+        episode.published = episode.published ?? DateTime.now();
         episode.imageUrl =
             doc.querySelector("img")?.attributes["src"] ??
             (episode.mediaType?.contains('image') == true

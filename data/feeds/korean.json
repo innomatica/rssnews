@@ -68,6 +68,17 @@
       "favicon": "https://ojsimg.ohmynews.com/images/ohmynews/common/favicon.ico"
     },
     {
+      "title": "전자뉴스",
+      "website": "https://www.etnews.com/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://www.etnews.com/rss/",
+      "favicon": "https://img.etnews.com/2019/mobile_et/images/favicon.png"
+    },
+    {
       "title": "한겨례",
       "website": "https://www.hani.co.kr/",
       "description": "",

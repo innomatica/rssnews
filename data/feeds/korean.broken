@@ -14,18 +14,6 @@
       "favicon": "https://nocutnews.co.kr/favicon.ico"
     },
     {
-      "REASON": "clear text",
-      "title": "전자뉴스",
-      "website": "https://www.etnews.com/",
-      "description": "",
-      "language": "korean",
-      "keywords": [
-        "news"
-      ],
-      "feedUrl": "https://www.etnews.com/rss/",
-      "favicon": "https://img.etnews.com/2019/mobile_et/images/favicon.png"
-    },
-    {
       "REASON": "redirect to mobile page",
       "title": "파이낸셜뉴스",
       "website": "https://www.fnnews.com/",
