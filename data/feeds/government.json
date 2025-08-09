@@ -14,6 +14,18 @@
       "favicon": "https://www.canada.ca/etc/designs/canada/wet-boew/assets/favicon.ico"
     },
     {
+      "title": "국가통계포털",
+      "website": "https://kosis.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "government",
+        "korea"
+      ],
+      "feedUrl": "https://kosis.kr/serviceInfo/rssGuide.do",
+      "favicon": "https://kosis.kr/favicon.ico"
+    },
+    {
       "title": "국토교통부",
       "website": "https://www.molit.go.kr/",
       "description": "",
@@ -23,6 +35,18 @@
         "korea"
       ],
       "feedUrl": "https://www.molit.go.kr/USR/p_etc_rsssvc/m_123/ers.jsp",
+      "favicon": "https://www.molit.go.kr/html/images/main/favicon.ico"
+    },
+    {
+      "title": "식품의약품안전처",
+      "website": "https://www.mfds.go.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "government",
+        "korea"
+      ],
+      "feedUrl": "https://www.mfds.go.kr/www/rss/list.do",
       "favicon": "https://www.molit.go.kr/html/images/main/favicon.ico"
     },
     {
@@ -36,6 +60,18 @@
       ],
       "feedUrl": "https://www.gov.kr/portal/rss",
       "favicon": "https://www.gov.kr/images/etc/favicon.png"
+    },
+    {
+      "title": "중소벤처기업부",
+      "website": "https://www.mss.kr/",
+      "description": "",
+      "language": "korean",
+      "keywords": [
+        "government",
+        "korea"
+      ],
+      "feedUrl": "https://mss.go.kr/site/smba/contents/view.do?menuCd=20905000000002024122902&siteCd=smba",
+      "favicon": "https://mss.go.kr/images/smba/favicon2.ico"
     },
     {
       "title": "행정안전부",
