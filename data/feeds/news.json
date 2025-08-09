@@ -69,17 +69,6 @@
       ],
       "feedUrl": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom",
       "favicon": "https://en.wikipedia.org/static/favicon/wikipedia.ico"
-    },
-    {
-      "title": "Wikipedia New Articles",
-      "website": "https://en.wikipedia.org/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "wiki"
-      ],
-      "feedUrl": "https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss",
-      "favicon": "https://en.wikipedia.org/static/favicon/wikipedia.ico"
     }
   ]
 }

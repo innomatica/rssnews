@@ -15,19 +15,6 @@
       "favicon": "https://www.nasa.gov/wp-content/plugins/nasa-hds-core-setup/assets/favicons/favicon-32x32.png"
     },
     {
-      "title": "Nature",
-      "nickname": "Nature",
-      "website": "https://www.nature.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "journal",
-        "science"
-      ],
-      "feedUrl": "https://www.nature.com/",
-      "favicon": "https://www.nature.com/static/images/favicons/nature/favicon-32x32-3fe59ece92.png"
-    },
-    {
       "title": "Phys.org",
       "website": "https://phys.org/",
       "description": "",
@@ -39,19 +26,6 @@
       ],
       "feedUrl": "https://phys.org/feeds/",
       "favicon": "https://phys.org/favicon.ico"
-    },
-    {
-      "title": "PLOS",
-      "website": "https://plos.org/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "science",
-        "research",
-        "journal"
-      ],
-      "feedUrl": "https://plos.org/our-journals/",
-      "favicon": "https://plos.org/wp-content/themes/plos/favicon/favicon.ico"
     },
     {
       "title": "The Scientist Magine",

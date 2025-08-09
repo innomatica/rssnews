@@ -2,6 +2,7 @@ import 'dart:convert' show utf8, jsonDecode;
 
 import 'package:flutter/material.dart'
     show ImageProvider, FileImage, NetworkImage, AssetImage;
+import 'package:html_unescape/html_unescape_small.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart' show Logger;
 import 'package:xml/xml.dart';
@@ -25,6 +26,7 @@ class FeedRepository {
   }) : _dbSrv = dbSrv,
        _stSrv = stSrv;
 
+  final _unesc = HtmlUnescape();
   final _logger = Logger('FeedRespository');
 
   // Feed
@@ -33,52 +35,34 @@ class FeedRepository {
     // for testing replace url here
     // url = 'https://feeds.simplecast.com/EmVW7VGp'; // radiolab
     _logger.fine('fetch-url:$url');
-    final res = await http.get(Uri.parse(url));
-    _logger.fine('content-type:${res.headers['content-type']}');
-    if (res.statusCode == 200 &&
-        res.headers['content-type']?.contains("xml") == true) {
-      final document = XmlDocument.parse(utf8.decode(res.bodyBytes));
-      // first children
-      final children = document.childElements;
-      if (children.isNotEmpty) {
-        final root = children.first;
-        // rss or atom
-        if (root.name.toString() == 'rss') {
-          return Feed.fromRss(root, url);
-        } else if (root.name.toString() == 'feed') {
-          return Feed.fromAtom(root, url);
+    try {
+      final res = await http.get(Uri.parse(url));
+      if (res.statusCode == 200 &&
+          res.headers['content-type']?.contains("xml") == true) {
+        final document = XmlDocument.parse(
+          _unesc.convert(utf8.decode(res.bodyBytes)),
+        );
+        // first children
+        final children = document.childElements;
+        if (children.isNotEmpty) {
+          final root = children.first;
+          // rss or atom
+          if (root.name.toString() == 'rss') {
+            return Feed.fromRss(root, url);
+          } else if (root.name.toString() == 'feed') {
+            return Feed.fromAtom(root, url);
+          }
+          _logger.severe('unknown feed format');
+          // throw Exception('unknown feed format');
         }
-        _logger.severe('unknown feed format');
-        // throw Exception('unknown feed format');
       }
+      _logger.severe('{res.statusCode} encountered');
+      // throw Exception('{res.statusCode} encountered');
+    } catch (e) {
+      _logger.severe(e.toString);
+      // throw Exception(e.toString);
     }
     return null;
-
-    // try {
-    //   final res = await http.get(Uri.parse(url));
-    //   if (res.statusCode == 200) {
-    //     final document = XmlDocument.parse(utf8.decode(res.bodyBytes));
-    //     // first children
-    //     final children = document.childElements;
-    //     if (children.isNotEmpty) {
-    //       final root = children.first;
-    //       // rss or atom
-    //       if (root.name.toString() == 'rss') {
-    //         return Feed.fromRss(root, url);
-    //       } else if (root.name.toString() == 'feed') {
-    //         return Feed.fromAtom(root, url);
-    //       }
-    //       _logger.severe('unknown feed format');
-    //       // throw Exception('unknown feed format');
-    //     }
-    //   }
-    //   _logger.severe('{res.statusCode} encountered');
-    //   // throw Exception('{res.statusCode} encountered');
-    // } catch (e) {
-    //   _logger.severe(e.toString);
-    //   // throw Exception(e.toString);
-    // }
-    // return null;
   }
 
   Future<Feed?> getFeed(String url) async {

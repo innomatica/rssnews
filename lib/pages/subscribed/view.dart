@@ -30,7 +30,7 @@ class SubscribedView extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: Text(
-                  channel.description ?? "",
+                  channel.description ?? channel.subtitle ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

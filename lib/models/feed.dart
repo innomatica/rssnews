@@ -12,7 +12,7 @@ class Feed {
   Feed({required this.channel, required this.episodes});
 
   // ignore: unused_field
-  static final _log = Logger('Feed');
+  static final _logger = Logger('Feed');
 
   @override
   String toString() {
@@ -30,7 +30,7 @@ class Feed {
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
         .toList();
-    print('namespaces:$namespaces');
+    // print('namespaces:$namespaces');
     final channel = Channel(
       url: url,
       title: chnlElem?.getElement('title')?.innerText,
@@ -82,7 +82,11 @@ class Feed {
     }
     // namespace: content
     // namespace: media
-    // _log.fine('channel:$channel');
+    // do not support svg
+    if (channel.imageUrl?.endsWith('svg') == true) {
+      channel.imageUrl = null;
+    }
+    // print('channel:$channel');
 
     // items
     final itemElems = chnlElem?.findAllElements('item');
@@ -188,8 +192,8 @@ class Feed {
         }
         // get image from content(description)
         final doc = parser.parse(episode.description ?? '');
-        print('mediaUrl:${episode.mediaUrl}');
-        print('imageUrl:${episode.imageUrl}');
+        // print('mediaUrl:${episode.mediaUrl}');
+        // print('imageUrl:${episode.imageUrl}');
         // published must be set
         episode.published = episode.published ?? DateTime.now();
         episode.imageUrl =
@@ -199,7 +203,7 @@ class Feed {
                 : null) ??
             episode.imageUrl;
         // _log.fine('item: $episode');
-        print('episode:$episode');
+        // print('episode:$episode');
         episodes.add(episode);
       }
     }
@@ -213,6 +217,7 @@ class Feed {
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
         .toList();
+    print('namespaces:$namespaces');
     final channel = Channel(
       url: url,
       title: root.getElement('title')?.innerText,
@@ -230,7 +235,10 @@ class Feed {
       checked: DateTime.now(),
       extras: {},
     );
-    // _log.fine('channel:$channel');
+    if (channel.imageUrl?.endsWith("svg") == true) {
+      channel.imageUrl = null;
+    }
+    print('channel:$channel');
 
     final entries = root.findAllElements('entry');
     final episodes = <Episode>[];
@@ -253,12 +261,12 @@ class Feed {
         updated: DateTime.tryParse(
           entry.getElement('updated')?.innerText ?? '',
         ),
-        published: DateTime.tryParse(
-          entry.getElement('published')?.innerText ?? '',
-        ),
+        published:
+            DateTime.tryParse(entry.getElement('published')?.innerText ?? '') ??
+            DateTime.tryParse(entry.getElement('updated')?.innerText ?? ''),
         extras: {},
       );
-      // _log.fine('episode: $episode');
+      print('episode: $episode');
       episodes.add(episode);
     }
 

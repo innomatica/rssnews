@@ -11,8 +11,23 @@ class HomeViewModel extends ChangeNotifier {
 
   final _episodes = <Episode>[];
   final _logger = Logger('HomeViewModel');
+  bool _withImage = true;
 
   List<Episode> get episodes => _episodes;
+  bool get withImage => _withImage;
+
+  set withImage(bool value) {
+    if (_withImage != value) {
+      _withImage = value;
+      notifyListeners();
+    }
+  }
+
+  void toggleImageVisibility() {
+    print('withImage:$_withImage');
+    _withImage = !_withImage;
+    notifyListeners();
+  }
 
   Future load() async {
     _episodes.clear();

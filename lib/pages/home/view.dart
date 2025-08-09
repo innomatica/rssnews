@@ -7,28 +7,26 @@ import '../../shared/constant.dart';
 import '../../shared/widgets.dart';
 import 'model.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   final HomeViewModel model;
   const HomeView({super.key, required this.model});
 
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  bool withImage = true;
-
   Widget buildBody(BuildContext context) {
     final aspectRatio = MediaQuery.sizeOf(context).aspectRatio;
-    final smallFontSize = 12.0;
+    final channelTextStyle = TextStyle(
+      fontSize: 12,
+      color: Theme.of(context).colorScheme.secondary,
+    );
+    final titleTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
     return ListenableBuilder(
-      listenable: widget.model,
+      listenable: model,
       builder: (context, _) {
+        print('model.withImage:${model.withImage}');
         return ListView.separated(
-          itemCount: widget.model.episodes.length,
+          itemCount: model.episodes.length,
           separatorBuilder: (context, index) => const Divider(),
           itemBuilder: (context, index) {
-            final episode = widget.model.episodes[index];
+            final episode = model.episodes[index];
             // print('episode: $episode');
             return ListTile(
               title: aspectRatio < 1.0
@@ -37,30 +35,37 @@ class _HomeViewState extends State<HomeView> {
                       spacing: 8.0,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // top row
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              spacing: 8.0,
-                              children: [
-                                FutureImage(
-                                  future: widget.model.getChannelImage(episode),
-                                  width: 16,
-                                  height: 16,
-                                ),
-                                Text(
-                                  episode.channelTitle ?? "",
-                                  style: TextStyle(fontSize: smallFontSize),
-                                ),
-                              ],
+                            Flexible(
+                              child: Row(
+                                spacing: 8.0,
+                                children: [
+                                  FutureImage(
+                                    future: model.getChannelImage(episode),
+                                    width: 16,
+                                    height: 16,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      episode.channelTitle ?? "",
+                                      overflow: TextOverflow.ellipsis,
+                                      style: channelTextStyle,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             Text(
                               mmddHHMM(episode.published),
-                              style: TextStyle(fontSize: smallFontSize),
+                              style: channelTextStyle,
                             ),
                           ],
                         ),
-                        episode.imageUrl != null && withImage
+                        // image
+                        episode.imageUrl != null && model.withImage
                             ? Image.network(
                                 episode.imageUrl!,
                                 height: 180,
@@ -68,11 +73,12 @@ class _HomeViewState extends State<HomeView> {
                                 fit: BoxFit.cover,
                               )
                             : SizedBox(),
+                        // title
                         Text(
                           episode.title ?? '',
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                          style: titleTextStyle,
                         ),
                       ],
                     )
@@ -81,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
                       spacing: 8.0,
                       children: [
                         // image
-                        episode.imageUrl != null && withImage
+                        episode.imageUrl != null && model.withImage
                             ? Image.network(
                                 episode.imageUrl!,
                                 width: 40,
@@ -100,21 +106,19 @@ class _HomeViewState extends State<HomeView> {
                                   spacing: 8.0,
                                   children: [
                                     FutureImage(
-                                      future: widget.model.getChannelImage(
-                                        episode,
-                                      ),
+                                      future: model.getChannelImage(episode),
                                       width: 16,
                                       height: 16,
                                     ),
                                     Text(
                                       episode.channelTitle ?? "",
-                                      style: TextStyle(fontSize: smallFontSize),
+                                      style: channelTextStyle,
                                     ),
                                   ],
                                 ),
                                 Text(
                                   mmddHHMM(episode.published),
-                                  style: TextStyle(fontSize: smallFontSize),
+                                  style: channelTextStyle,
                                 ),
                               ],
                             ),
@@ -124,7 +128,7 @@ class _HomeViewState extends State<HomeView> {
                               episode.title ?? '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                              style: titleTextStyle,
                             ),
                           ],
                         ),
@@ -170,13 +174,15 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text(appName),
         actions: [
-          IconButton(
-            icon: withImage
-                ? Icon(Icons.image_not_supported_rounded)
-                : Icon(Icons.image_rounded),
-            onPressed: () {
-              withImage = !withImage;
-              setState(() {});
+          ListenableBuilder(
+            listenable: model,
+            builder: (context, _) {
+              return IconButton(
+                icon: model.withImage
+                    ? Icon(Icons.image_not_supported_rounded)
+                    : Icon(Icons.image_rounded),
+                onPressed: () => model.toggleImageVisibility(),
+              );
             },
           ),
           IconButton(

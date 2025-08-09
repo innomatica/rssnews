@@ -76,9 +76,5 @@ class Channel {
   }
 
   @override
-  String toString() =>
-      (toSqlite()
-            ..remove('subtitle')
-            ..remove('description'))
-          .toString();
+  String toString() => (toSqlite()..remove('description')).toString();
 }
