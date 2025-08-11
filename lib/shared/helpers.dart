@@ -27,3 +27,15 @@ String mmddHHMM(DateTime? dt, {String fallback = ''}) {
       ? '${_month[lo.month]} ${_twoDigit(lo.day)} ${_twoDigit(lo.hour)}:${_twoDigit(lo.minute)}'
       : fallback;
 }
+
+String? googleFaviconUrl(String? url) {
+  String? domain = url
+      ?.replaceFirst("https://", "")
+      .replaceFirst("http://", "")
+      .split("/")
+      .first;
+
+  return domain != null
+      ? "https://www.google.com/s2/favicons?domain=$domain&sz=128"
+      : null;
+}

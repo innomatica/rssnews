@@ -42,8 +42,8 @@ final router = GoRouter(
               path: 'channel/:id',
               builder: (context, state) {
                 return ChannelView(
-                  id: int.parse(state.pathParameters["id"] ?? '0'),
-                  model: context.read<ChannelViewModel>(),
+                  model: context.read<ChannelViewModel>()
+                    ..load(int.parse(state.pathParameters["id"] ?? '0')),
                 );
               },
             ),

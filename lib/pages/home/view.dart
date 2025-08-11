@@ -21,7 +21,6 @@ class HomeView extends StatelessWidget {
     return ListenableBuilder(
       listenable: model,
       builder: (context, _) {
-        print('model.withImage:${model.withImage}');
         return ListView.separated(
           itemCount: model.episodes.length,
           separatorBuilder: (context, index) => const Divider(),
@@ -43,11 +42,7 @@ class HomeView extends StatelessWidget {
                               child: Row(
                                 spacing: 8.0,
                                 children: [
-                                  FutureImage(
-                                    future: model.getChannelImage(episode),
-                                    width: 16,
-                                    height: 16,
-                                  ),
+                                  ChannelImage(episode, width: 16, height: 16),
                                   Flexible(
                                     child: Text(
                                       episode.channelTitle ?? "",
@@ -95,42 +90,53 @@ class HomeView extends StatelessWidget {
                                 fit: BoxFit.cover,
                               )
                             : SizedBox(width: 0, height: 0),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // icon, channel, date
-                            Row(
-                              spacing: 24,
-                              children: [
-                                Row(
-                                  spacing: 8.0,
-                                  children: [
-                                    FutureImage(
-                                      future: model.getChannelImage(episode),
-                                      width: 16,
-                                      height: 16,
+                        // content
+                        Flexible(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // icon, channel, date
+                              Row(
+                                spacing: 24,
+                                children: [
+                                  Row(
+                                    spacing: 8.0,
+                                    children: [
+                                      ChannelImage(
+                                        episode,
+                                        width: 16,
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        episode.channelTitle ?? "",
+                                        style: channelTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    mmddHHMM(episode.published),
+                                    style: channelTextStyle,
+                                  ),
+                                ],
+                              ),
+                              // episode title
+                              // Row > Flexible: limit the width
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      episode.title ?? '',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: titleTextStyle,
                                     ),
-                                    Text(
-                                      episode.channelTitle ?? "",
-                                      style: channelTextStyle,
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  mmddHHMM(episode.published),
-                                  style: channelTextStyle,
-                                ),
-                              ],
-                            ),
-                            // episode title
-                            // FIXME: this can overflow
-                            Text(
-                              episode.title ?? '',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: titleTextStyle,
-                            ),
-                          ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -146,28 +152,6 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            child: Text(
-              appName,
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,14 +161,37 @@ class HomeView extends StatelessWidget {
           ListenableBuilder(
             listenable: model,
             builder: (context, _) {
-              return IconButton(
-                icon: model.withImage
-                    ? Icon(Icons.image_not_supported_rounded)
-                    : Icon(Icons.image_rounded),
-                onPressed: () => model.toggleImageVisibility(),
+              return Row(
+                children: [
+                  // label selector
+                  DropdownButton<int>(
+                    value: model.selectedLabelId,
+                    underline: SizedBox(),
+                    items: model.labels.map((e) {
+                      return DropdownMenuItem(
+                        value: e.id,
+                        child: Text(
+                          e.title,
+                          style: TextStyle(color: labelColor[e.color]),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (int? value) {
+                      model.selectLabel(value);
+                    },
+                  ),
+                  // image visibility
+                  IconButton(
+                    icon: model.withImage
+                        ? Icon(Icons.image_not_supported_rounded)
+                        : Icon(Icons.image_rounded),
+                    onPressed: () => model.toggleImageVisibility(),
+                  ),
+                ],
               );
             },
           ),
+          // subscriptions
           IconButton(
             icon: Icon(Icons.subscriptions_rounded),
             onPressed: () {
@@ -194,7 +201,96 @@ class HomeView extends StatelessWidget {
         ],
       ),
       body: buildBody(context),
-      drawer: buildDrawer(context),
+      drawer: SidePanel(model: model),
+    );
+  }
+}
+
+class SidePanel extends StatefulWidget {
+  final HomeViewModel model;
+  const SidePanel({super.key, required this.model});
+
+  @override
+  State<SidePanel> createState() => _SidePanelState();
+}
+
+class _SidePanelState extends State<SidePanel> {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            child: Text(
+              'About',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+            ),
+          ),
+          ListTile(
+            title: Text('Search Parameters'),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(left: 24.0),
+              child: Column(
+                children: [
+                  // TextFormField(
+                  //   key: _minBitratekey,
+                  //   controller: _minBitrateCtrl,
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Minimum bitrate',
+                  //     suffixText: 'kbps',
+                  //   ),
+                  //   onChanged: (value) =>
+                  //       _minBitratekey.currentState?.validate(),
+                  //   validator: (value) {
+                  //     return (value != null && int.tryParse(value) == null)
+                  //         ? 'Use integer numbers only'
+                  //         : null;
+                  //   },
+                  // ),
+                  // TextFormField(
+                  //   key: _maxReturnsKey,
+                  //   controller: _maxReturnsCtrl,
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Maximum count',
+                  //     suffixText: 'stations',
+                  //   ),
+                  //   onChanged: (value) =>
+                  //       _maxReturnsKey.currentState?.validate(),
+                  //   validator: (value) {
+                  //     return (value != null && int.tryParse(value) == null)
+                  //         ? 'Use integer numbers only'
+                  //         : null;
+                  //   },
+                  // ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 16.0),
+          ListTile(
+            title: Text('App version'),
+            subtitle: Text(appVersion),
+            onTap: () => launchUrl(Uri.parse(sourceRepository)),
+          ),
+          ListTile(
+            title: Text('Source repository'),
+            subtitle: Text('github'),
+            onTap: () => launchUrl(Uri.parse(sourceRepository)),
+          ),
+          ListTile(
+            title: Text('Developer'),
+            subtitle: Text('innomatic'),
+            onTap: () => launchUrl(Uri.parse(developerWebsite)),
+          ),
+        ],
+      ),
     );
   }
 }

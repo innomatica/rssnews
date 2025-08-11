@@ -1,5 +1,6 @@
 import 'package:html/parser.dart' as parser;
 import 'package:logging/logging.dart';
+import 'package:rssnews/shared/helpers.dart';
 import 'package:xml/xml.dart';
 
 import 'channel.dart';
@@ -86,7 +87,8 @@ class Feed {
     if (channel.imageUrl?.endsWith('svg') == true) {
       channel.imageUrl = null;
     }
-    // print('channel:$channel');
+    channel.imageUrl = channel.imageUrl ?? googleFaviconUrl(channel.url);
+    print('channel:$channel');
 
     // items
     final itemElems = chnlElem?.findAllElements('item');
@@ -119,6 +121,7 @@ class Feed {
           language: channel.language,
           extras: {},
         );
+        print('episode:$episode');
         // namespace: content (http://purl.org/rss/1.0/modules/content/)
         if (namespaces.contains('content')) {
           // description
@@ -203,7 +206,7 @@ class Feed {
                 : null) ??
             episode.imageUrl;
         // _log.fine('item: $episode');
-        // print('episode:$episode');
+        print('episode:$episode');
         episodes.add(episode);
       }
     }
@@ -222,6 +225,7 @@ class Feed {
       url: url,
       title: root.getElement('title')?.innerText,
       subtitle: root.getElement('subtitle')?.innerText,
+      link: root.getElement('link')?.getAttribute('href') ?? url,
       author: root.getElement('author')?.getElement('name')?.innerText,
       categories: root
           .findElements('category')
@@ -238,6 +242,7 @@ class Feed {
     if (channel.imageUrl?.endsWith("svg") == true) {
       channel.imageUrl = null;
     }
+    channel.imageUrl = channel.imageUrl ?? googleFaviconUrl(channel.url);
     print('channel:$channel');
 
     final entries = root.findAllElements('entry');
@@ -292,6 +297,21 @@ class Feed {
       'Dec': '12',
     };
 
+    // note: three word timezone is NOT unique, e.g. CST
+    const tzmap = {
+      "GMT": "+00:00",
+      "AST": "-04:00",
+      "CDT": "-05:00",
+      "CST": "-06:00",
+      "EDT": "-04:00",
+      "EST": "-05:00",
+      "KST": "+09:00",
+      "MDT": "-06:00",
+      "MST": "-07:00",
+      "PDT": "-07:00",
+      "PST": "-08:00",
+      "UTC": "+00:00",
+    };
     // check if it starts with day
     if ([
       "Mon",
@@ -304,9 +324,21 @@ class Feed {
     ].contains(rfc822.split(",").first)) {
       // potentially legit RFC822
       // Fri, 25 Apr 2025 14:00:00 +0000
-      final s = rfc822.replaceFirst('GMT', '+0000').split(' ');
+      // final s = rfc822.replaceFirst('GMT', '+0000').split(' ');
+      // print('before: $rfc822');
+      final s = tzmap.entries
+          .fold(rfc822, (prev, e) => prev.replaceAll(e.key, e.value))
+          .split(' ');
+      // print('after: $s');
+      // print(
+      //   'reassembled: ${'${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]}${s[5]}'}',
+      // );
+      // final parsed = DateTime.tryParse(
+      //   '${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]}${s[5]}',
+      // );
+      // print('parsed:$parsed');
       return DateTime.tryParse(
-        '${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]} ${s[5]}',
+        '${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]}${s[5]}',
       );
     } else {
       // some feeds use ISO8601 instead

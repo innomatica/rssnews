@@ -24,8 +24,10 @@ class Episode {
   bool? downloaded;
   bool? played;
   bool? liked;
-  String? channelTitle; // db field
-  String? channelImageUrl; // db field
+  // db fields
+  String? channelTitle;
+  String? channelImageUrl;
+  List<dynamic>? labels;
 
   Episode({
     this.id,
@@ -51,8 +53,10 @@ class Episode {
     this.downloaded,
     this.played,
     this.liked,
+    // db fields
     this.channelTitle,
     this.channelImageUrl,
+    this.labels,
   });
 
   // url could be used as guid
@@ -88,6 +92,12 @@ class Episode {
       // db fields
       channelTitle: row['channel_title'] as String?,
       channelImageUrl: row['channel_image_url'] as String?,
+      labels:
+          (row['labels'] as String?)
+              ?.split(",")
+              .map((e) => int.tryParse(e))
+              .toList() ??
+          [],
     );
   }
 
@@ -120,9 +130,32 @@ class Episode {
   }
 
   @override
-  String toString() =>
-      (toSqlite()
-            ..remove('subtitle')
-            ..remove('description'))
-          .toString();
+  String toString() {
+    return {
+      "id": id,
+      "guid": guid,
+      "title": title,
+      "subtitle": subtitle,
+      "author": author,
+      // "description": description,
+      "language": language,
+      "categories": categories,
+      "keywords": keywords,
+      "updated": updated?.toIso8601String(),
+      "published": published?.toIso8601String(),
+      "link": link,
+      "media_url": mediaUrl,
+      "media_type": mediaType,
+      "media_size": mediaSize,
+      "media_duration": mediaDuration,
+      "media_seek_pos": mediaSeekPos,
+      "image_url": imageUrl,
+      "extras": jsonEncode(extras),
+      "channel_id": channelId,
+      "downloaded": downloaded == true ? 1 : 0,
+      "played": played == true ? 1 : 0,
+      "liked": liked == true ? 1 : 0,
+      "labels": labels,
+    }.toString();
+  }
 }

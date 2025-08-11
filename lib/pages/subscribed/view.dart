@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rssnews/shared/widgets.dart';
 
-import '../../shared/widgets.dart' show FutureImage;
 import 'model.dart';
 
 class SubscribedView extends StatelessWidget {
@@ -18,19 +18,21 @@ class SubscribedView extends StatelessWidget {
             final channel = model.channels[index];
             return Card(
               child: ListTile(
-                leading: FutureImage(
-                  future: model.getChannelImage(channel),
-                  width: 60,
-                  height: 60,
-                ),
-
+                // favicon
+                leading: ChannelImage(channel, width: 56, height: 56),
+                // channel title
                 title: Text(
                   channel.title ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
+                // labels
                 subtitle: Text(
-                  channel.description ?? channel.subtitle ?? "",
+                  // channel.subtitle ?? channel.description ?? "",
+                  channel.labels
+                          ?.map((e) => model.labels[e - 1].title)
+                          .join(" ,") ??
+                      "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -38,34 +40,6 @@ class SubscribedView extends StatelessWidget {
               ),
             );
           },
-
-          // }  model.channels.map((e) {
-          //   return GestureDetector(
-          //     onTap: () {
-          //       context.go('/subscribed/channel/${e.id}');
-          //     },
-          //     child: GridTile(
-          //       child: Column(
-          //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //         children: [
-          //           FutureImage(
-          //             future: model.getChannelImage(e),
-          //             width: 100,
-          //             height: 100,
-          //           ),
-          //           Padding(
-          //             padding: const EdgeInsets.symmetric(horizontal: .0),
-          //             child: Text(
-          //               e.title ?? '',
-          //               maxLines: 1,
-          //               overflow: TextOverflow.ellipsis,
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   );
-          // }).toList(),
         );
       },
     );

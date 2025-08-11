@@ -1,7 +1,5 @@
 import 'dart:convert' show utf8, jsonDecode;
 
-import 'package:flutter/material.dart'
-    show ImageProvider, FileImage, NetworkImage, AssetImage;
 import 'package:html_unescape/html_unescape_small.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart' show Logger;
@@ -11,20 +9,15 @@ import '../../models/channel.dart';
 import '../../models/episode.dart';
 import '../../models/feed.dart';
 import '../../models/feedinfo.dart';
+import '../../models/label.dart';
 import '../../models/settings.dart';
 import '../../shared/constant.dart';
 import '../../shared/helpers.dart';
 import '../service/local/sqflite.dart';
-import '../service/local/storage.dart';
 
 class FeedRepository {
   final DatabaseService _dbSrv;
-  final StorageService _stSrv;
-  FeedRepository({
-    required DatabaseService dbSrv,
-    required StorageService stSrv,
-  }) : _dbSrv = dbSrv,
-       _stSrv = stSrv;
+  FeedRepository({required DatabaseService dbSrv}) : _dbSrv = dbSrv;
 
   final _unesc = HtmlUnescape();
   final _logger = Logger('FeedRespository');
@@ -55,9 +48,9 @@ class FeedRepository {
           _logger.severe('unknown feed format');
           // throw Exception('unknown feed format');
         }
+      } else {
+        _logger.fine('${res.statusCode}: ${res.headers['content-type']}');
       }
-      _logger.severe('{res.statusCode} encountered');
-      // throw Exception('{res.statusCode} encountered');
     } catch (e) {
       _logger.severe(e.toString);
       // throw Exception(e.toString);
@@ -86,12 +79,12 @@ class FeedRepository {
       // _log.fine('channel:$channel');
       if (channel != null) {
         // download thumbnail
-        await _downloadResource(
-          channel.id!,
-          channel.imageUrl ??
-              "https://www.google.com/s2/favicons?domain=${channel.url}&sz=128",
-          channelImgFname,
-        );
+        // await _downloadResource(
+        //   channel.id!,
+        //   channel.imageUrl ??
+        //       "https://www.google.com/s2/favicons?domain=${channel.url}&sz=128",
+        //   channelImgFname,
+        // );
         // save episodes
         final refDate = DateTime.now().subtract(
           Duration(days: maxRetentionDays),
@@ -119,7 +112,13 @@ class FeedRepository {
 
   Future<List<Channel>> getChannels() async {
     try {
-      final rows = await _dbSrv.queryAll("SELECT * FROM channels");
+      final rows = await _dbSrv.queryAll(
+        """SELECT channels.*, group_concat(channel_label.label_id) as labels
+        FROM channels LEFT JOIN channel_label 
+        ON channels.id = channel_label.channel_id
+        GROUP BY channels.id
+        """,
+      );
       return rows.map((e) => Channel.fromSqlite(e)).toList();
     } on Exception {
       rethrow;
@@ -129,9 +128,19 @@ class FeedRepository {
   Future<Channel?> getChannel(int? id) async {
     try {
       if (id != null) {
-        final row = await _dbSrv.query("SELECT * FROM channels WHERE id = ?", [
-          id,
-        ]);
+        // final row = await _dbSrv.query("SELECT * FROM channels WHERE id = ?", [
+        //   id,
+        // ]);
+        final row = await _dbSrv.query(
+          """SELECT channels.*, group_concat(channel_label.label_id) as labels
+        FROM channels LEFT JOIN channel_label 
+        ON channels.id = channel_label.channel_id
+        WHERE channels.id = ?
+        GROUP BY channels.id
+        """,
+          [id],
+        );
+
         return row != null ? Channel.fromSqlite(row) : null;
       }
       return null;
@@ -167,14 +176,23 @@ class FeedRepository {
     }
   }
 
-  Future<int> updateChannel(int channelId, Map<String, Object> data) async {
-    // _log.fine('updateChannel: $data');
+  Future<int> updateChannel(int channelId, Map<String, Object?> data) async {
+    _logger.fine('updateChannel: $data');
     try {
       final sets = data.keys.map((e) => '$e = ?').join(',');
-      return await _dbSrv.update("UPDATE channels SET $sets WHERE id = ?", [
-        ...data.values,
-        channelId,
-      ]);
+      final idx = await _dbSrv.update(
+        "UPDATE channels SET $sets WHERE id = ?",
+        [...data.values, channelId],
+      );
+      // if (data.keys.contains("image_url") && data["image_url"] != null) {
+      //   await _downloadResource(
+      //     channelId,
+      //     // data['image_url'] as String,
+      //     "https://api.dart.dev/static-assets/favicon.png?v1",
+      //     channelImgFname,
+      //   );
+      // }
+      return idx;
     } on Exception {
       rethrow;
     }
@@ -186,42 +204,11 @@ class FeedRepository {
         channelId,
       ]);
       await _dbSrv.delete("DELETE FROM channels WHERE id = ?", [channelId]);
-      await _stSrv.deleteDirectory(channelId);
+      // await _stSrv.deleteDirectory(channelId);
     } on Exception {
       rethrow;
     }
   }
-
-  // FIXME
-  /*
-  Future purgeChannel(int? channelId) async {
-    try {
-      if (channelId != null) {
-        _log.fine('purgeChannel');
-        final episodes = await getEpisodesByChannel(channelId);
-        final refDate = DateTime.now().subtract(
-          Duration(days: maxRetentionDays),
-        );
-        for (final episode in episodes) {
-          // delete expired episodes and its local media data
-          if (episode.published?.isBefore(refDate) == true) {
-            await deleteEpisode(episode.guid);
-            await _stSrv.deleteFile(channelId, episode.mediaFname);
-            if (episode.imageFname != null) {
-              await _stSrv.deleteFile(channelId, episode.imageFname!);
-            }
-          }
-          // delete local media data of played episode
-          if (episode.played == true) {
-            await _stSrv.deleteFile(channelId, episode.mediaFname);
-          }
-        }
-      }
-    } on Exception {
-      rethrow;
-    }
-  }
-*/
 
   // Episode
 
@@ -229,46 +216,24 @@ class FeedRepository {
     int period = 90,
     bool force = false,
   }) async {
-    // FIXME
-    // await refreshData(force: force);
     final start = yymmdd(DateTime.now().subtract(Duration(days: period)));
-
-    // final rows = await _dbSrv.queryAll(
-    //   """
-    //   SELECT episodes.*, channels.title as channel_title,
-    //     channels.image_url as channel_image_url
-    //   FROM episodes
-    //   INNER JOIN channels ON channels.id=episodes.channel_id
-    //   WHERE DATE(episodes.published) > ?
-    //   ORDER BY episodes.published DESC""",
-    //   [start],
-    // );
-    // return rows.map((e) => Episode.fromSqlite(e)).toList();
-    // _logger.fine('start:$start');
-    // _logger.fine('rows:$rows');
-
-    // final ret = <Episode>[];
-    // for (final row in rows) {
-    //   final episode = Episode.fromSqlite(row);
-    //   _logger.fine('episode:$episode');
-    //   ret.add(episode);
-    // }
-    // _logger.fine('episodes: $ret');
-    // return ret;
-
     try {
       final rows = await _dbSrv.queryAll(
         """
       SELECT episodes.*, channels.title as channel_title,
-        channels.image_url as channel_image_url
+        channels.image_url as channel_image_url, 
+        group_concat(channel_label.label_id) as labels
       FROM episodes
-      INNER JOIN channels ON channels.id=episodes.channel_id
+      INNER JOIN channels ON channels.id = episodes.channel_id
+      LEFT JOIN channel_label ON channels.id = channel_label.channel_id
       WHERE DATE(episodes.published) > ?
-      ORDER BY episodes.published DESC""",
+      GROUP BY episodes.id
+      ORDER BY episodes.published DESC
+      """,
         [start],
       );
-      // FIXME: sort by datetime
-      return rows.map((e) => Episode.fromSqlite(e)).toList();
+      return rows.map((e) => Episode.fromSqlite(e)).toList()
+        ..sort((a, b) => b.published!.compareTo(a.published!));
     } on Exception {
       rethrow;
     }
@@ -361,43 +326,6 @@ class FeedRepository {
     }
   }
 
-  // Resources
-
-  Future<bool> _downloadResource(
-    int channelId,
-    String url,
-    String fname,
-  ) async {
-    bool flag = false;
-    final client = http.Client();
-    final req = http.Request('GET', Uri.parse(url));
-    final res = await client.send(req);
-    if (res.statusCode == 200) {
-      _logger.fine('downloading: $url to $fname');
-      final file = await _stSrv.getFile(channelId, fname);
-      if (file != null) {
-        await file.create(recursive: true);
-        final sink = file.openWrite();
-        await res.stream.pipe(sink);
-        flag = true;
-      }
-    }
-    client.close();
-    return flag;
-  }
-
-  Future<ImageProvider> getChannelImage(dynamic chnOrEps) async {
-    final file = await _stSrv.getFile(
-      chnOrEps is Channel ? chnOrEps.id : chnOrEps.channelId,
-      channelImgFname,
-    );
-    return file != null && file.existsSync()
-        ? FileImage(file) // thumbnail found in the local
-        : chnOrEps.imageUrl != null
-        ? NetworkImage(chnOrEps.imageUrl.toString()) // has valid imageUrl
-        : AssetImage(defaultChannelImage); // fallback image
-  }
-
   // feed data
   Future<List<FeedInfo>> getSampleFeedInfo() async {
     final ret = <FeedInfo>[];
@@ -429,5 +357,39 @@ class FeedRepository {
     return ret;
   }
 
-  // new
+  // labels
+
+  Future<List<Label>> getLabels() async {
+    final rows = await _dbSrv.queryAll("SELECT * FROM labels");
+    return rows.map((e) => Label.fromSqlite(e)).toList();
+  }
+
+  Future<bool> updateLabel(Label label) async {
+    if (label.id != null) {
+      // only change title
+      final count = await _dbSrv.update(
+        """UPDATE labels SET title = ? WHERE id = ?""",
+        [label.title, label.id],
+      );
+      return count == 1;
+    }
+    return false;
+  }
+
+  Future<bool> addLabelToChannel(int channelId, int labelId) async {
+    final count = await _dbSrv.insert(
+      """INSERT INTO channel_label (channel_id, label_id)
+      VALUES (?, ?) ON CONFLICT DO NOTHING""",
+      [channelId, labelId],
+    );
+    return count == 1;
+  }
+
+  Future<bool> removeLabelFromChannel(int channelId, int labelId) async {
+    final count = await _dbSrv.delete(
+      """DELETE FROM channel_label WHERE channel_id = ? AND label_id = ?""",
+      [channelId, labelId],
+    );
+    return count == 1;
+  }
 }

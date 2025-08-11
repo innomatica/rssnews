@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart' show Colors;
+
 const appName = "RssNews";
 const appVersion = '1.0.0+1';
 const appId = 'com.innomatic.rssnews';
@@ -26,3 +28,27 @@ const updatePeriods = [1, 2, 3, 4, 5, 6, 7];
 
 // channel thumbnail image file name
 const channelImgFname = 'thumbnail';
+
+const prefsKeySelLabelId = 'selLabelId';
+
+// image size
+const faviconSizeSmall = 12.0;
+const faviconSizeLarge = 24.0;
+
+// label colors
+const labelColor = [
+  Colors.white,
+  Colors.amber,
+  Colors.blue,
+  Colors.brown,
+  Colors.cyan,
+  Colors.green,
+  Colors.indigo,
+  Colors.lime,
+  Colors.orange,
+  Colors.pink,
+  Colors.purple,
+  Colors.red,
+  Colors.teal,
+  Colors.yellow,
+];

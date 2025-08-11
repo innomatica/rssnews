@@ -16,6 +16,7 @@ class Channel {
   int? period;
   String? imageUrl;
   Map<String, dynamic>? extras;
+  List<dynamic>? labels;
 
   Channel({
     this.id,
@@ -33,6 +34,7 @@ class Channel {
     this.period,
     this.imageUrl,
     this.extras,
+    this.labels,
   });
 
   factory Channel.fromSqlite(Map<String, Object?> row) {
@@ -52,6 +54,12 @@ class Channel {
       period: row['period'] != null ? row['period'] as int : null,
       imageUrl: row['image_url'] as String?,
       extras: jsonDecode(row['extras'] as String? ?? "null"),
+      labels:
+          (row['labels'] as String?)
+              ?.split(",")
+              .map((e) => int.tryParse(e))
+              .toList() ??
+          [],
     );
   }
 
@@ -76,5 +84,24 @@ class Channel {
   }
 
   @override
-  String toString() => (toSqlite()..remove('description')).toString();
+  String toString() {
+    return {
+      "id": id,
+      "url": url,
+      "title": title,
+      "subtitle": subtitle,
+      "author": author,
+      "categories": categories,
+      // "description": description,
+      "language": language,
+      "link": link,
+      "updated": updated?.toIso8601String(),
+      "published": published?.toIso8601String(),
+      "checked": checked?.toIso8601String(),
+      "period": period,
+      "image_url": imageUrl,
+      "extras": jsonEncode(extras),
+      "labels": labels,
+    }.toString();
+  }
 }

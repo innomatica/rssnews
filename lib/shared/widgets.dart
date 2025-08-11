@@ -1,43 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
+import 'package:rssnews/shared/constant.dart';
 
-const defaultImageSize = 100.0;
+import '../models/channel.dart' show Channel;
+import '../models/episode.dart' show Episode;
 
-class FutureImage extends StatelessWidget {
-  final Future<ImageProvider> future;
+class ChannelImage extends StatelessWidget {
+  final dynamic item;
   final double? width;
   final double? height;
-  final double? opacity;
-  const FutureImage({
+  final double opacity;
+  ChannelImage(
+    this.item, {
     super.key,
-    required this.future,
+    // required this.item,
     this.width,
     this.height,
-    this.opacity,
+    this.opacity = 1.0,
   });
+
+  final _logger = Logger("ChannelImage");
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5),
-      child: FutureBuilder(
-        future: future,
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? Image(
-                  image: snapshot.data!,
-                  width: width ?? defaultImageSize,
-                  height: height ?? defaultImageSize,
-                  fit: BoxFit.cover,
-                  opacity: AlwaysStoppedAnimation(opacity ?? 1.0),
-                  // color: Colors.white60,
-                )
-              : SizedBox(
-                  width: width ?? defaultImageSize,
-                  height: height ?? defaultImageSize,
-                  child: Container(color: Colors.grey),
-                );
-        },
-      ),
-    );
+    try {
+      return item is Channel && item.imageUrl != null
+          ? Image.network(
+              item.imageUrl!,
+              width: width,
+              height: height,
+              fit: BoxFit.cover,
+            )
+          : item is Episode && item.channelImageUrl != null
+          ? Image.network(
+              item.channelImageUrl!,
+              width: width,
+              height: height,
+              fit: BoxFit.cover,
+            )
+          : Image.asset(
+              defaultChannelImage,
+              width: width,
+              height: height,
+              fit: BoxFit.cover,
+            );
+    } catch (e) {
+      _logger.warning(e.toString());
+      return Image.asset(
+        defaultChannelImage,
+        width: width,
+        height: height,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
 import '../../../shared/constant.dart';
 
 const dbname = 'podcast.db';
@@ -9,7 +12,8 @@ const migrations = [
 
 const fgkeyPragma = "PRAGMA foreign_keys = ON;";
 
-const episodeSchema = '''CREATE TABLE IF NOT EXISTS episodes (
+// version 1 schemas
+const createEpisode = '''CREATE TABLE episodes (
   id INTEGER PRIMARY KEY,
   guid TEXT NOT NULL UNIQUE,
   title TEXT,
@@ -39,8 +43,7 @@ const episodeSchema = '''CREATE TABLE IF NOT EXISTS episodes (
       ON UPDATE CASCADE
 );''';
 
-// note: channel.id is used as a directory name. it must be unique
-const channelSchema = '''CREATE TABLE IF NOT EXISTS channels (
+const createChannel = '''CREATE TABLE channels (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   url TEXT NOT NULL UNIQUE,
   title TEXT,
@@ -58,17 +61,53 @@ const channelSchema = '''CREATE TABLE IF NOT EXISTS channels (
   extras TEXT
 );''';
 
-const settingsSchema = '''CREATE TABLE IF NOT EXISTS settings (
+const createLabel = '''CREATE TABLE labels (
+     id INTEGER PRIMARY KEY,
+     title TEXT NOT NULL UNIQUE,
+     color INTEGER NOT NULL DEFAULT 0
+    );''';
+
+const createChannelLabel = '''CREATE TABLE channel_label (
+  channel_id INTEGER NOT NULL,
+  label_id INTEGER NOT NULL,
+  FOREIGN KEY(channel_id) REFERENCES channels (id),
+  FOREIGN KEY(label_id) REFERENCES labels (id),
+  UNIQUE (channel_id, label_id)
+);''';
+
+const createSettings = '''CREATE TABLE settings (
   id INTEGER PRIMARY KEY,
   retention_period INTEGER,
   search_engine_url TEXT
 );''';
 
+const createTablesV1 = [
+  createEpisode,
+  createChannel,
+  createLabel,
+  createChannelLabel,
+  createSettings,
+];
+
 const defaultSettings =
     """INSERT INTO settings(
   retention_period, 
   search_engine_url) 
-  VALUES(
-  $defaultRetentionDays, 
-  '$defaultQueryUrl'
+  VALUES( $defaultRetentionDays, '$defaultQueryUrl'
 );""";
+
+const insertTablesV1 = [
+  defaultSettings,
+  'INSERT INTO labels (title, color) VALUES ("Business", 1);',
+  'INSERT INTO labels (title, color) VALUES ("Culture", 2);',
+  'INSERT INTO labels (title, color) VALUES ("Health", 3);',
+  'INSERT INTO labels (title, color) VALUES ("Lifestyle", 4);',
+  'INSERT INTO labels (title, color) VALUES ("Local", 5);',
+  'INSERT INTO labels (title, color) VALUES ("Opinion", 6);',
+  'INSERT INTO labels (title, color) VALUES ("Politics", 7);',
+  'INSERT INTO labels (title, color) VALUES ("Science", 8);',
+  'INSERT INTO labels (title, color) VALUES ("Sports", 9);',
+  'INSERT INTO labels (title, color) VALUES ("Technology", 10);',
+  'INSERT INTO labels (title, color) VALUES ("Top Stories", 11);',
+  'INSERT INTO labels (title, color) VALUES ("World", 12);',
+];

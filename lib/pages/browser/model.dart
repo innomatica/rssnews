@@ -15,6 +15,7 @@ class BrowserViewModel extends ChangeNotifier {
   bool? _subscribed;
 
   bool get found => _feed != null;
+  Feed? get feed => _feed;
   bool get subscribed => _subscribed == true;
 
   Future fetchFeed(String url) async {

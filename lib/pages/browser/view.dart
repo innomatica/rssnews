@@ -94,7 +94,9 @@ class _BrowserViewState extends State<BrowserView> {
                   label: widget.model.subscribed == false
                       ? Text('Subscribe')
                       : widget.model.subscribed == true
-                      ? Text('Subscribed')
+                      ? Text(
+                          'Subscribed to ${widget.model.feed!.channel.title}',
+                        )
                       : Text('Subscription failed'),
                 )
               : null,
