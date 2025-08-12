@@ -29,7 +29,7 @@ class SubscribedView extends StatelessWidget {
     return ListenableBuilder(
       listenable: model,
       builder: (context, _) {
-        return model.channels.length > 0
+        return model.channels.isNotEmpty
             ? ListView.builder(
                 itemCount: model.channels.length,
                 itemBuilder: (context, index) {

@@ -3,7 +3,7 @@ import 'package:logging/logging.dart' show Logger;
 
 import '../../data/repository/feed.dart';
 import '../../models/feed.dart';
-import '../../shared/constant.dart';
+// import '../../shared/constant.dart';
 
 class BrowserViewModel extends ChangeNotifier {
   final FeedRepository _feedRepo;
@@ -32,10 +32,5 @@ class BrowserViewModel extends ChangeNotifier {
       _logger.fine('subscribed: $_subscribed');
     }
     notifyListeners();
-  }
-
-  Future<String> getSearchEngineUrl() async {
-    final settings = await _feedRepo.getSettings();
-    return settings?.searchEngineUrl ?? defaultQueryUrl;
   }
 }

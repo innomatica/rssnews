@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show Colors;
 
 const appName = "RssNews";
-const appVersion = '1.0.0+1';
+const appVersion = '1.0.1+2';
 const appId = 'com.innomatic.rssnews';
 
 const developerWebsite = 'https://innomatic.ca';
@@ -23,8 +23,8 @@ const defaultRetentionDays = 90;
 final maxRetentionDays = retentionDays.last;
 
 // feed update period
-const defaultUpdatePeriod = 1;
-const updatePeriods = [1, 2, 3, 4, 5, 6, 7];
+// const defaultUpdatePeriod = 1;
+// const updatePeriods = [1, 2, 3, 4, 5, 6, 7];
 
 const prefsKeySelLabelId = 'selLabelId';
 

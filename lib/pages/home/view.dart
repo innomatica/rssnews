@@ -20,30 +20,91 @@ class HomeView extends StatelessWidget {
     final titleTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
     return RefreshIndicator(
       onRefresh: () => model.load(),
-      child: ListenableBuilder(
-        listenable: model,
-        builder: (context, _) {
-          return model.episodes.length > 0
-              ? ListView.separated(
-                  itemCount: model.episodes.length,
-                  separatorBuilder: (context, index) => const Divider(),
-                  itemBuilder: (context, index) {
-                    final episode = model.episodes[index];
-                    // print('episode: $episode');
-                    return ListTile(
-                      title: aspectRatio < 1.0
-                          // portrait
-                          ? Column(
-                              spacing: 8.0,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+      child: model.episodes.isNotEmpty
+          ? ListView.separated(
+              itemCount: model.episodes.length,
+              separatorBuilder: (context, index) => const Divider(),
+              itemBuilder: (context, index) {
+                final episode = model.episodes[index];
+                // print('episode: $episode');
+                return ListTile(
+                  title: aspectRatio < 1.0
+                      // portrait
+                      ? Column(
+                          spacing: 8.0,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // top row
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // top row
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: Row(
+                                Flexible(
+                                  child: Row(
+                                    spacing: 8.0,
+                                    children: [
+                                      ChannelImage(
+                                        episode,
+                                        width: 16,
+                                        height: 16,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          episode.channelTitle ?? "",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: channelTextStyle,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  mmddHHMM(episode.published),
+                                  style: channelTextStyle,
+                                ),
+                              ],
+                            ),
+                            // image
+                            episode.imageUrl != null && model.withImage
+                                ? Image.network(
+                                    episode.imageUrl!,
+                                    height: 180,
+                                    width: double.maxFinite,
+                                    fit: BoxFit.cover,
+                                  )
+                                : SizedBox(),
+                            // title
+                            Text(
+                              episode.title ?? '',
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              style: titleTextStyle,
+                            ),
+                          ],
+                        )
+                      // landscape
+                      : Row(
+                          spacing: 8.0,
+                          children: [
+                            // image
+                            episode.imageUrl != null && model.withImage
+                                ? Image.network(
+                                    episode.imageUrl!,
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  )
+                                : SizedBox(width: 0, height: 0),
+                            // content
+                            Flexible(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // icon, channel, date
+                                  Row(
+                                    spacing: 24,
+                                    children: [
+                                      Row(
                                         spacing: 8.0,
                                         children: [
                                           ChannelImage(
@@ -51,190 +112,103 @@ class HomeView extends StatelessWidget {
                                             width: 16,
                                             height: 16,
                                           ),
-                                          Flexible(
-                                            child: Text(
-                                              episode.channelTitle ?? "",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: channelTextStyle,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Text(
-                                      mmddHHMM(episode.published),
-                                      style: channelTextStyle,
-                                    ),
-                                  ],
-                                ),
-                                // image
-                                episode.imageUrl != null && model.withImage
-                                    ? Image.network(
-                                        episode.imageUrl!,
-                                        height: 180,
-                                        width: double.maxFinite,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : SizedBox(),
-                                // title
-                                Text(
-                                  episode.title ?? '',
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: titleTextStyle,
-                                ),
-                              ],
-                            )
-                          // landscape
-                          : Row(
-                              spacing: 8.0,
-                              children: [
-                                // image
-                                episode.imageUrl != null && model.withImage
-                                    ? Image.network(
-                                        episode.imageUrl!,
-                                        width: 40,
-                                        height: 40,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : SizedBox(width: 0, height: 0),
-                                // content
-                                Flexible(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // icon, channel, date
-                                      Row(
-                                        spacing: 24,
-                                        children: [
-                                          Row(
-                                            spacing: 8.0,
-                                            children: [
-                                              ChannelImage(
-                                                episode,
-                                                width: 16,
-                                                height: 16,
-                                              ),
-                                              Text(
-                                                episode.channelTitle ?? "",
-                                                style: channelTextStyle,
-                                              ),
-                                            ],
-                                          ),
                                           Text(
-                                            mmddHHMM(episode.published),
+                                            episode.channelTitle ?? "",
                                             style: channelTextStyle,
                                           ),
                                         ],
                                       ),
-                                      // episode title
-                                      // Row > Flexible: limit the width
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              episode.title ?? '',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: titleTextStyle,
-                                            ),
-                                          ),
-                                        ],
+                                      Text(
+                                        mmddHHMM(episode.published),
+                                        style: channelTextStyle,
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                  // episode title
+                                  // Row > Flexible: limit the width
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          episode.title ?? '',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: titleTextStyle,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                      onTap: () {
-                        if (episode.link != null) {
-                          launchUrl(Uri.parse(episode.link!));
-                        }
-                      },
-                    );
+                          ],
+                        ),
+                  onTap: () {
+                    if (episode.link != null) {
+                      launchUrl(Uri.parse(episode.link!));
+                    }
                   },
-                )
-              : Center(
-                  child: Image.asset(
-                    assetImageNewspaper,
-                    width: 180,
-                    height: 180,
-                    opacity: AlwaysStoppedAnimation(0.3),
-                  ),
                 );
-        },
-      ),
+              },
+            )
+          : Center(
+              child: Image.asset(
+                assetImageNewspaper,
+                width: 180,
+                height: 180,
+                opacity: AlwaysStoppedAnimation(0.3),
+              ),
+            ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // title: Image.asset(defaultFeedImage, width: 24, height: 24),
-        // title: Text(
-        //   appName,
-        //   style: TextStyle(
-        //     fontSize: 20,
-        //     fontWeight: FontWeight.w900,
-        //     color: Theme.of(context).colorScheme.primary,
-        //     shadows: [
-        //       Shadow(
-        //         color: Colors.white54,
-        //         blurRadius: 10.0,
-        //         // offset: Offset(2.0, 2.0),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        actions: [
-          ListenableBuilder(
-            listenable: model,
-            builder: (context, _) {
-              return Row(
-                children: [
-                  // label selector
-                  DropdownButton<int>(
-                    value: model.selectedLabelId,
-                    underline: SizedBox(),
-                    items: model.labels.map((e) {
-                      return DropdownMenuItem(
-                        value: e.id,
-                        child: Text(
-                          e.title,
-                          style: TextStyle(color: labelColor[e.color]),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (int? value) {
-                      model.selectLabel(value);
-                    },
-                  ),
-                  // image visibility
-                  IconButton(
-                    icon: model.withImage
-                        ? Icon(Icons.image_not_supported_rounded)
-                        : Icon(Icons.image_rounded),
-                    onPressed: () => model.toggleImageVisibility(),
-                  ),
-                ],
-              );
-            },
+    return ListenableBuilder(
+      listenable: model,
+      builder: (context, _) {
+        return Scaffold(
+          appBar: AppBar(
+            title:
+                // label selector
+                DropdownButton<int>(
+                  value: model.selectedLabelId,
+                  underline: SizedBox(),
+                  items: model.labels.map((e) {
+                    return DropdownMenuItem(
+                      value: e.id,
+                      child: Text(
+                        e.title,
+                        style: TextStyle(color: labelColor[e.color]),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (int? value) {
+                    model.selectLabel(value);
+                  },
+                ),
+            actions: [
+              // image visibility
+              IconButton(
+                icon: model.withImage
+                    ? Icon(Icons.image_not_supported_rounded)
+                    : Icon(Icons.image_rounded),
+                onPressed: () => model.toggleImageVisibility(),
+              ),
+              // subscriptions
+              IconButton(
+                icon: Icon(Icons.subscriptions_rounded),
+                onPressed: () {
+                  context.go('/subscribed');
+                },
+              ),
+            ],
           ),
-          // subscriptions
-          IconButton(
-            icon: Icon(Icons.subscriptions_rounded),
-            onPressed: () {
-              context.go('/subscribed');
-            },
-          ),
-        ],
-      ),
-      body: buildBody(context),
-      drawer: SidePanel(model: model),
+          body: buildBody(context),
+          drawer: SidePanel(model: model),
+        );
+      },
     );
   }
 }

@@ -88,7 +88,7 @@ class Feed {
       channel.imageUrl = null;
     }
     channel.imageUrl = channel.imageUrl ?? googleFaviconUrl(channel.url);
-    print('channel:$channel');
+    // print('channel:$channel');
 
     // items
     final itemElems = chnlElem?.findAllElements('item');
@@ -121,7 +121,7 @@ class Feed {
           language: channel.language,
           extras: {},
         );
-        print('episode:$episode');
+        // print('episode:$episode');
         // namespace: content (http://purl.org/rss/1.0/modules/content/)
         if (namespaces.contains('content')) {
           // description
@@ -206,7 +206,7 @@ class Feed {
                 : null) ??
             episode.imageUrl;
         // _log.fine('item: $episode');
-        print('episode:$episode');
+        // print('episode:$episode');
         episodes.add(episode);
       }
     }
@@ -220,7 +220,7 @@ class Feed {
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
         .toList();
-    print('namespaces:$namespaces');
+    // print('namespaces:$namespaces');
     final channel = Channel(
       url: url,
       title: root.getElement('title')?.innerText,
@@ -243,7 +243,7 @@ class Feed {
       channel.imageUrl = null;
     }
     channel.imageUrl = channel.imageUrl ?? googleFaviconUrl(channel.url);
-    print('channel:$channel');
+    // print('channel:$channel');
 
     final entries = root.findAllElements('entry');
     final episodes = <Episode>[];
@@ -271,7 +271,7 @@ class Feed {
             DateTime.tryParse(entry.getElement('updated')?.innerText ?? ''),
         extras: {},
       );
-      print('episode: $episode');
+      // print('episode: $episode');
       episodes.add(episode);
     }
 
