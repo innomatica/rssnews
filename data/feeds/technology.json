@@ -14,18 +14,6 @@
       "favicon": "https://betanews.com/wp-content/themes/betanews/favicon.ico"
     },
     {
-      "title": "DigiTimes Asia",
-      "website": "https://www.digitimes.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news",
-        "it"
-      ],
-      "feedUrl": "https://www.digitimes.com/rss/daily.xml",
-      "favicon": "https://www.digitimes.com/favicon.ico"
-    },
-    {
       "title": "InfoQ",
       "website": "https://www.infoq.com/",
       "description": "",
