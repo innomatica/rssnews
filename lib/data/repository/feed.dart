@@ -191,9 +191,9 @@ class FeedRepository {
 
   Future deleteChannel(int channelId) async {
     try {
-      await _dbSrv.delete("DELETE FROM episodes WHERE channel_id = ?", [
-        channelId,
-      ]);
+      // await _dbSrv.delete("DELETE FROM episodes WHERE channel_id = ?", [
+      //   channelId,
+      // ]);
       await _dbSrv.delete("DELETE FROM channels WHERE id = ?", [channelId]);
     } on Exception {
       rethrow;
