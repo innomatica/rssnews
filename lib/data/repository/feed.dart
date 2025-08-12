@@ -72,8 +72,7 @@ class FeedRepository {
 
   Future<bool> subscribe(Feed feed) async {
     _logger.fine('subscribe');
-    final count = await createChannel(feed.channel);
-    return count == 1;
+    return await createChannel(feed.channel) > 0;
     /*
     if (await createChannel(feed.channel) > 0) {
       // read back
