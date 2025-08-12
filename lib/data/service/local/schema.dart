@@ -10,7 +10,7 @@ const migrations = [
 const fgkeyPragma = "PRAGMA foreign_keys = ON;";
 
 // version 1 schemas
-// const createEpisode = '''CREATE TABLE episodes (
+// const createEpisodes = '''CREATE TABLE episodes (
 //   id INTEGER PRIMARY KEY,
 //   guid TEXT NOT NULL UNIQUE,
 //   title TEXT,
@@ -40,7 +40,7 @@ const fgkeyPragma = "PRAGMA foreign_keys = ON;";
 //       ON UPDATE CASCADE
 // );''';
 
-const createChannel = '''CREATE TABLE channels (
+const createChannels = '''CREATE TABLE channels (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   url TEXT NOT NULL UNIQUE,
   title TEXT,
@@ -58,7 +58,7 @@ const createChannel = '''CREATE TABLE channels (
   extras TEXT
 );''';
 
-const createLabel = '''CREATE TABLE labels (
+const createLabels = '''CREATE TABLE labels (
      id INTEGER PRIMARY KEY,
      title TEXT NOT NULL UNIQUE,
      color INTEGER NOT NULL DEFAULT 0
@@ -79,9 +79,9 @@ const createChannelLabel = '''CREATE TABLE channel_label (
 // );''';
 
 const createTablesV1 = [
-  // createEpisode,
-  createChannel,
-  createLabel,
+  // createEpisodes,
+  createChannels,
+  createLabels,
   createChannelLabel,
   // createSettings,
 ];

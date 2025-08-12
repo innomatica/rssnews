@@ -1,8 +1,8 @@
 import 'package:html/parser.dart' as parser;
 import 'package:logging/logging.dart';
-import 'package:rssnews/shared/helpers.dart';
 import 'package:xml/xml.dart';
 
+import '../../shared/helpers.dart' show googleFaviconUrl;
 import 'channel.dart';
 import 'episode.dart';
 
@@ -35,7 +35,7 @@ class Feed {
     final channel = Channel(
       url: url,
       title: chnlElem?.getElement('title')?.innerText,
-      // subtitle
+      // subtitle not part of rss
       categories: chnlElem?.getElement('category')?.innerText,
       description: chnlElem?.getElement('description')?.innerText,
       language: chnlElem?.getElement('language')?.innerText,
@@ -83,6 +83,7 @@ class Feed {
     }
     // namespace: content
     // namespace: media
+
     // do not support svg
     if (channel.imageUrl?.endsWith('svg') == true) {
       channel.imageUrl = null;
@@ -145,10 +146,10 @@ class Feed {
         }
         // namespace: itunes
         if (namespaces.contains('itunes')) {
-          // author
+          // author (override)
           episode.author =
               itemElem.getElement('itunes:author')?.innerText ?? episode.author;
-          // categories
+          // categories (override)
           episode.categories =
               chnlElem
                   ?.findAllElements('itunes:category')
@@ -239,6 +240,7 @@ class Feed {
       checked: DateTime.now(),
       extras: {},
     );
+    // do not accept svg favicon at the moment
     if (channel.imageUrl?.endsWith("svg") == true) {
       channel.imageUrl = null;
     }
@@ -279,7 +281,7 @@ class Feed {
   }
 
   // RFC822: https://datatracker.ietf.org/doc/html/rfc822
-  // Warning this does not observe timezone except +0000
+  // Warning this does not observe all timezone abbrs
   static DateTime? _parseRFC822(String? rfc822) {
     if (rfc822 == null) return null;
     const m = {
@@ -296,7 +298,6 @@ class Feed {
       'Nov': '11',
       'Dec': '12',
     };
-
     // note: three word timezone is NOT unique, e.g. CST
     const tzmap = {
       "GMT": "+00:00",
@@ -324,19 +325,9 @@ class Feed {
     ].contains(rfc822.split(",").first)) {
       // potentially legit RFC822
       // Fri, 25 Apr 2025 14:00:00 +0000
-      // final s = rfc822.replaceFirst('GMT', '+0000').split(' ');
-      // print('before: $rfc822');
       final s = tzmap.entries
           .fold(rfc822, (prev, e) => prev.replaceAll(e.key, e.value))
           .split(' ');
-      // print('after: $s');
-      // print(
-      //   'reassembled: ${'${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]}${s[5]}'}',
-      // );
-      // final parsed = DateTime.tryParse(
-      //   '${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]}${s[5]}',
-      // );
-      // print('parsed:$parsed');
       return DateTime.tryParse(
         '${s[3]}-${m[s[2]]}-${s[1].padLeft(2, '0')}T${s[4]}${s[5]}',
       );
