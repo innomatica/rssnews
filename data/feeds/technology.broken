@@ -1,0 +1,18 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "REASON": "xml format error",
+      "title": "DigiTimes Asia",
+      "website": "https://www.digitimes.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feedUrl": "https://www.digitimes.com/rss/daily.xml",
+      "favicon": "https://www.digitimes.com/favicon.ico"
+    }
+  ]
+}
