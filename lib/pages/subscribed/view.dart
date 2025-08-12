@@ -29,35 +29,43 @@ class SubscribedView extends StatelessWidget {
     return ListenableBuilder(
       listenable: model,
       builder: (context, _) {
-        return ListView.builder(
-          itemCount: model.channels.length,
-          itemBuilder: (context, index) {
-            final channel = model.channels[index];
-            return Card(
-              child: ListTile(
-                // favicon
-                leading: ChannelImage(channel, width: 56, height: 56),
-                // channel title
-                title: Text(
-                  channel.title ?? '',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+        return model.channels.length > 0
+            ? ListView.builder(
+                itemCount: model.channels.length,
+                itemBuilder: (context, index) {
+                  final channel = model.channels[index];
+                  return Card(
+                    child: ListTile(
+                      // favicon
+                      leading: ChannelImage(channel, width: 56, height: 56),
+                      // channel title
+                      title: Text(
+                        channel.title ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      // labels
+                      subtitle: Text(
+                        // channel.subtitle ?? channel.description ?? "",
+                        channel.labels
+                                ?.map((e) => model.labels[e - 1].title)
+                                .join(" ,") ??
+                            "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      onTap: () =>
+                          context.go('/subscribed/channel/${channel.id}'),
+                    ),
+                  );
+                },
+              )
+            : Center(
+                child: Opacity(
+                  opacity: 0.3,
+                  child: Icon(Icons.subscriptions_rounded, size: 180),
                 ),
-                // labels
-                subtitle: Text(
-                  // channel.subtitle ?? channel.description ?? "",
-                  channel.labels
-                          ?.map((e) => model.labels[e - 1].title)
-                          .join(" ,") ??
-                      "",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                onTap: () => context.go('/subscribed/channel/${channel.id}'),
-              ),
-            );
-          },
-        );
+              );
       },
     );
   }

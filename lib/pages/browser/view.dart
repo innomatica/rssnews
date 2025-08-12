@@ -73,6 +73,7 @@ class _BrowserViewState extends State<BrowserView> {
                       : widget.model.subscribed == true
                       ? Text(
                           'Subscribed to ${widget.model.feed!.channel.title}',
+                          overflow: TextOverflow.ellipsis,
                         )
                       : Text('Subscription failed'),
                 )

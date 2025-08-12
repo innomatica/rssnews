@@ -14,18 +14,6 @@
       "favicon": "https://www.developer-tech.com/wp-content/uploads/2020/09/dev-icon-60x60.png"
     },
     {
-      "title": "Dev.to",
-      "website": "https://dev.to/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news",
-        "it"
-      ],
-      "feedUrl": "https://dev.to/feed",
-      "favicon": "https://media2.dev.to/dynamic/image/width=32,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
-    },
-    {
       "title": "DZone",
       "website": "https://dzone.com/",
       "description": "",
@@ -76,6 +64,20 @@
       ],
       "feedUrl": "https://sdtimes.com/feed",
       "favicon": "https://sdtimes.com/wp-content/uploads/2019/06/bnGl7Am3_400x400-50x50.jpeg"
+    },
+    {
+      "title": "Stackoverflow Blog",
+      "website": "https://stackoverflow.blog/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "linux",
+        "hardware",
+        "open-source",
+        "benchmark"
+      ],
+      "feedUrl": "https://stackoverflow.blog/feed/",
+      "favicon": "https://stackoverflow.blog/favicon.ico"
     },
     {
       "title": "The Daily WTF",

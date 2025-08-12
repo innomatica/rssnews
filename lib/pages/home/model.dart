@@ -13,12 +13,13 @@ class HomeViewModel extends ChangeNotifier {
 
   HomeViewModel({required FeedRepository feedRepo}) : _feedRepo = feedRepo;
 
-  final _logger = Logger('HomeViewModel');
   List<Episode> _episodes = [];
   List<Label> _labels = [];
   bool _withImage = true;
   int _selectedLabelId = 0;
   SharedPreferences? prefs;
+  // ignore: unused_field
+  final _logger = Logger('HomeViewModel');
 
   List<Episode> get episodes => _selectedLabelId == 0
       ? _episodes
@@ -47,9 +48,9 @@ class HomeViewModel extends ChangeNotifier {
     _selectedLabelId = prefs!.getInt(prefsKeySelLabelId) ?? _defaultLabel.id!;
     // _episodes = await _feedRepo.getEpisodes();
     _episodes = await _feedRepo.fetchEpisodes();
-    _logger.fine('episodes:$_episodes');
+    // _logger.fine('episodes:$_episodes');
     _labels = [_defaultLabel, ...await _feedRepo.getLabels()];
-    _logger.fine('labels:$_labels');
+    // _logger.fine('labels:$_labels');
     notifyListeners();
   }
 

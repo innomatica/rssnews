@@ -30,6 +30,7 @@ class ChannelImage extends StatelessWidget {
               width: width,
               height: height,
               fit: BoxFit.cover,
+              opacity: AlwaysStoppedAnimation(opacity),
             )
           : item is Episode && item.channelImageUrl != null
           ? Image.network(
@@ -37,20 +38,23 @@ class ChannelImage extends StatelessWidget {
               width: width,
               height: height,
               fit: BoxFit.cover,
+              opacity: AlwaysStoppedAnimation(opacity),
             )
           : Image.asset(
-              defaultChannelImage,
+              assetImageNewspaper,
               width: width,
               height: height,
               fit: BoxFit.cover,
+              opacity: AlwaysStoppedAnimation(opacity),
             );
     } catch (e) {
       _logger.warning(e.toString());
       return Image.asset(
-        defaultChannelImage,
+        assetImageNewspaper,
         width: width,
         height: height,
         fit: BoxFit.cover,
+        opacity: AlwaysStoppedAnimation(opacity),
       );
     }
   }

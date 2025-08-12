@@ -34,7 +34,7 @@ class CuratedView extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorBuilder: (context, _, _) {
                       return Image.asset(
-                        defaultFeedImage,
+                        assImageRssIcon,
                         width: 26,
                         height: 26,
                       );

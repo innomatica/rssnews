@@ -8,8 +8,8 @@ const developerWebsite = 'https://innomatic.ca';
 const sourceRepository = 'https://github.com/innomatica/rssnews';
 
 // stock images
-const defaultChannelImage = 'assets/images/newspaper.png';
-const defaultFeedImage = 'assets/images/rss.png';
+const assetImageNewspaper = 'assets/images/newspaper.png';
+const assImageRssIcon = 'assets/images/rss.png';
 
 // search engine
 const ecosiaQueryUrl = 'https://ecosia.org/search?q=';

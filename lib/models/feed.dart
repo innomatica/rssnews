@@ -25,7 +25,7 @@ class Feed {
 
   // RSS: https://www.rssboard.org/rss-specification
   factory Feed.fromRss(XmlElement root, String url) {
-    // _log.fine('rss');
+    _logger.fine('rss');
     final chnlElem = root.getElement('channel');
     final namespaces = root.attributes
         .where((e) => e.name.prefix == 'xmlns')

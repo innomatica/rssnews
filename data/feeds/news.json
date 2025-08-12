@@ -38,6 +38,17 @@
       "favicon": "https://news.ycombinator.com/favicon.ico"
     },
     {
+      "title": "Nikkei Asia",
+      "website": "https://asia.nikkei.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news"
+      ],
+      "feedUrl": "https://asia.nikkei.com/rss/feed/nar",
+      "favicon": "https://asia.nikkei.com/images/frontend/favicons/144x144.png"
+    },
+    {
       "title": "PBS News",
       "website": "https://www.pbs.org/",
       "description": "",

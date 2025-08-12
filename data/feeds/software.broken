@@ -1,0 +1,18 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "REASON": "invalid xml syntax",
+      "title": "Dev.to",
+      "website": "https://dev.to/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feedUrl": "https://dev.to/feed",
+      "favicon": "https://media2.dev.to/dynamic/image/width=32,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    }
+  ]
+}

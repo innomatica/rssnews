@@ -14,6 +14,18 @@
       "favicon": "https://betanews.com/wp-content/themes/betanews/favicon.ico"
     },
     {
+      "title": "DigiTimes Asia",
+      "website": "https://www.digitimes.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feedUrl": "https://www.digitimes.com/rss/daily.xml",
+      "favicon": "https://www.digitimes.com/favicon.ico"
+    },
+    {
       "title": "InfoQ",
       "website": "https://www.infoq.com/",
       "description": "",
@@ -76,6 +88,31 @@
       ],
       "feedUrl": "https://www.phoronix.com/rss.php",
       "favicon": "https://www.phoronix.com/favicon.ico"
+    },
+    {
+      "title": "Techzine",
+      "website": "https://www.techzine.eu/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "linux",
+        "hardware",
+        "open-source",
+        "benchmark"
+      ],
+      "feedUrl": "https://www.techzine.eu/feed",
+      "favicon": "https://www.techzine.eu/wp-content/icons/favicon.ico"
+    },
+    {
+      "title": "wccftech",
+      "website": "https://wccftech.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feedUrl": "https://wccftech.com/feed/",
+      "favicon": "https://wccftech.com/favicon.ico"
     }
   ]
 }
