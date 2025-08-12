@@ -13,6 +13,20 @@
       "favicon": "https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-60x60.png"
     },
     {
+      "title": "CNET",
+      "website": "https://www.cnet.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "sbc",
+        "hardware",
+        "embedded",
+        "iot"
+      ],
+      "feedUrl": "https://www.cnet.com/rss/",
+      "favicon": "https://www.cnet.com/favicon-96.png"
+    },
+    {
       "title": "CNX Software",
       "website": "https://www.cnx-software.com/",
       "description": "",
@@ -135,6 +149,17 @@
       ],
       "feedUrl": "https://www.wired.com/about/rss-feeds/",
       "favicon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico"
+    },
+    {
+      "title": "ZD Net",
+      "website": "https://www.zdnet.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feedUrl": "https://www.zdnet.com/rssfeeds/",
+      "favicon": "https://www.zdnet.com/a/neutron/images/logos/logo.png"
     }
   ]
 }

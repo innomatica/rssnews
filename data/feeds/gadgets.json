@@ -2,6 +2,17 @@
   "created": "2025-08-06T09:24:11.900445",
   "data": [
     {
+      "title": "engadget",
+      "website": "https://www.engadget.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "technology"
+      ],
+      "feedUrl": "https://www.engadget.com/2004-09-22-quick-note-we-have-separate-rss-feeds-for-each-category.html",
+      "favicon": "https://www.engadget.com/favicon.ico"
+    },
+    {
       "title": "Gizmodo",
       "website": "https://www.gizmodo.com/",
       "description": "",
@@ -23,6 +34,18 @@
       ],
       "feedUrl": "https://magpi.raspberrypi.com/feed",
       "favicon": "https://magazines-assets.raspberrypi.com/assets/favicon-823cc1e1.png"
+    },
+    {
+      "title": "Mashable",
+      "website": "https://www.mashable.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "magazine",
+        "hobby"
+      ],
+      "feedUrl": "https://mashable.com/feeds/rss/all",
+      "favicon": "https://mashable.com/favicons/favicon.svg"
     },
     {
       "title": "notebookcheck",
