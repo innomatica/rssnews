@@ -26,7 +26,7 @@ final router = GoRouter(
           builder: (context, state) {
             return BrowserView(
               model: context.read<BrowserViewModel>(),
-              query: state.uri.queryParameters['query'],
+              url: state.uri.queryParameters['url'],
             );
           },
         ),

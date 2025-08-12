@@ -45,7 +45,7 @@ class CuratedView extends StatelessWidget {
                     context.push(
                       Uri(
                         path: '/browser',
-                        queryParameters: {"query": e.feedUrl},
+                        queryParameters: {"url": e.feedUrl},
                       ).toString(),
                     );
                   },

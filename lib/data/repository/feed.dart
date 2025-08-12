@@ -191,7 +191,6 @@ class FeedRepository {
         channelId,
       ]);
       await _dbSrv.delete("DELETE FROM channels WHERE id = ?", [channelId]);
-      // await _stSrv.deleteDirectory(channelId);
     } on Exception {
       rethrow;
     }
@@ -224,6 +223,24 @@ class FeedRepository {
     } on Exception {
       rethrow;
     }
+  }
+
+  Future<List<Episode>> fetchEpisodes() async {
+    final episodes = <Episode>[];
+
+    final channels = await getChannels();
+    for (final channel in channels) {
+      final feed = await fetchFeed(channel.url);
+      if (feed != null) {
+        for (final item in feed.episodes) {
+          item.channelTitle = channel.title;
+          item.channelImageUrl = channel.imageUrl;
+          item.labels = channel.labels;
+          episodes.add(item);
+        }
+      }
+    }
+    return episodes..sort((a, b) => b.published!.compareTo(a.published!));
   }
 
   // // not used
@@ -324,6 +341,7 @@ class FeedRepository {
   }
 
   // feed data
+
   Future<List<FeedInfo>> getSampleFeedInfo() async {
     final ret = <FeedInfo>[];
     final client = http.Client();

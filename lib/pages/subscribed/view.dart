@@ -4,6 +4,23 @@ import 'package:rssnews/shared/widgets.dart';
 
 import 'model.dart';
 
+enum SearchEngine { brave, duckduckgo, ecosia, google }
+
+extension SearchEngineExt on SearchEngine {
+  String get url {
+    switch (this) {
+      case SearchEngine.brave:
+        return "https://search.brave.com/search?q=";
+      case SearchEngine.duckduckgo:
+        return "https://duckduckgo.com/?q=";
+      case SearchEngine.ecosia:
+        return "https://ecosia.org/search?q=";
+      case SearchEngine.google:
+        return "https://www.google.com/search?q=";
+    }
+  }
+}
+
 class SubscribedView extends StatelessWidget {
   final SubscribedViewModel model;
   const SubscribedView({super.key, required this.model});
@@ -45,6 +62,24 @@ class SubscribedView extends StatelessWidget {
     );
   }
 
+  void _handleSearch(BuildContext context, String keyword, SearchEngine e) {
+    if (keyword.isNotEmpty) {
+      String url = "";
+      if (keyword.contains("/")) {
+        // direct url to the rss page
+        url = keyword.startsWith('http') ? keyword : 'https://$keyword';
+      } else {
+        // query params for search
+        final q = Uri.encodeQueryComponent('$keyword rss feed');
+        url = '${e.url}$q';
+      }
+      context.push(
+        Uri(path: '/browser', queryParameters: {"url": url}).toString(),
+      );
+      Navigator.pop(context);
+    }
+  }
+
   void showModal(BuildContext context) {
     showDialog(
       context: context,
@@ -56,7 +91,7 @@ class SubscribedView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             spacing: 8.0,
             children: [
-              // SizedBox(width: double.maxFinite),
+              SizedBox(width: double.maxFinite),
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 0),
                 title: Row(
@@ -68,29 +103,24 @@ class SubscribedView extends StatelessWidget {
                 ),
                 subtitle: TextField(
                   decoration: InputDecoration(
-                    suffix: IconButton(
-                      icon: Icon(Icons.check_rounded),
-                      onPressed: () {
-                        debugPrint('keyword:$keyword');
-                        if (keyword.isNotEmpty) {
-                          if (keyword.contains("/")) {
-                            // assume direct url to the rss page
-                            if (!keyword.startsWith("http")) {
-                              // assume https
-                              keyword = "https://$keyword";
-                            }
-                          } else {
-                            // assue query params for search
-                            // keyword = keyword.replaceAll(' ', '+');
-                          }
-                          context.push(
-                            Uri(
-                              path: '/browser',
-                              queryParameters: {"query": keyword},
-                            ).toString(),
-                          );
-                          Navigator.pop(context);
-                        }
+                    suffix: MenuAnchor(
+                      menuChildren: SearchEngine.values.map((e) {
+                        return MenuItemButton(
+                          child: Text(e.name),
+                          onPressed: () {
+                            _handleSearch(context, keyword, e);
+                          },
+                        );
+                      }).toList(),
+                      builder: (context, controller, _) {
+                        return IconButton(
+                          icon: Icon(Icons.check),
+                          onPressed: () {
+                            controller.isOpen
+                                ? controller.close()
+                                : controller.open();
+                          },
+                        );
                       },
                     ),
                   ),

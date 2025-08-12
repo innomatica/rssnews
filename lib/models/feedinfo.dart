@@ -30,6 +30,11 @@ const curatedFeedFiles = [
         'https://raw.githubusercontent.com/innomatica/rssnews/refs/heads/master/data/feeds/science.json',
   },
   {
+    'title': 'Software',
+    'url':
+        'https://raw.githubusercontent.com/innomatica/rssnews/refs/heads/master/data/feeds/software.json',
+  },
+  {
     'title': 'Technology',
     'url':
         'https://raw.githubusercontent.com/innomatica/rssnews/refs/heads/master/data/feeds/technology.json',

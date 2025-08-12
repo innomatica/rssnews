@@ -254,46 +254,31 @@ class _SidePanelState extends State<SidePanel> {
               ),
             ),
           ),
-          ListTile(
-            title: Text('Search Parameters'),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(left: 24.0),
-              child: Column(
-                children: [
-                  // TextFormField(
-                  //   key: _minBitratekey,
-                  //   controller: _minBitrateCtrl,
-                  //   decoration: InputDecoration(
-                  //     labelText: 'Minimum bitrate',
-                  //     suffixText: 'kbps',
-                  //   ),
-                  //   onChanged: (value) =>
-                  //       _minBitratekey.currentState?.validate(),
-                  //   validator: (value) {
-                  //     return (value != null && int.tryParse(value) == null)
-                  //         ? 'Use integer numbers only'
-                  //         : null;
-                  //   },
-                  // ),
-                  // TextFormField(
-                  //   key: _maxReturnsKey,
-                  //   controller: _maxReturnsCtrl,
-                  //   decoration: InputDecoration(
-                  //     labelText: 'Maximum count',
-                  //     suffixText: 'stations',
-                  //   ),
-                  //   onChanged: (value) =>
-                  //       _maxReturnsKey.currentState?.validate(),
-                  //   validator: (value) {
-                  //     return (value != null && int.tryParse(value) == null)
-                  //         ? 'Use integer numbers only'
-                  //         : null;
-                  //   },
-                  // ),
-                ],
-              ),
-            ),
-          ),
+          // ListTile(
+          //   title: Text('Feed Parameters'),
+          //   subtitle: Padding(
+          //     padding: const EdgeInsets.only(left: 24.0),
+          //     child: Column(
+          //       children: [
+          //         TextFormField(
+          //           key: _minBitratekey,
+          //           controller: _minBitrateCtrl,
+          //           decoration: InputDecoration(
+          //             labelText: 'Minimum bitrate',
+          //             suffixText: 'kbps',
+          //           ),
+          //           onChanged: (value) =>
+          //               _minBitratekey.currentState?.validate(),
+          //           validator: (value) {
+          //             return (value != null && int.tryParse(value) == null)
+          //                 ? 'Use integer numbers only'
+          //                 : null;
+          //           },
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 16.0),
           ListTile(
             title: Text('App version'),

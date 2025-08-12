@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../shared/constant.dart';
 import 'model.dart';
 
 class BrowserView extends StatefulWidget {
-  final String? query;
+  final String? url;
   final BrowserViewModel model;
-  const BrowserView({super.key, required this.model, this.query});
+  const BrowserView({super.key, required this.model, this.url});
 
   @override
   State<BrowserView> createState() => _BrowserViewState();
 }
-
-const isRSS =
-    "document.contentType.includes('application/xml') && "
-    "document.querySelector('rss > channel > title').innerHTML != null &&"
-    "document.querySelector('channel > item > title').innerHTML != null";
 
 class _BrowserViewState extends State<BrowserView> {
   late final WebViewController _controller;
@@ -36,20 +30,8 @@ class _BrowserViewState extends State<BrowserView> {
             widget.model.fetchFeed(url);
           },
         ),
-      );
-    // ..loadRequest(Uri.parse(defaultSearchEngineUrl));
-    _load();
-  }
-
-  Future _load() async {
-    if (widget.query?.startsWith('http') == true) {
-      // directl URL entry for rss page
-      _controller.loadRequest(Uri.parse(widget.query ?? defaultQueryUrl));
-    } else {
-      // keywords for search engine consumption
-      final url = await widget.model.getSearchEngineUrl();
-      _controller.loadRequest(Uri.parse(url + (widget.query ?? '')));
-    }
+      )
+      ..loadRequest(Uri.parse(widget.url ?? ""));
   }
 
   @override
