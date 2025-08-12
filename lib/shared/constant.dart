@@ -26,9 +26,6 @@ final maxRetentionDays = retentionDays.last;
 const defaultUpdatePeriod = 1;
 const updatePeriods = [1, 2, 3, 4, 5, 6, 7];
 
-// channel thumbnail image file name
-const channelImgFname = 'thumbnail';
-
 const prefsKeySelLabelId = 'selLabelId';
 
 // image size

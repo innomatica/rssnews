@@ -42,17 +42,13 @@ class ChannelViewModel extends ChangeNotifier {
   }
 
   Future toggleLabel(int? labelId) async {
-    print('toggle label');
     if (_channel != null && labelId != null) {
       if (_channel!.labels?.contains(labelId) == true) {
-        print('remove label $labelId from channel');
         await _feedRepo.removeLabelFromChannel(_channel!.id!, labelId);
       } else {
-        print('add label $labelId to channel');
         await _feedRepo.addLabelToChannel(_channel!.id!, labelId);
       }
       _channel = await _feedRepo.getChannel(_channel!.id);
-      print('channel:$_channel');
       notifyListeners();
     }
   }

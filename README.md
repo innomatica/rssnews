@@ -6,4 +6,3 @@ A new Flutter project.
 
 - use storage to handle image preference
 - replace settings table with shared_preference
-- implement refresh

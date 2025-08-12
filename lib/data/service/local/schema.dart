@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
 import '../../../shared/constant.dart';
 
 const dbname = 'podcast.db';

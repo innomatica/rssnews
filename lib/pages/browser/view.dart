@@ -30,15 +30,10 @@ class _BrowserViewState extends State<BrowserView> {
       ..setNavigationDelegate(
         NavigationDelegate(
           // onNavigationRequest: (request) async {
-          //   _log.fine('onNavReq: $request');
-          //   widget.model.fetchFeed(request.url);
           //   return NavigationDecision.navigate;
           // },
-          onPageFinished: (url) async {
-            // await _checkPage(url);
-            // if (await _controller.runJavaScriptReturningResult(isRSS) == true) {
+          onPageFinished: (url) {
             widget.model.fetchFeed(url);
-            // }
           },
         ),
       );

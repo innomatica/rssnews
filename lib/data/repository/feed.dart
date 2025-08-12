@@ -58,16 +58,15 @@ class FeedRepository {
     return null;
   }
 
-  Future<Feed?> getFeed(String url) async {
-    final channel = await getChannelByUrl(url);
-    if (channel != null) {
-      final episodes = await getEpisodesByChannel(channel.id!);
-      return Feed(channel: channel, episodes: episodes);
-    }
-    return null;
-  }
-
-  // Channel
+  // // not used
+  // Future<Feed?> getFeed(String url) async {
+  //   final channel = await getChannelByUrl(url);
+  //   if (channel != null) {
+  //     final episodes = await getEpisodesByChannel(channel.id!);
+  //     return Feed(channel: channel, episodes: episodes);
+  //   }
+  //   return null;
+  // }
 
   // Subscription
 
@@ -78,13 +77,6 @@ class FeedRepository {
       final channel = await getChannelByUrl(feed.channel.url);
       // _log.fine('channel:$channel');
       if (channel != null) {
-        // download thumbnail
-        // await _downloadResource(
-        //   channel.id!,
-        //   channel.imageUrl ??
-        //       "https://www.google.com/s2/favicons?domain=${channel.url}&sz=128",
-        //   channelImgFname,
-        // );
         // save episodes
         final refDate = DateTime.now().subtract(
           Duration(days: maxRetentionDays),
@@ -128,9 +120,6 @@ class FeedRepository {
   Future<Channel?> getChannel(int? id) async {
     try {
       if (id != null) {
-        // final row = await _dbSrv.query("SELECT * FROM channels WHERE id = ?", [
-        //   id,
-        // ]);
         final row = await _dbSrv.query(
           """SELECT channels.*, group_concat(channel_label.label_id) as labels
         FROM channels LEFT JOIN channel_label 
@@ -151,9 +140,15 @@ class FeedRepository {
 
   Future<Channel?> getChannelByUrl(String url) async {
     try {
-      final row = await _dbSrv.query("SELECT * FROM channels WHERE url = ?", [
-        url,
-      ]);
+      final row = await _dbSrv.query(
+        """SELECT channels.*, group_concat(channel_label.label_id) as labels
+        FROM channels LEFT JOIN channel_label 
+        ON channels.id = channel_label.channel_id
+        WHERE channels.url = ?
+        GROUP BY channels.id
+        """,
+        [url],
+      );
       return row != null ? Channel.fromSqlite(row) : null;
     } on Exception {
       rethrow;
@@ -184,14 +179,6 @@ class FeedRepository {
         "UPDATE channels SET $sets WHERE id = ?",
         [...data.values, channelId],
       );
-      // if (data.keys.contains("image_url") && data["image_url"] != null) {
-      //   await _downloadResource(
-      //     channelId,
-      //     // data['image_url'] as String,
-      //     "https://api.dart.dev/static-assets/favicon.png?v1",
-      //     channelImgFname,
-      //   );
-      // }
       return idx;
     } on Exception {
       rethrow;
@@ -239,45 +226,53 @@ class FeedRepository {
     }
   }
 
-  Future<List<Episode>> getEpisodesByChannel(
-    int channelId, {
-    int period = 90,
-  }) async {
-    final start = yymmdd(DateTime.now().subtract(Duration(days: period)));
-    try {
-      final rows = await _dbSrv.queryAll(
-        """
-      SELECT episodes.*, channels.title as channel_title, 
-        channels.image_url as channel_image_url 
-      FROM episodes 
-      INNER JOIN channels ON channels.id=episodes.channel_id
-      WHERE channel_id = ? 
-        AND DATE(episodes.published) > ?
-      ORDER BY episodes.published DESC""",
-        [channelId, start],
-      );
-      return rows.map((e) => Episode.fromSqlite(e)).toList();
-    } on Exception {
-      rethrow;
-    }
-  }
+  // // not used
+  // Future<List<Episode>> getEpisodesByChannel(
+  //   int channelId, {
+  //   int period = 90,
+  // }) async {
+  //   final start = yymmdd(DateTime.now().subtract(Duration(days: period)));
+  //   try {
+  //     final rows = await _dbSrv.queryAll(
+  //       """
+  //     SELECT episodes.*, channels.title as channel_title,
+  //       channels.image_url as channel_image_url,
+  //       group_concat(channel_label.label_id) as labels
+  //     FROM episodes
+  //     INNER JOIN channels ON channels.id = episodes.channel_id
+  //     LEFT JOIN channel_label ON channels.id = channel_label.channel_id
+  //     WHERE channel_id = ?
+  //       AND DATE(episodes.published) > ?
+  //     GROUP BY episodes.id
+  //     ORDER BY episodes.published DESC""",
+  //       [channelId, start],
+  //     );
+  //     return rows.map((e) => Episode.fromSqlite(e)).toList();
+  //   } on Exception {
+  //     rethrow;
+  //   }
+  // }
 
-  Future<Episode?> getEpisodeByGuid(String? guid) async {
-    try {
-      final row = await _dbSrv.query(
-        """
-      SELECT episodes.*, channels.title as channel_title, 
-        channels.image_url as channel_image_url 
-      FROM episodes 
-      INNER JOIN channels ON channels.id=episodes.channel_id
-      WHERE guid = ?""",
-        [guid],
-      );
-      return row != null ? Episode.fromSqlite(row) : null;
-    } on Exception {
-      rethrow;
-    }
-  }
+  // // not used
+  // Future<Episode?> getEpisodeByGuid(String? guid) async {
+  //   try {
+  //     final row = await _dbSrv.query(
+  //       """
+  //     SELECT episodes.*, channels.title as channel_title,
+  //       channels.image_url as channel_image_url,
+  //       group_concat(channel_label.label_id) as labels
+  //     FROM episodes
+  //     INNER JOIN channels ON channels.id = episodes.channel_id
+  //     LEFT JOIN channel_label ON channels.id = chanel_label.channel_id
+  //     WHERE guid = ?
+  //     GROUP BY episode.id""",
+  //       [guid],
+  //     );
+  //     return row != null ? Episode.fromSqlite(row) : null;
+  //   } on Exception {
+  //     rethrow;
+  //   }
+  // }
 
   Future<int> createEpisode(Episode episode) async {
     try {
@@ -295,25 +290,27 @@ class FeedRepository {
     }
   }
 
-  Future<int> updateEpisode(int episodeId, Map<String, Object?> data) async {
-    try {
-      final sets = data.keys.map((e) => '$e = ?').join(',');
-      return await _dbSrv.update("UPDATE episodes SET $sets WHERE id = ?", [
-        ...data.values,
-        episodeId,
-      ]);
-    } on Exception {
-      rethrow;
-    }
-  }
+  // // not used
+  // Future<int> updateEpisode(int episodeId, Map<String, Object?> data) async {
+  //   try {
+  //     final sets = data.keys.map((e) => '$e = ?').join(',');
+  //     return await _dbSrv.update("UPDATE episodes SET $sets WHERE id = ?", [
+  //       ...data.values,
+  //       episodeId,
+  //     ]);
+  //   } on Exception {
+  //     rethrow;
+  //   }
+  // }
 
-  Future deleteEpisode(String guid) async {
-    try {
-      await _dbSrv.delete("DELETE FROM episodes WHERE guid = ?", [guid]);
-    } on Exception {
-      rethrow;
-    }
-  }
+  // // not used
+  // Future deleteEpisode(String guid) async {
+  //   try {
+  //     await _dbSrv.delete("DELETE FROM episodes WHERE guid = ?", [guid]);
+  //   } on Exception {
+  //     rethrow;
+  //   }
+  // }
 
   // Settings
 
