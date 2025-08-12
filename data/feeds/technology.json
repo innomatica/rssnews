@@ -2,67 +2,16 @@
   "created": "2025-08-06T09:24:11.900445",
   "data": [
     {
-      "title": "ars technica",
-      "website": "https://www.arstechnica.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feedUrl": "https://arstechnica.com/rss-feeds/",
-      "favicon": "https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-60x60.png"
-    },
-    {
-      "title": "CNET",
-      "website": "https://www.cnet.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "sbc",
-        "hardware",
-        "embedded",
-        "iot"
-      ],
-      "feedUrl": "https://www.cnet.com/rss/",
-      "favicon": "https://www.cnet.com/favicon-96.png"
-    },
-    {
-      "title": "CNX Software",
-      "website": "https://www.cnx-software.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "sbc",
-        "hardware",
-        "embedded",
-        "iot"
-      ],
-      "feedUrl": "https://www.cnx-software.com/feed/",
-      "favicon": "https://www.cnx-software.com/wp-content/uploads/2021/04/cropped-CNX-Software-Square-Logo-Light-Grey.png.webp"
-    },
-    {
-      "title": "Geek Wire",
-      "website": "https://www.geekwire.com/",
+      "title": "InfoQ",
+      "website": "https://www.infoq.com/",
       "description": "",
       "language": "english",
       "keywords": [
         "news",
         "it"
       ],
-      "feedUrl": "https://www.geekwire.com/rss-feeds/",
-      "favicon": "https://www.geekwire.com/favicon.ico"
-    },
-    {
-      "title": "Hacker News",
-      "website": "https://news.ycombinator.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "news",
-        "it"
-      ],
-      "feedUrl": "https://hnrss.github.io/",
-      "favicon": "https://news.ycombinator.com/favicon.ico"
+      "feedUrl": "https://feed.infoq.com/",
+      "favicon": "https://cdn.infoq.com/statics_s1_20250805061148/favicon.ico"
     },
     {
       "title": "Liliputing",
@@ -116,50 +65,6 @@
       ],
       "feedUrl": "https://sdtimes.com/feed",
       "favicon": "https://sdtimes.com/wp-content/uploads/2019/06/bnGl7Am3_400x400-50x50.jpeg"
-    },
-    {
-      "title": "TechCrunch",
-      "website": "https://techcrunch.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feedUrl": "https://techcrunch.com/feed",
-      "favicon": "https://techcrunch.com/wp-content/uploads/2015/02/cropped-cropped-favicon-gradient.png?w=32"
-    },
-    {
-      "title": "TechRadar",
-      "website": "https://www.techradar.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feedUrl": "https://www.techradar.com/how-to/techradar-rss",
-      "favicon": "https://vanilla.futurecdn.net/techradar/1357250/favicon.ico"
-    },
-    {
-      "title": "Wired",
-      "website": "https://www.wired.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feedUrl": "https://www.wired.com/about/rss-feeds/",
-      "favicon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico"
-    },
-    {
-      "title": "ZD Net",
-      "website": "https://www.zdnet.com/",
-      "description": "",
-      "language": "english",
-      "keywords": [
-        "technology"
-      ],
-      "feedUrl": "https://www.zdnet.com/rssfeeds/",
-      "favicon": "https://www.zdnet.com/a/neutron/images/logos/logo.png"
     }
   ]
 }
