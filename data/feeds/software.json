@@ -1,0 +1,95 @@
+{
+  "created": "2025-08-06T09:24:11.900445",
+  "data": [
+    {
+      "title": "Developer",
+      "website": "https://www.developer-tech.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feedUrl": "https://www.developer-tech.com/feed/",
+      "favicon": "https://www.developer-tech.com/wp-content/uploads/2020/09/dev-icon-60x60.png"
+    },
+    {
+      "title": "Dev.to",
+      "website": "https://dev.to/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feedUrl": "https://dev.to/feed",
+      "favicon": "https://media2.dev.to/dynamic/image/width=32,height=,fit=scale-down,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8j7kvp660rqzt99zui8e.png"
+    },
+    {
+      "title": "DZone",
+      "website": "https://dzone.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feedUrl": "https://dzone.com/pages/feeds",
+      "favicon": "https://dz2cdn1.dzone.com/themes/dz20/images/favicon.png"
+    },
+    {
+      "title": "Frontend Feeds",
+      "website": "https://github.com/impressivewebs/frontend-feeds",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "news",
+        "it"
+      ],
+      "feedUrl": "https://github.com/impressivewebs/frontend-feeds",
+      "favicon": "https://github.githubassets.com/assets/apple-touch-icon-144x144-b882e354c005.png"
+    },
+    {
+      "title": "SD Times",
+      "website": "https://sdtimes.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "linux",
+        "hardware",
+        "open-source",
+        "benchmark"
+      ],
+      "feedUrl": "https://sdtimes.com/feed",
+      "favicon": "https://sdtimes.com/wp-content/uploads/2019/06/bnGl7Am3_400x400-50x50.jpeg"
+    },
+    {
+      "title": "Software Engineering Daily",
+      "website": "https://softwareengineeringdaily.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "linux",
+        "hardware",
+        "open-source",
+        "benchmark"
+      ],
+      "feedUrl": "https://sdtimes.com/feed",
+      "favicon": "https://sdtimes.com/wp-content/uploads/2019/06/bnGl7Am3_400x400-50x50.jpeg"
+    },
+    {
+      "title": "The Daily WTF",
+      "website": "https://thedailywtf.com/",
+      "description": "",
+      "language": "english",
+      "keywords": [
+        "linux",
+        "hardware",
+        "open-source",
+        "benchmark"
+      ],
+      "feedUrl": "https://feeds.feedburner.com/TheDailyWtf",
+      "favicon": "https://thedailywtf.com/favicon.ico"
+    }
+  ]
+}
