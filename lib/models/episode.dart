@@ -11,7 +11,7 @@ class Episode {
   String? categories;
   String? keywords;
   DateTime? updated;
-  DateTime? published;
+  DateTime published;
   String? link;
   String? mediaUrl;
   String? mediaType;
@@ -40,7 +40,7 @@ class Episode {
     this.categories,
     this.keywords,
     this.updated,
-    this.published,
+    required this.published,
     this.link,
     this.mediaUrl,
     this.mediaType,
@@ -76,7 +76,9 @@ class Episode {
       categories: row['categories'] as String?,
       keywords: row['keywords'] as String?,
       updated: DateTime.tryParse(row['updated'] as String? ?? ""),
-      published: DateTime.tryParse(row['published'] as String? ?? ""),
+      published:
+          DateTime.tryParse(row['published'] as String? ?? "") ??
+          DateTime.now(),
       link: row['link'] as String?,
       mediaUrl: row['media_url'] as String?,
       mediaType: row['media_type'] as String?,

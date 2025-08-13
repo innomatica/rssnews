@@ -111,7 +111,9 @@ class Feed {
               .findAllElements('category')
               .map((e) => e.innerText)
               .join(','),
-          published: _parseRFC822(itemElem.getElement('pubDate')?.innerText),
+          published:
+              _parseRFC822(itemElem.getElement('pubDate')?.innerText) ??
+              DateTime.now(),
           author: itemElem.getElement('author')?.innerText,
           link: itemElem.getElement('link')?.innerText,
           mediaUrl: itemElem.getElement('enclosure')?.getAttribute('url'),
@@ -198,8 +200,6 @@ class Feed {
         final doc = parser.parse(episode.description ?? '');
         // print('mediaUrl:${episode.mediaUrl}');
         // print('imageUrl:${episode.imageUrl}');
-        // published must be set
-        episode.published = episode.published ?? DateTime.now();
         episode.imageUrl =
             doc.querySelector("img")?.attributes["src"] ??
             (episode.mediaType?.contains('image') == true
@@ -270,7 +270,8 @@ class Feed {
         ),
         published:
             DateTime.tryParse(entry.getElement('published')?.innerText ?? '') ??
-            DateTime.tryParse(entry.getElement('updated')?.innerText ?? ''),
+            DateTime.tryParse(entry.getElement('updated')?.innerText ?? '') ??
+            DateTime.now(),
         extras: {},
       );
       // print('episode: $episode');

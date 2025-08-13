@@ -244,7 +244,7 @@ class FeedRepository {
         }
       }
     }
-    return episodes..sort((a, b) => b.published!.compareTo(a.published!));
+    return episodes..sort((a, b) => b.published.compareTo(a.published));
   }
 
   // // not used
