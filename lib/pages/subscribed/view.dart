@@ -88,7 +88,7 @@ class SubscribedView extends StatelessWidget {
     }
   }
 
-  void showModal(BuildContext context) {
+  void _showModal(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -99,14 +99,16 @@ class SubscribedView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             spacing: 8.0,
             children: [
+              // secure max width for the dialog
               SizedBox(width: double.maxFinite),
+              // search web
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 0),
                 title: Row(
                   spacing: 16.0,
                   children: [
                     Icon(Icons.search_rounded, color: iconColor),
-                    Text('Search by Keyword / URL'),
+                    Text('Search Web by Keyword / URL'),
                   ],
                 ),
                 subtitle: TextField(
@@ -135,6 +137,7 @@ class SubscribedView extends StatelessWidget {
                   onChanged: (value) => keyword = value,
                 ),
               ),
+              // curated list
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 0),
                 title: Row(
@@ -144,7 +147,10 @@ class SubscribedView extends StatelessWidget {
                     Text('Choose from Curated List'),
                   ],
                 ),
-                subtitle: Text('Selected Feeds by RssNews'),
+                subtitle: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text('RssNews Favorite Feeds')],
+                ),
                 onTap: () {
                   context.go('/subscribed/curated');
                   Navigator.pop(context);
@@ -172,7 +178,7 @@ class SubscribedView extends StatelessWidget {
       body: buildBody(context),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => showModal(context),
+        onPressed: () => _showModal(context),
       ),
     );
   }
