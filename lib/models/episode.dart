@@ -25,6 +25,7 @@ class Episode {
   bool? played;
   bool? liked;
   // db fields
+  String? channelUrl;
   String? channelTitle;
   String? channelImageUrl;
   List<dynamic>? labels;
@@ -54,6 +55,7 @@ class Episode {
     this.played,
     this.liked,
     // db fields
+    this.channelUrl,
     this.channelTitle,
     this.channelImageUrl,
     this.labels,
@@ -92,6 +94,7 @@ class Episode {
       played: row['played'] == 1,
       liked: row['liked'] == 1,
       // db fields
+      channelUrl: row['channel_url'] as String?,
       channelTitle: row['channel_title'] as String?,
       channelImageUrl: row['channel_image_url'] as String?,
       labels:
@@ -157,6 +160,9 @@ class Episode {
       "downloaded": downloaded == true ? 1 : 0,
       "played": played == true ? 1 : 0,
       "liked": liked == true ? 1 : 0,
+      "channelUrl": channelUrl,
+      "channelTitle": channelTitle,
+      "channelImageUrl": channelImageUrl,
       "labels": labels,
     }.toString();
   }
