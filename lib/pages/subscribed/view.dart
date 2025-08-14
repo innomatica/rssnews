@@ -113,6 +113,7 @@ class SubscribedView extends StatelessWidget {
                 ),
                 subtitle: TextField(
                   decoration: InputDecoration(
+                    hintText: "keyword or url",
                     suffix: MenuAnchor(
                       menuChildren: SearchEngine.values.map((e) {
                         return MenuItemButton(

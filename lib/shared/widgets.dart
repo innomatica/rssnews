@@ -9,14 +9,14 @@ class ChannelImage extends StatelessWidget {
   final dynamic item;
   final double? width;
   final double? height;
-  final double opacity;
+  final double? opacity;
   ChannelImage(
     this.item, {
     super.key,
     // required this.item,
     this.width,
     this.height,
-    this.opacity = 1.0,
+    this.opacity,
   });
 
   final _logger = Logger("ChannelImage");
@@ -30,7 +30,7 @@ class ChannelImage extends StatelessWidget {
               width: width,
               height: height,
               fit: BoxFit.cover,
-              opacity: AlwaysStoppedAnimation(opacity),
+              opacity: AlwaysStoppedAnimation(opacity ?? 1.0),
             )
           : item is Episode && item.channelImageUrl != null
           ? Image.network(
@@ -38,14 +38,14 @@ class ChannelImage extends StatelessWidget {
               width: width,
               height: height,
               fit: BoxFit.cover,
-              opacity: AlwaysStoppedAnimation(opacity),
+              opacity: AlwaysStoppedAnimation(opacity ?? 1.0),
             )
           : Image.asset(
               assetImageNewspaper,
               width: width,
               height: height,
               fit: BoxFit.cover,
-              opacity: AlwaysStoppedAnimation(opacity),
+              opacity: AlwaysStoppedAnimation(opacity ?? 1.0),
             );
     } catch (e) {
       _logger.warning(e.toString());
@@ -54,7 +54,7 @@ class ChannelImage extends StatelessWidget {
         width: width,
         height: height,
         fit: BoxFit.cover,
-        opacity: AlwaysStoppedAnimation(opacity),
+        opacity: AlwaysStoppedAnimation(opacity ?? 1.0),
       );
     }
   }

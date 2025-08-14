@@ -237,6 +237,7 @@ class FeedRepository {
       final feed = await fetchFeed(channel.url);
       if (feed != null) {
         for (final item in feed.episodes) {
+          item.channelUrl = channel.url;
           item.channelTitle = channel.title;
           item.channelImageUrl = channel.imageUrl;
           item.labels = channel.labels;
