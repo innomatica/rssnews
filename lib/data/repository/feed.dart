@@ -39,11 +39,13 @@ class FeedRepository {
         final children = document.childElements;
         if (children.isNotEmpty) {
           final root = children.first;
-          // rss or atom
+          // rss, atom, or rdf
           if (root.name.toString() == 'rss') {
             return Feed.fromRss(root, url);
           } else if (root.name.toString() == 'feed') {
             return Feed.fromAtom(root, url);
+          } else if (root.name.toString() == 'rdf:RDF') {
+            return Feed.fromRdf(root, url);
           }
           _logger.severe('unknown feed format');
           // throw Exception('unknown feed format');

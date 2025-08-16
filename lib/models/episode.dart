@@ -20,10 +20,12 @@ class Episode {
   int? mediaSeekPos;
   String? imageUrl;
   Map<String, dynamic>? extras;
-  int? channelId;
+  // internal use
   bool? downloaded;
   bool? played;
   bool? liked;
+  // filled after channel save
+  int? channelId;
   // db fields
   String? channelUrl;
   String? channelTitle;
@@ -50,11 +52,11 @@ class Episode {
     this.mediaSeekPos,
     this.imageUrl,
     this.extras,
-    this.channelId,
     this.downloaded,
     this.played,
     this.liked,
     // db fields
+    this.channelId,
     this.channelUrl,
     this.channelTitle,
     this.channelImageUrl,
@@ -89,11 +91,11 @@ class Episode {
       mediaSeekPos: row['media_seek_pos'] as int?,
       imageUrl: row['image_url'] as String?,
       extras: jsonDecode(row['extras'] as String? ?? "null"),
-      channelId: row['channel_id'] as int?,
       downloaded: row['downloaded'] == 1,
       played: row['played'] == 1,
       liked: row['liked'] == 1,
       // db fields
+      channelId: row['channel_id'] as int?,
       channelUrl: row['channel_url'] as String?,
       channelTitle: row['channel_title'] as String?,
       channelImageUrl: row['channel_image_url'] as String?,

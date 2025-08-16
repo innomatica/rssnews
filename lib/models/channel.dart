@@ -10,8 +10,8 @@ class Channel {
   String? description;
   String? language;
   String? link;
-  DateTime? updated;
   DateTime? published;
+  DateTime? updated;
   DateTime? checked;
   int? period;
   String? imageUrl;
@@ -28,8 +28,8 @@ class Channel {
     this.description,
     this.language,
     this.link,
-    this.updated,
     this.published,
+    this.updated,
     this.checked,
     this.period,
     this.imageUrl,
@@ -51,7 +51,7 @@ class Channel {
       updated: DateTime.tryParse(row['updated'] as String? ?? ""),
       published: DateTime.tryParse(row['published'] as String? ?? ""),
       checked: DateTime.tryParse(row['checked'] as String? ?? ""),
-      period: row['period'] != null ? row['period'] as int : null,
+      period: row['period'] as int?,
       imageUrl: row['image_url'] as String?,
       extras: jsonDecode(row['extras'] as String? ?? "null"),
       labels:

@@ -18,7 +18,7 @@ class Settings {
 
   factory Settings.init() {
     return Settings(
-      retentionPeriod: defaultRetentionDays,
+      retentionPeriod: defaultDisplayPeriod,
       searchEngineUrl: defaultQueryUrl,
     );
   }

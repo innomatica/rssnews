@@ -18,15 +18,16 @@ const braveSearchQueryUrl = 'https://search.brave.com/search?q=';
 const defaultQueryUrl = ecosiaQueryUrl;
 
 // retention days
-const retentionDays = [30, 60, 90, 180];
-const defaultRetentionDays = 90;
-final maxRetentionDays = retentionDays.last;
+const displayPeriods = [30, 60, 90, 180];
+const defaultDisplayPeriod = 60;
+const pKeyDisplayPeriod = "displayPeriod";
+final dataRetentionPeriod = displayPeriods.last;
 
 // feed update period
 // const defaultUpdatePeriod = 1;
 // const updatePeriods = [1, 2, 3, 4, 5, 6, 7];
 
-const prefsKeySelLabelId = 'selLabelId';
+const pKeySelectedLabelId = 'selLabelId';
 
 // image size
 const faviconSizeSmall = 12.0;

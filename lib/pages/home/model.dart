@@ -45,7 +45,7 @@ class HomeViewModel extends ChangeNotifier {
 
   Future load() async {
     prefs = await SharedPreferences.getInstance();
-    _selectedLabelId = prefs!.getInt(prefsKeySelLabelId) ?? _defaultLabel.id!;
+    _selectedLabelId = prefs!.getInt(pKeySelectedLabelId) ?? _defaultLabel.id!;
     // _episodes = await _feedRepo.getEpisodes();
     _episodes = await _feedRepo.fetchEpisodes();
     // _logger.fine('episodes:$_episodes');
@@ -58,7 +58,7 @@ class HomeViewModel extends ChangeNotifier {
     if (id != null && id >= 0 && id < _labels.length) {
       _selectedLabelId = id;
       notifyListeners();
-      await prefs?.setInt(prefsKeySelLabelId, id);
+      await prefs?.setInt(pKeySelectedLabelId, id);
     }
   }
   // Future<ImageProvider> getChannelImage(Episode episode) async {
