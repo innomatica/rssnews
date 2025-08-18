@@ -2,7 +2,7 @@ import 'package:html/parser.dart' as parser;
 import 'package:logging/logging.dart';
 import 'package:xml/xml.dart';
 
-import '../shared/constant.dart' show dataRetentionPeriod;
+import '../shared/constants.dart' show dataRetentionPeriod;
 import '../shared/helpers.dart' show googleFaviconUrl;
 import 'channel.dart';
 import 'episode.dart';
@@ -26,13 +26,13 @@ class Feed {
 
   // RSS: https://www.rssboard.org/rss-specification
   factory Feed.fromRss(XmlElement root, String url) {
-    // _logger.fine('rss');
+    _logger.fine('rss');
     final chnlElem = root.getElement('channel');
     final namespaces = root.attributes
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
         .toList();
-    // print('namespaces:$namespaces');
+    print('namespaces:$namespaces');
     Channel channel = Channel(
       id: url.hashCode,
       url: url,
@@ -56,7 +56,7 @@ class Feed {
     channel.imageUrl = channel.imageUrl ?? googleFaviconUrl(channel.link);
     // fallback channel update period
     channel.period = channel.period ?? 1;
-    // print('channel:$channel');
+    print('channel:$channel');
 
     // items
     final itemElems = chnlElem?.findAllElements('item');
@@ -70,11 +70,13 @@ class Feed {
         // guid must exist and should be unique
         final guid =
             itemElem.getElement('guid')?.innerText ??
+            itemElem.getElement('link')?.innerText ??
             itemElem.getElement('enclosure')?.getAttribute('url');
         // do not collect episode if has no guid
         if (guid == null) continue;
 
         Episode episode = Episode(
+          id: guid.hashCode,
           guid: guid,
           title: itemElem.getElement('title')?.innerText.trim(),
           description: itemElem.getElement('description')?.innerText,
@@ -116,7 +118,7 @@ class Feed {
                 ? episode.mediaUrl
                 : null) ??
             episode.imageUrl;
-        // print('episode:$episode');
+        print('episode:$episode');
         episodes.add(episode);
       }
     }
@@ -127,7 +129,7 @@ class Feed {
 
   // ATOM: https://datatracker.ietf.org/doc/html/rfc4287
   factory Feed.fromAtom(XmlElement root, String url) {
-    // _logger.fine('atom');
+    _logger.fine('atom');
     final namespaces = root.attributes
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
@@ -177,6 +179,7 @@ class Feed {
       if (guid == null) continue;
 
       Episode episode = Episode(
+        id: guid.hashCode,
         guid: guid,
         title: entry.getElement('title')?.innerText,
         subtitle: entry.getElement('summary')?.innerText,
@@ -227,7 +230,7 @@ class Feed {
 
   // RDF (RSS 1.0): https://web.resource.org/rss/1.0/spec
   factory Feed.fromRdf(XmlElement root, String url) {
-    // _logger.fine('rdf');
+    _logger.fine('rdf');
     final namespaces = root.attributes
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
@@ -268,6 +271,7 @@ class Feed {
         if (guid == null) continue;
 
         Episode episode = Episode(
+          id: guid.hashCode,
           guid: guid,
           title: itemElem.getElement('title')?.innerText.trim(),
           description: itemElem.getElement('description')?.innerText,
@@ -407,10 +411,12 @@ class Feed {
     }
     // namespace: media (http://search.yahoo.com/mrss/)
     if (chnOrEps is Episode && namespaces.contains('media')) {
+      // When it comes to media, rss enclosure has the priority:
+      // replace media info ONLY if enclosure is null
       chnOrEps.mediaUrl =
+          chnOrEps.mediaUrl ??
           element?.getElement('media:content')?.getAttribute('url') ??
-          element?.getElement('media:thumbnail')?.getAttribute('url') ??
-          chnOrEps.mediaUrl;
+          element?.getElement('media:thumbnail')?.getAttribute('url');
       chnOrEps.mediaType =
           chnOrEps.mediaType ??
           element?.getElement('media:content')?.getAttribute('medium') ??

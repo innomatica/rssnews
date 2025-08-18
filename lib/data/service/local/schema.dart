@@ -10,35 +10,35 @@ const migrations = [
 const fgkeyPragma = "PRAGMA foreign_keys = ON;";
 
 // version 1 schemas
-// const createEpisodes = '''CREATE TABLE episodes (
-//   id INTEGER PRIMARY KEY,
-//   guid TEXT NOT NULL UNIQUE,
-//   title TEXT,
-//   subtitle TEXT,
-//   author TEXT,
-//   description TEXT,
-//   language TEXT,
-//   categories TEXT,
-//   keywords TEXT,
-//   updated TIMESTAMP,
-//   published TIMESTAMP,
-//   link TEXT,
-//   media_url TEXT,
-//   media_type TEXT,
-//   media_size INTEGER,
-//   media_duration INTEGER,
-//   media_seek_pos INTEGER,
-//   image_url TEXT,
-//   extras TEXT,
-//   channel_id INTEGER NOT NULL,
-//   downloaded INTEGER,
-//   played INTEGER,
-//   liked INTEGER,
-//   FOREIGN KEY (channel_id)
-//     REFERENCES channels (id)
-//       ON DELETE CASCADE
-//       ON UPDATE CASCADE
-// );''';
+const createEpisodes = '''CREATE TABLE episodes (
+  id INTEGER PRIMARY KEY,
+  guid TEXT NOT NULL UNIQUE,
+  title TEXT,
+  subtitle TEXT,
+  author TEXT,
+  description TEXT,
+  language TEXT,
+  categories TEXT,
+  keywords TEXT,
+  updated TIMESTAMP,
+  published TIMESTAMP,
+  link TEXT,
+  media_url TEXT,
+  media_type TEXT,
+  media_size INTEGER,
+  media_duration INTEGER,
+  media_seek_pos INTEGER,
+  image_url TEXT,
+  extras TEXT,
+  channel_id INTEGER NOT NULL,
+  downloaded INTEGER,
+  played INTEGER,
+  liked INTEGER,
+  FOREIGN KEY (channel_id)
+    REFERENCES channels (id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);''';
 
 const createChannels = '''CREATE TABLE channels (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -72,29 +72,14 @@ const createChannelLabel = '''CREATE TABLE channel_label (
   UNIQUE (channel_id, label_id)
 );''';
 
-// const createSettings = '''CREATE TABLE settings (
-//   id INTEGER PRIMARY KEY,
-//   retention_period INTEGER,
-//   search_engine_url TEXT
-// );''';
-
 const createTablesV1 = [
-  // createEpisodes,
+  createEpisodes,
   createChannels,
   createLabels,
   createChannelLabel,
-  // createSettings,
 ];
 
-// const defaultSettings =
-//     """INSERT INTO settings(
-//   retention_period,
-//   search_engine_url)
-//   VALUES( $defaultRetentionDays, '$defaultQueryUrl'
-// );""";
-
 const insertTablesV1 = [
-  // defaultSettings,
   'INSERT INTO labels (title, color) VALUES ("Business", 1);',
   'INSERT INTO labels (title, color) VALUES ("Culture", 2);',
   'INSERT INTO labels (title, color) VALUES ("Health", 3);',

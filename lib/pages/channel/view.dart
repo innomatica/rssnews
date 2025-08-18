@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../shared/constant.dart';
+import '../../shared/constants.dart';
 import 'model.dart';
 
 class ChannelView extends StatefulWidget {
@@ -223,7 +223,7 @@ class _ChannelViewState extends State<ChannelView> {
             label: Text('unsubscribe'),
             icon: Icon(Icons.unsubscribe_rounded),
             onPressed: () async {
-              await widget.model.delete();
+              await widget.model.unsubcribe();
               if (context.mounted) context.pop();
             },
           ),

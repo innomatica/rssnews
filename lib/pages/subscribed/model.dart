@@ -22,10 +22,10 @@ class SubscribedViewModel extends ChangeNotifier {
   Future load() async {
     _channels.clear();
     _channels.addAll(await _feedRepo.getChannels());
-    _logger.fine('load.channels: $_channels');
+    // _logger.fine('load.channels: $_channels');
     _labels.clear();
     _labels.addAll(await _feedRepo.getLabels());
-    _logger.fine('load.labels: $_labels');
+    // _logger.fine('load.labels: $_labels');
     notifyListeners();
   }
 }

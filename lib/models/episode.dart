@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import '../shared/constants.dart' show appDocPath, chnImgFname;
+
 class Episode {
-  int? id; // db specific: primary key
+  int id;
   String guid;
   String? title;
   String? subtitle;
@@ -33,7 +35,7 @@ class Episode {
   List<dynamic>? labels;
 
   Episode({
-    this.id,
+    required this.id,
     required this.guid,
     this.title,
     this.subtitle,
@@ -63,6 +65,8 @@ class Episode {
     this.labels,
   });
 
+  String get imagePath => "$appDocPath/$channelId/$id";
+  String get channelImagePath => "$appDocPath/$channelId/$chnImgFname";
   // url could be used as guid
   String get mediaFname => guid.replaceAll('/', '\\');
   String? get imageFname =>
@@ -137,35 +141,5 @@ class Episode {
   }
 
   @override
-  String toString() {
-    return {
-      "id": id,
-      "guid": guid,
-      "title": title,
-      "subtitle": subtitle,
-      "author": author,
-      // "description": description,
-      "language": language,
-      "categories": categories,
-      "keywords": keywords,
-      "updated": updated?.toIso8601String(),
-      "published": published.toIso8601String(),
-      "link": link,
-      "media_url": mediaUrl,
-      "media_type": mediaType,
-      "media_size": mediaSize,
-      "media_duration": mediaDuration,
-      "media_seek_pos": mediaSeekPos,
-      "image_url": imageUrl,
-      "extras": jsonEncode(extras),
-      "channel_id": channelId,
-      "downloaded": downloaded == true ? 1 : 0,
-      "played": played == true ? 1 : 0,
-      "liked": liked == true ? 1 : 0,
-      "channelUrl": channelUrl,
-      "channelTitle": channelTitle,
-      "channelImageUrl": channelImageUrl,
-      "labels": labels,
-    }.toString();
-  }
+  String toString() => (toSqlite()..remove('description')).toString();
 }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import '../shared/constants.dart' show appDocPath, chnImgFname;
+
 class Channel {
-  int? id;
+  int id;
   String url;
   String? title;
   String? subtitle;
@@ -19,7 +21,7 @@ class Channel {
   List<dynamic>? labels;
 
   Channel({
-    this.id,
+    required this.id,
     required this.url,
     this.title,
     this.subtitle,
@@ -36,6 +38,8 @@ class Channel {
     this.extras,
     this.labels,
   });
+
+  String get imagePath => "$appDocPath/$id/$chnImgFname";
 
   factory Channel.fromSqlite(Map<String, Object?> row) {
     return Channel(
@@ -84,24 +88,5 @@ class Channel {
   }
 
   @override
-  String toString() {
-    return {
-      "id": id,
-      "url": url,
-      "title": title,
-      "subtitle": subtitle,
-      "author": author,
-      "categories": categories,
-      // "description": description,
-      "language": language,
-      "link": link,
-      "updated": updated?.toIso8601String(),
-      "published": published?.toIso8601String(),
-      "checked": checked?.toIso8601String(),
-      "period": period,
-      "image_url": imageUrl,
-      "extras": jsonEncode(extras),
-      "labels": labels,
-    }.toString();
-  }
+  String toString() => (toSqlite()..remove('description')).toString();
 }

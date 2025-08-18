@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rssnews/shared/helpers.dart';
 import 'package:url_launcher/url_launcher.dart' show launchUrl;
 
-import '../../shared/constant.dart';
+import '../../shared/constants.dart';
 import '../../shared/widgets.dart';
 import 'model.dart';
 
@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
     );
     final titleTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
     return RefreshIndicator(
-      onRefresh: () => model.load(),
+      onRefresh: () => model.refreshData(),
       child: model.episodes.isNotEmpty
           ? ListView.separated(
               itemCount: model.episodes.length,
@@ -222,6 +222,30 @@ class SidePanel extends StatefulWidget {
 }
 
 class _SidePanelState extends State<SidePanel> {
+  int displayPeriod = defaultDisplayPeriod;
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _dispose();
+  }
+
+  Future _init() async {
+    setState(() {
+      displayPeriod = widget.model.displayPeriod;
+    });
+  }
+
+  Future _dispose() async {
+    await widget.model.setDisplayPeriod(displayPeriod);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -232,7 +256,7 @@ class _SidePanelState extends State<SidePanel> {
               color: Theme.of(context).colorScheme.primary,
             ),
             child: Text(
-              'About',
+              'Settings',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
@@ -240,32 +264,33 @@ class _SidePanelState extends State<SidePanel> {
               ),
             ),
           ),
-          // ListTile(
-          //   title: Text('Feed Parameters'),
-          //   subtitle: Padding(
-          //     padding: const EdgeInsets.only(left: 24.0),
-          //     child: Column(
-          //       children: [
-          //         TextFormField(
-          //           key: _minBitratekey,
-          //           controller: _minBitrateCtrl,
-          //           decoration: InputDecoration(
-          //             labelText: 'Minimum bitrate',
-          //             suffixText: 'kbps',
-          //           ),
-          //           onChanged: (value) =>
-          //               _minBitratekey.currentState?.validate(),
-          //           validator: (value) {
-          //             return (value != null && int.tryParse(value) == null)
-          //                 ? 'Use integer numbers only'
-          //                 : null;
-          //           },
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          SizedBox(height: 16.0),
+          ListTile(
+            title: Text('Episode display period'),
+            subtitle: Row(
+              children: [
+                Text('show news back to'),
+                SizedBox(width: 8),
+                DropdownButton<int>(
+                  value: displayPeriod,
+                  underline: SizedBox(),
+                  items: displayPeriods.map((e) {
+                    return DropdownMenuItem(
+                      value: e,
+                      child: Text(e.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      displayPeriod = value ?? displayPeriod;
+                    });
+                  },
+                ),
+                SizedBox(width: 4),
+                Text('days'),
+              ],
+            ),
+          ),
+          Divider(indent: 8.0, endIndent: 8.0),
           ListTile(
             title: Text('App version'),
             subtitle: Text(appVersion),

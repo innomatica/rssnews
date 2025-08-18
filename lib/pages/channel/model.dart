@@ -23,16 +23,16 @@ class ChannelViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future delete() async {
-    if (_channel != null && _channel!.id != null) {
-      await _feedRepo.deleteChannel(_channel!.id!);
+  Future unsubcribe() async {
+    if (_channel != null) {
+      await _feedRepo.unsubscribe(_channel!.id);
     }
   }
 
   Future update(Map<String, String> data) async {
     // print('update:$_channel');
-    if (_channel?.id != null) {
-      await _feedRepo.updateChannel(_channel!.id!, {
+    if (_channel != null) {
+      await _feedRepo.updateChannel(_channel!.id, {
         "title": data["title"],
         "subtitle": data["subtitle"],
         "link": data["link"],
@@ -44,9 +44,9 @@ class ChannelViewModel extends ChangeNotifier {
   Future toggleLabel(int? labelId) async {
     if (_channel != null && labelId != null) {
       if (_channel!.labels?.contains(labelId) == true) {
-        await _feedRepo.removeLabelFromChannel(_channel!.id!, labelId);
+        await _feedRepo.removeLabelFromChannel(_channel!.id, labelId);
       } else {
-        await _feedRepo.addLabelToChannel(_channel!.id!, labelId);
+        await _feedRepo.addLabelToChannel(_channel!.id, labelId);
       }
       _channel = await _feedRepo.getChannel(_channel!.id);
       notifyListeners();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../shared/constant.dart';
+import '../../shared/constants.dart';
 import 'model.dart';
 
 class CuratedView extends StatelessWidget {

@@ -1,4 +1,4 @@
-import '../shared/constant.dart';
+import '../shared/constants.dart';
 
 class Settings {
   int? id;

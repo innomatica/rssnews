@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:rssnews/shared/constant.dart';
+import 'package:rssnews/shared/constants.dart';
 
 import '../models/channel.dart' show Channel;
 import '../models/episode.dart' show Episode;

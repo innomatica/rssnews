@@ -6,18 +6,21 @@ import 'package:shared_preferences/shared_preferences.dart'
 import '../../data/repository/feed.dart';
 import '../../models/episode.dart';
 import '../../models/label.dart';
-import '../../shared/constant.dart';
+import '../../shared/constants.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final FeedRepository _feedRepo;
 
   HomeViewModel({required FeedRepository feedRepo}) : _feedRepo = feedRepo;
 
+  final _defaultLabel = Label(id: 0, title: 'All Categories', color: 0);
+
   List<Episode> _episodes = [];
   List<Label> _labels = [];
   bool _withImage = true;
   int _selectedLabelId = 0;
-  SharedPreferences? prefs;
+  int _displayPeriod = defaultDisplayPeriod;
+  // SharedPreferences? _spref;
   // ignore: unused_field
   final _logger = Logger('HomeViewModel');
 
@@ -28,12 +31,40 @@ class HomeViewModel extends ChangeNotifier {
             .toList();
   List<Label> get labels => _labels;
   bool get withImage => _withImage;
-  final _defaultLabel = Label(id: 0, title: 'All Categories', color: 0);
   int get selectedLabelId => _selectedLabelId;
+  int get displayPeriod => _displayPeriod;
 
   set withImage(bool value) {
     if (_withImage != value) {
       _withImage = value;
+      notifyListeners();
+    }
+  }
+
+  Future load() async {
+    final spref = await SharedPreferences.getInstance();
+    _displayPeriod = spref.getInt(pKeyDisplayPeriod) ?? defaultDisplayPeriod;
+    _selectedLabelId = spref.getInt(pKeySelectedLabelId) ?? _defaultLabel.id!;
+
+    _logger.fine('load:$_displayPeriod');
+    _episodes = await _feedRepo.getEpisodes(period: _displayPeriod);
+    _logger.fine('episodes:$_episodes');
+    _labels = [_defaultLabel, ...await _feedRepo.getLabels()];
+    // _logger.fine('labels:$_labels');
+    notifyListeners();
+  }
+
+  Future refreshData() async {
+    _logger.fine('refreshData');
+    await _feedRepo.refreshFeeds(force: false);
+    await load();
+  }
+
+  Future selectLabel(int? id) async {
+    if (id != null && id >= 0 && id < _labels.length) {
+      final spref = await SharedPreferences.getInstance();
+      await spref.setInt(pKeySelectedLabelId, id);
+      _selectedLabelId = id;
       notifyListeners();
     }
   }
@@ -43,28 +74,12 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future load() async {
-    prefs = await SharedPreferences.getInstance();
-    _selectedLabelId = prefs!.getInt(pKeySelectedLabelId) ?? _defaultLabel.id!;
-    // _episodes = await _feedRepo.getEpisodes();
-    _episodes = await _feedRepo.fetchEpisodes();
-    // _logger.fine('episodes:$_episodes');
-    _labels = [_defaultLabel, ...await _feedRepo.getLabels()];
-    // _logger.fine('labels:$_labels');
-    notifyListeners();
-  }
+  // Settings
 
-  Future selectLabel(int? id) async {
-    if (id != null && id >= 0 && id < _labels.length) {
-      _selectedLabelId = id;
-      notifyListeners();
-      await prefs?.setInt(pKeySelectedLabelId, id);
-    }
+  Future setDisplayPeriod(int value) async {
+    final spref = await SharedPreferences.getInstance();
+    await spref.setInt(pKeyDisplayPeriod, value);
+    // _displayPeriod = value;
+    load();
   }
-  // Future<ImageProvider> getChannelImage(Episode episode) async {
-  //   return await _feedRepo.getChannelImage(episode);
-  // }
-
-  // Image getChannelImg(Episode episode, {double? width, double? height}) =>
-  //     _feedRepo.getChannelImg(episode, width: width, height: height);
 }

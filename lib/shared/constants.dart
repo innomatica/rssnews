@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show Colors;
 
 const appName = "RssNews";
-const appVersion = '1.0.2+3';
+const appVersion = '1.0.3+4';
 const appId = 'com.innomatic.rssnews';
 
 const developerWebsite = 'https://innomatic.ca';
@@ -18,20 +18,14 @@ const braveSearchQueryUrl = 'https://search.brave.com/search?q=';
 const defaultQueryUrl = ecosiaQueryUrl;
 
 // retention days
-const displayPeriods = [30, 60, 90, 180];
-const defaultDisplayPeriod = 60;
+const displayPeriods = [1, 2, 3, 7, 14, 28];
+const defaultDisplayPeriod = 3;
 const pKeyDisplayPeriod = "displayPeriod";
 final dataRetentionPeriod = displayPeriods.last;
 
 // feed update period
 // const defaultUpdatePeriod = 1;
 // const updatePeriods = [1, 2, 3, 4, 5, 6, 7];
-
-const pKeySelectedLabelId = 'selLabelId';
-
-// image size
-const faviconSizeSmall = 12.0;
-const faviconSizeLarge = 24.0;
 
 // label colors
 const labelColor = [
@@ -50,3 +44,18 @@ const labelColor = [
   Colors.teal,
   Colors.yellow,
 ];
+
+const pKeySelectedLabelId = 'selLabelId';
+
+// feed update period
+const defaultUpdatePeriod = 1;
+
+// channel thumbnail image file name
+const chnImgFname = 'thumbnail';
+
+// application document directory path
+late final String appDocPath;
+
+// image size
+const faviconSizeSmall = 12.0;
+const faviconSizeLarge = 24.0;
