@@ -108,7 +108,7 @@ class SubscribedView extends StatelessWidget {
                   spacing: 16.0,
                   children: [
                     Icon(Icons.search_rounded, color: iconColor),
-                    Text('Search Web by Keyword / URL'),
+                    Text('Search Web'),
                   ],
                 ),
                 subtitle: TextField(
