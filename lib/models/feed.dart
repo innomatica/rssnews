@@ -32,7 +32,7 @@ class Feed {
         .where((e) => e.name.prefix == 'xmlns')
         .map((e) => e.name.local)
         .toList();
-    print('namespaces:$namespaces');
+    // print('namespaces:$namespaces');
     Channel channel = Channel(
       id: url.hashCode,
       url: url,
@@ -56,7 +56,7 @@ class Feed {
     channel.imageUrl = channel.imageUrl ?? googleFaviconUrl(channel.link);
     // fallback channel update period
     channel.period = channel.period ?? 1;
-    print('channel:$channel');
+    // print('channel:$channel');
 
     // items
     final itemElems = chnlElem?.findAllElements('item');
@@ -118,7 +118,7 @@ class Feed {
                 ? episode.mediaUrl
                 : null) ??
             episode.imageUrl;
-        print('episode:$episode');
+        // print('episode:$episode');
         episodes.add(episode);
       }
     }
