@@ -6,6 +6,7 @@ const appId = 'com.innomatic.rssnews';
 
 const developerWebsite = 'https://innomatic.ca';
 const sourceRepository = 'https://github.com/innomatica/rssnews';
+const releaseUrl = 'https://github.com/innomatica/rssnews/releases';
 
 // stock images
 const assetImageNewspaper = 'assets/images/newspaper.png';

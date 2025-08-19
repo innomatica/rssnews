@@ -4,6 +4,7 @@ import 'package:rssnews/shared/helpers.dart';
 import 'package:url_launcher/url_launcher.dart' show launchUrl;
 
 import '../../shared/constants.dart';
+import '../../shared/qrcodeimg.dart' show QrCodeImage;
 import '../../shared/widgets.dart';
 import 'model.dart';
 
@@ -295,6 +296,37 @@ class _SidePanelState extends State<SidePanel> {
             title: Text('App version'),
             subtitle: Text(appVersion),
             onTap: () => launchUrl(Uri.parse(sourceRepository)),
+            contentPadding: EdgeInsets.only(left: 16.0, right: 8.0),
+            trailing: IconButton(
+              onPressed: () {
+                if (mounted) context.pop();
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        "Download $appName",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      backgroundColor: Colors.white,
+                      contentPadding: EdgeInsets.all(32.0),
+                      content: Column(
+                        spacing: 16.0,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          QrCodeImage(data: releaseUrl),
+                          Text(
+                            releaseUrl,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: Icon(Icons.qr_code_2_rounded, size: 32.0),
+            ),
           ),
           ListTile(
             title: Text('Source repository'),
