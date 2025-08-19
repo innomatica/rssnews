@@ -260,7 +260,7 @@ class FeedRepository {
 
   Future<List<Episode>> getEpisodes({int period = defaultDisplayPeriod}) async {
     final start = yymmdd(DateTime.now().subtract(Duration(days: period)));
-    print('start:$start');
+    // print('start:$start');
     try {
       final rows = await _dbSrv.queryAll(
         """
@@ -328,7 +328,7 @@ class FeedRepository {
   }
 
   Future<int> createEpisode(Episode episode) async {
-    print('createEpisode:$episode');
+    // print('createEpisode:$episode');
     try {
       final data = episode.toSqlite();
       // data.remove('id');
