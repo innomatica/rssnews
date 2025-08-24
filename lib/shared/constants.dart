@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show Colors;
 
 const appName = "RssNews";
-const appVersion = '1.0.4+5';
+const appVersion = '1.0.5+6';
 const appId = 'com.innomatic.rssnews';
 
 const developerWebsite = 'https://innomatic.ca';
