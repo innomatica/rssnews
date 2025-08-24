@@ -20,7 +20,7 @@ class HomeView extends StatelessWidget {
     );
     final titleTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
     return RefreshIndicator(
-      onRefresh: () => model.refreshData(),
+      onRefresh: () => model.refresh(),
       child: model.episodes.isNotEmpty
           ? ListView.separated(
               itemCount: model.episodes.length,

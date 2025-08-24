@@ -41,23 +41,28 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
+  Future _getEpisodes() async {
+    _episodes = await _feedRepo.getEpisodes(period: _displayPeriod);
+  }
+
   Future load() async {
+    _logger.fine('load');
     final spref = await SharedPreferences.getInstance();
     _displayPeriod = spref.getInt(pKeyDisplayPeriod) ?? defaultDisplayPeriod;
     _selectedLabelId = spref.getInt(pKeySelectedLabelId) ?? _defaultLabel.id!;
-
-    _logger.fine('load:$_displayPeriod');
-    _episodes = await _feedRepo.getEpisodes(period: _displayPeriod);
-    _logger.fine('episodes:$_episodes');
     _labels = [_defaultLabel, ...await _feedRepo.getLabels()];
     // _logger.fine('labels:$_labels');
+    await _feedRepo.refreshFeeds(force: false);
+    await _getEpisodes();
+    // _logger.fine('episodes:$_episodes');
     notifyListeners();
   }
 
-  Future refreshData() async {
-    _logger.fine('refreshData');
-    await _feedRepo.refreshFeeds(force: false);
-    await load();
+  Future refresh() async {
+    _logger.fine('refresh');
+    await _feedRepo.refreshFeeds(force: true);
+    await _getEpisodes();
+    notifyListeners();
   }
 
   Future selectLabel(int? id) async {
