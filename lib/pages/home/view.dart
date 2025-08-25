@@ -8,9 +8,28 @@ import '../../shared/qrcodeimg.dart' show QrCodeImage;
 import '../../shared/widgets.dart';
 import 'model.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   final HomeViewModel model;
   const HomeView({super.key, required this.model});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  late ScrollController _controller;
+
+  @override
+  initState() {
+    super.initState();
+    _controller = ScrollController();
+  }
+
+  @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   Widget buildBody(BuildContext context) {
     final aspectRatio = MediaQuery.sizeOf(context).aspectRatio;
@@ -20,13 +39,14 @@ class HomeView extends StatelessWidget {
     );
     final titleTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
     return RefreshIndicator(
-      onRefresh: () => model.refresh(),
-      child: model.episodes.isNotEmpty
+      onRefresh: () => widget.model.refresh(),
+      child: widget.model.episodes.isNotEmpty
           ? ListView.separated(
-              itemCount: model.episodes.length,
+              controller: _controller,
+              itemCount: widget.model.episodes.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) {
-                final episode = model.episodes[index];
+                final episode = widget.model.episodes[index];
                 // print('episode: $episode');
                 return ListTile(
                   title: aspectRatio < 1.0
@@ -65,7 +85,7 @@ class HomeView extends StatelessWidget {
                               ],
                             ),
                             // image
-                            episode.imageUrl != null && model.withImage
+                            episode.imageUrl != null && widget.model.withImage
                                 ? Image.network(
                                     episode.imageUrl!,
                                     height: 180,
@@ -87,7 +107,7 @@ class HomeView extends StatelessWidget {
                           spacing: 8.0,
                           children: [
                             // image
-                            episode.imageUrl != null && model.withImage
+                            episode.imageUrl != null && widget.model.withImage
                                 ? Image.network(
                                     episode.imageUrl!,
                                     width: 40,
@@ -167,16 +187,16 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: model,
+      listenable: widget.model,
       builder: (context, _) {
         return Scaffold(
           appBar: AppBar(
             title:
                 // label selector
                 DropdownButton<int>(
-                  value: model.selectedLabelId,
+                  value: widget.model.selectedLabelId,
                   underline: SizedBox(),
-                  items: model.labels.map((e) {
+                  items: widget.model.labels.map((e) {
                     return DropdownMenuItem(
                       value: e.id,
                       child: Text(
@@ -185,17 +205,18 @@ class HomeView extends StatelessWidget {
                       ),
                     );
                   }).toList(),
-                  onChanged: (int? value) {
-                    model.selectLabel(value);
+                  onChanged: (int? value) async {
+                    await widget.model.selectLabel(value);
+                    _controller.jumpTo(_controller.position.minScrollExtent);
                   },
                 ),
             actions: [
               // image visibility
               IconButton(
-                icon: model.withImage
+                icon: widget.model.withImage
                     ? Icon(Icons.image_not_supported_rounded)
                     : Icon(Icons.image_rounded),
-                onPressed: () => model.toggleImageVisibility(),
+                onPressed: () => widget.model.toggleImageVisibility(),
               ),
               // subscriptions
               IconButton(
@@ -207,7 +228,25 @@ class HomeView extends StatelessWidget {
             ],
           ),
           body: buildBody(context),
-          drawer: SidePanel(model: model),
+          drawer: SidePanel(model: widget.model),
+          floatingActionButton: ListenableBuilder(
+            listenable: _controller,
+            builder: (context, _) {
+              return _controller.position.pixels < 100
+                  ? SizedBox()
+                  : Opacity(
+                      opacity: 0.6,
+                      child: FloatingActionButton(
+                        onPressed: () => _controller.animateTo(
+                          _controller.position.minScrollExtent,
+                          duration: Duration(milliseconds: 700),
+                          curve: Curves.fastOutSlowIn,
+                        ),
+                        child: Icon(Icons.arrow_upward_rounded),
+                      ),
+                    );
+            },
+          ),
         );
       },
     );
