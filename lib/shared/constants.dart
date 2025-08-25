@@ -20,7 +20,7 @@ const defaultQueryUrl = ecosiaQueryUrl;
 
 // retention days
 const displayPeriods = [1, 2, 3, 7, 14, 28];
-const defaultDisplayPeriod = 3;
+const defaultDisplayPeriod = 7;
 const pKeyDisplayPeriod = "displayPeriod";
 final dataRetentionPeriod = displayPeriods.last;
 
